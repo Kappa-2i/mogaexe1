@@ -40,6 +40,18 @@ inline bool DictionaryContainer<Data>::RemoveAll(const TraversableContainer<Data
 
 
 template <typename Data>
+inline bool DictionaryContainer<Data>::InsertSome(const TraversableContainer<Data> &container) {
+    bool some = false;
+    container.Traverse(
+        [this, &some](const Data& currData){
+            some |= Insert(currData);
+        }
+    );
+    return some;
+}
+
+
+template <typename Data>
 inline bool DictionaryContainer<Data>::InsertSome(MappableContainer<Data>&& container) {
     bool some = false;
     container.Map(

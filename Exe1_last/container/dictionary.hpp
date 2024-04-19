@@ -32,7 +32,7 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-   DictionaryContainer& operator=(const DictionaryContainer&) = delete; // Copy assignment of abstract types is not possible.
+  DictionaryContainer& operator=(const DictionaryContainer&) = delete; // Copy assignment of abstract types is not possible.
 
   // Move assignment
   DictionaryContainer& operator=(DictionaryContainer&&) = delete; // Move assignment of abstract types is not possible.
@@ -51,13 +51,13 @@ public:
   virtual bool Insert(Data&&) = 0; // Move of the value
   virtual bool Remove(const Data&) = 0;
 
-  bool InsertAll(const TraversableContainer<Data>&); // Copy of the value; From TraversableContainer; True if all are inserted
-  bool InsertAll(MappableContainer<Data>&&); // Move of the value; From MappableContainer; True if all are inserted
-  bool RemoveAll(const TraversableContainer<Data>&); // From TraversableContainer; True if all are removed
+  virtual inline bool InsertAll(const TraversableContainer<Data>&); // Copy of the value; From TraversableContainer; True if all are inserted
+  virtual inline bool InsertAll(MappableContainer<Data>&&); // Move of the value; From MappableContainer; True if all are inserted
+  virtual inline bool RemoveAll(const TraversableContainer<Data>&); // From TraversableContainer; True if all are removed
 
-  bool InsertSome(const TraversableContainer<Data>&); // Copy of the value; From TraversableContainer; True if some is inserted
-  bool InsertSome(MappableContainer<Data>&&); // Move of the value; From MappableContainer; True if some is inserted
-  bool RemoveSome(const TraversableContainer<Data>&); // From TraversableContainer; True if some is removed
+  virtual inline bool InsertSome(const TraversableContainer<Data>&); // Copy of the value; From TraversableContainer; True if some is inserted
+  virtual inline bool InsertSome(MappableContainer<Data>&&); // Move of the value; From MappableContainer; True if some is inserted
+  virtual inline bool RemoveSome(const TraversableContainer<Data>&); // From TraversableContainer; True if some is removed
 
 };
 
