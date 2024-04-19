@@ -154,6 +154,8 @@ namespace lasd {
     template <typename Data>
     List<Data>::~List(){
         delete head;
+        head = tail = nullptr;
+        size = 0;
     }
 
 /* ************************************************************************** */
