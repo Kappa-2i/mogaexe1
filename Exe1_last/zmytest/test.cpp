@@ -67,13 +67,11 @@ void choiceVectorType(uint& testerr, uint& testnum, stringstream& numerr){
     std::cin >> choice;
     switch(choice){
         case 1:{
-            
             testVectorInt(testerr, testnum, numerr);
             break;
         }
         case 2:{
-            //testVector(vec, testerr, testnum, numerr);
-            
+            testVectorDouble(testerr, testnum, numerr);
             break;
         }
         case 3:{
@@ -224,17 +222,52 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    
+    //Test per il Resize e il fill del vettore
+    vec.Resize(3);
+    try{
+      cout << testnum+1 << ") Resize... New vector size: "<< vec.Size() << endl;
+    }catch(const std::bad_alloc& e){
+      cout << e.what() << endl;
+      testerr += 1;
+      numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+     //Stampa del vettore in PreOrderTraverse
+    try{
+        cout << testnum+1 << ") Print Vec in PostOrderTraverse: " << endl << "\t";
+        vec.PostOrderTraverse(&TraversePrint<int>);   
+        cout << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+
+    //Stampa della somma degli elementi del vettore in PreOrderFold
+    try{
+        int sum = vec.PostOrderFold(&FoldAdd<int>, 0);
+        cout << testnum+1 << ") Sum elements: " << sum << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
     cout << "---------------------------------End of test Vector<int>---------------------------------" << endl;
 }
 
 void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
-    
-    cout << "---------------------------------Test on Vector<int>---------------------------------" << endl;
 
-    lasd::Vector<double> vec;
+    cout << "---------------------------------Test on Vector<double>---------------------------------" << endl;
+    
+    lasd::SortableVector<double> vec;
+    
     // Controllo size del vec
-    cout << "Vector<int> with size: " << vec.Size() << endl;
+    cout << "Vector<double> with size: " << vec.Size() << endl;
 
     // Verifica che il vettore sia vuoto
     bool chk = vec.Empty();
@@ -247,7 +280,7 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
 
     //Stampa della somma degli elementi del vettore in PostOrderFold
     try{
-        int sum = vec.PostOrderFold(&FoldAdd<int>, 0);
+        double sum = vec.PostOrderFold(&FoldAdd<int>, 0);
         cout << testnum+1 << ") Sum elements: " << sum << endl;
     } catch(exception& e){
         cout << e.what();
@@ -310,7 +343,7 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
 
     // Genera numeri casuali e popola il vettore
     default_random_engine gen(random_device{}());
-    uniform_int_distribution<int> dist(-500, 500);
+    uniform_real_distribution<double> dist(-500, 500);
     for (uint i = 0; i < vec.Size(); ++i) {
         vec[i] = dist(gen);
     }
@@ -328,7 +361,7 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
     //Stampa del vettore in PreOrderTraverse
     try{
         cout << testnum+1 << ") Print Vec in PreOrderTraverse: " << endl << "\t";
-        vec.PreOrderTraverse(&TraversePrint<int>);   
+        vec.PreOrderTraverse(&TraversePrint<double>);   
         cout << endl;
     } catch(exception& e){
         cout << e.what();
@@ -339,9 +372,8 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
 
 
     //Stampa della somma degli elementi del vettore in PreOrderFold
-    
     try{
-        int sum = vec.PreOrderFold(&FoldAdd<int>, 0);
+        double sum = vec.PreOrderFold(&FoldAdd<double>, 0);
         cout << testnum+1 << ") Sum elements: " << sum << endl;
     } catch(exception& e){
         cout << e.what();
@@ -350,5 +382,53 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    cout << "---------------------------------End of test Vector<int>---------------------------------" << endl;
+    // Sort del vec, con stampa
+    try{
+        vec.Sort();
+        cout << testnum+1 << ") Print Sort vec: " << endl << "\t";
+        vec.PreOrderTraverse(&TraversePrint<double>);   
+        cout << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    //Test per il Resize e il fill del vettore
+    vec.Resize(3);
+    try{
+      cout << testnum+1 << ") Resize... New vector size: "<< vec.Size() << endl;
+    }catch(const std::bad_alloc& e){
+      cout << e.what() << endl;
+      testerr += 1;
+      numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+     //Stampa del vettore in PreOrderTraverse
+    try{
+        cout << testnum+1 << ") Print Vec in PostOrderTraverse: " << endl << "\t";
+        vec.PostOrderTraverse(&TraversePrint<double>);   
+        cout << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+
+    //Stampa della somma degli elementi del vettore in PreOrderFold
+    try{
+        double sum = vec.PostOrderFold(&FoldAdd<double>, 0);
+        cout << testnum+1 << ") Sum elements: " << sum << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    cout << "---------------------------------End of test Vector<double>---------------------------------" << endl;
 }
