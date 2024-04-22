@@ -15,7 +15,7 @@ namespace lasd {
 
 template <typename Data>
 class Vector : virtual public ResizableContainer, 
-                   virtual public LinearContainer<Data>{
+               virtual public LinearContainer<Data>{
   // Must extend ResizableContainer,
   //             LinearContainer<Data>
 
@@ -101,7 +101,8 @@ protected:
 /* ************************************************************************** */
 
 template <typename Data>
-    class SortableVector : virtual public Vector<Data>, virtual public SortableLinearContainer<Data>{
+    class SortableVector : virtual public Vector<Data>, 
+                           virtual public SortableLinearContainer<Data>{
 
 private:
 
@@ -144,6 +145,9 @@ public:
 
   // Move assignment
   SortableVector& operator=(SortableVector&&) noexcept;
+
+  //Using operator[] from Vector
+  using Vector<Data>::operator[];
 
 protected:
 

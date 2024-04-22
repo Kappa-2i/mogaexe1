@@ -31,23 +31,22 @@ void mytest() {
     uint testnum = 0;
     stringstream numerr;
 
-    std::cout << "Pick the data structure:\n 1-Vector\n 2-List \n 3-Stack \n 4-Queue" << std::endl;
+    
     int choice = 1;
     while(choice){
+        std::cout << endl << "Pick the data structure:\n 1-Vector\n 2-List \n 3-Stack \n 4-Queue \n 0-Exit." << std::endl;
         std::cin >> choice;
         switch(choice){
             case 1:
                 choiceVectorType(testerr, testnum, numerr);
-                return;
                 break;
             case 2:
-                return;
                 break;
             case 3:
-                return;
                 break;
             case 4:
-                return;
+                break;
+            case 0: 
                 break;
             default:
                 std::cout << "Invalid choice" << std::endl;
@@ -61,9 +60,6 @@ void mytest() {
 
 void choiceVectorType(uint& testerr, uint& testnum, stringstream& numerr){
 
-    unsigned long length;
-    std::cout << "Choose the length of the data structure: "<< std::endl;
-    std::cin >> length;
 
     std::cout << "Pick the data type: \n 1-Int \n 2-Double \n 3-String" << std::endl;
     int choice = 1;
@@ -71,21 +67,18 @@ void choiceVectorType(uint& testerr, uint& testnum, stringstream& numerr){
     std::cin >> choice;
     switch(choice){
         case 1:{
-            lasd::Vector<int> vec = intVector(length) ;
-            testVectorInt(vec, testerr, testnum, numerr);
-            return;
+            
+            testVectorInt(testerr, testnum, numerr);
             break;
         }
         case 2:{
-            lasd::Vector<double> vec = doubleVector(length);
             //testVector(vec, testerr, testnum, numerr);
-            return;
+            
             break;
         }
         case 3:{
-            lasd::Vector<string> vec = stringVector(length);
             //testVector(vec, testerr, testnum, numerr);
-            return;
+            
             break;
         }
         default:
@@ -94,54 +87,14 @@ void choiceVectorType(uint& testerr, uint& testnum, stringstream& numerr){
     
 }
 
-lasd::Vector<int> intVector(const unsigned long len){
 
-    lasd::Vector<int> vector = Vector<int>(len); 
-    default_random_engine gen(std::random_device{}());
-    uniform_int_distribution<int> dist(0, 200);
-    for(unsigned long i = 0; i < vector.Size(); i++){
-        vector[i] = dist(gen);
-    }
-    return vector;
-
-}
-              
-lasd::Vector<double> doubleVector(const unsigned long len){
-    lasd::Vector<double> vector = Vector<double>(len); 
-    default_random_engine gen(std::random_device{}());
-    uniform_real_distribution<double> dist;
-    for(unsigned long i = 0; i < vector.Size(); i++){
-        vector[i] = dist(gen);
-    }
-    return vector;
-
-}
-       
-lasd::Vector<string> stringVector(const unsigned long len){
-    lasd::Vector<std::string> vector = Vector<std::string>(len);
-
-    string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    default_random_engine gen(std::random_device{}());
-    uniform_int_distribution<int> dist(1, 10);
-    uniform_int_distribution<int> randPos(0, table.size()-1);
-
-    string temp;
-    for(unsigned long i = 0; i < len; i++){
-        temp = "";
-        uint newLen = dist(gen);
-        for(unsigned long j = 0; j < newLen; j++){
-            temp += table[randPos(gen)];
-        }
-        vector[i] = temp;
-    }
-
-    return vector;
-}
-
-void testVectorInt(lasd::Vector<int>& vec, uint& testerr, uint& testnum, stringstream& numerr){
+void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
+    
     cout << "---------------------------------Test on Vector<int>---------------------------------" << endl;
 
-    // Crea un vettore di interi 
+    lasd::SortableVector<int> vec;
+    
+    // Controllo size del vec
     cout << "Vector<int> with size: " << vec.Size() << endl;
 
     // Verifica che il vettore sia vuoto
@@ -150,6 +103,17 @@ void testVectorInt(lasd::Vector<int>& vec, uint& testerr, uint& testnum, strings
     if (!chk) {
         testerr += 1;
         numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    //Stampa della somma degli elementi del vettore in PostOrderFold
+    try{
+        int sum = vec.PostOrderFold(&FoldAdd<int>, 0);
+        cout << testnum+1 << ") Sum elements: " << sum << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
     }
     testnum++;
 
@@ -175,14 +139,24 @@ void testVectorInt(lasd::Vector<int>& vec, uint& testerr, uint& testnum, strings
 
     // Test quando il contenitore è vuoto
     try {
-        int ind = 1;
-        cout << testnum+1 << ") Value at index 1 is: " << vec[ind] << endl;
+        cout << testnum+1 << ") Value at index 1 is: " << vec[1] << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
     } catch (const std::out_of_range& e) {
         cout << e.what() << endl;
     }
     testnum++;
+
+
+    //Test per controllare se esiste un elemento
+    chk = vec.Exists(0);
+    cout << testnum+1 << ") Value 0 " << (chk ? "" : "not ") << "exists" << endl;
+    if (chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
 
     //Test per il Resize e il fill del vettore
     vec.Resize(5);
@@ -195,16 +169,12 @@ void testVectorInt(lasd::Vector<int>& vec, uint& testerr, uint& testnum, strings
     }
     testnum++;
 
-
-
     // Genera numeri casuali e popola il vettore
     default_random_engine gen(random_device{}());
-    uniform_int_distribution<int> dist(1, 100);
+    uniform_int_distribution<int> dist(-500, 500);
     for (uint i = 0; i < vec.Size(); ++i) {
         vec[i] = dist(gen);
-        cout <<"\t [" << vec[i] << "] ";
     }
-    cout << endl;
 
     // Riconferma che il vettore non sia vuoto dopo aver aggiunto gli elementi
     chk = vec.Empty();
@@ -214,4 +184,171 @@ void testVectorInt(lasd::Vector<int>& vec, uint& testerr, uint& testnum, strings
         numerr << testnum + 1 << " "; 
     }
     testnum++;
+    
+
+    //Stampa del vettore in PreOrderTraverse
+    try{
+        cout << testnum+1 << ") Print Vec in PreOrderTraverse: " << endl << "\t";
+        vec.PreOrderTraverse(&TraversePrint<int>);   
+        cout << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+
+    //Stampa della somma degli elementi del vettore in PreOrderFold
+    
+    try{
+        int sum = vec.PreOrderFold(&FoldAdd<int>, 0);
+        cout << testnum+1 << ") Sum elements: " << sum << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    // Sort del vec, con stampa
+    try{
+        vec.Sort();
+        cout << testnum+1 << ") Print Sort vec: " << endl << "\t";
+        vec.PreOrderTraverse(&TraversePrint<int>);   
+        cout << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    
+    cout << "---------------------------------End of test Vector<int>---------------------------------" << endl;
+}
+
+void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
+    
+    cout << "---------------------------------Test on Vector<int>---------------------------------" << endl;
+
+    lasd::Vector<double> vec;
+    // Controllo size del vec
+    cout << "Vector<int> with size: " << vec.Size() << endl;
+
+    // Verifica che il vettore sia vuoto
+    bool chk = vec.Empty();
+    cout << testnum+1 << ") Vector is " << (chk ? "" : "not ") << "empty" << endl;
+    if (!chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    //Stampa della somma degli elementi del vettore in PostOrderFold
+    try{
+        int sum = vec.PostOrderFold(&FoldAdd<int>, 0);
+        cout << testnum+1 << ") Sum elements: " << sum << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    // Test quando il contenitore è vuoto
+    try {
+        cout << testnum+1 << ") Front value is: " << vec.Front() << endl;
+        testerr += 1; 
+        numerr << testnum + 1 << " "; 
+    } catch (const std::length_error& e) {
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+    // Test quando il contenitore è vuoto
+    try {
+        cout << testnum+1 << ") Back value is: " << vec.Back() << endl;
+        testerr += 1; 
+        numerr << testnum + 1 << " "; 
+    } catch (const std::length_error& e) {
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+    // Test quando il contenitore è vuoto
+    try {
+        cout << testnum+1 << ") Value at index 1 is: " << vec[1] << endl;
+        testerr += 1; 
+        numerr << testnum + 1 << " "; 
+    } catch (const std::out_of_range& e) {
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+
+    //Test per controllare se esiste un elemento
+    chk = vec.Exists(0);
+    cout << testnum+1 << ") Value 0 " << (chk ? "" : "not ") << "exists" << endl;
+    if (chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+
+    //Test per il Resize e il fill del vettore
+    vec.Resize(5);
+    try{
+      cout << testnum+1 << ") Resize... New vector size: "<< vec.Size() << endl;
+    }catch(const std::bad_alloc& e){
+      cout << e.what() << endl;
+      testerr += 1;
+      numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    // Genera numeri casuali e popola il vettore
+    default_random_engine gen(random_device{}());
+    uniform_int_distribution<int> dist(-500, 500);
+    for (uint i = 0; i < vec.Size(); ++i) {
+        vec[i] = dist(gen);
+    }
+
+    // Riconferma che il vettore non sia vuoto dopo aver aggiunto gli elementi
+    chk = vec.Empty();
+    cout << testnum+1 <<") Vector is " << (chk ? "" : "not ") << "empty after filling" << endl;
+    if (chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+    
+
+    //Stampa del vettore in PreOrderTraverse
+    try{
+        cout << testnum+1 << ") Print Vec in PreOrderTraverse: " << endl << "\t";
+        vec.PreOrderTraverse(&TraversePrint<int>);   
+        cout << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+
+    //Stampa della somma degli elementi del vettore in PreOrderFold
+    
+    try{
+        int sum = vec.PreOrderFold(&FoldAdd<int>, 0);
+        cout << testnum+1 << ") Sum elements: " << sum << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    cout << "---------------------------------End of test Vector<int>---------------------------------" << endl;
 }

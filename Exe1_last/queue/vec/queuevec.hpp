@@ -42,13 +42,13 @@ public:
   /* ************************************************************************ */
 
   // Copy constructor
-  QueueVec(const QueueVec &queueVec) : Vector<Data>(queueVec){
+  QueueVec(const QueueVec& queueVec) : Vector<Data>(queueVec){
     head = queueVec.head;
     tail = queueVec.tail;
   };
 
   // Move constructor
-  QueueVec(QueueVec &&queueVec) noexcept : Vector<Data>(std::move(queueVec)){
+  QueueVec(QueueVec&& queueVec) noexcept : Vector<Data>(std::move(queueVec)){
     std::swap(head, queueVec.head);
     std::swap(tail, queueVec.tail);
   };

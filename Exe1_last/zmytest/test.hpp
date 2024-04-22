@@ -26,14 +26,22 @@ void mytest();
 
 void choiceVectorType(uint&, uint&, std::stringstream&);
 
-void testVectorInt(Vector<int>&, uint&, uint&, std::stringstream&);
+void testVectorInt(uint&, uint&, std::stringstream&);
 
-Vector<int> intVector(const unsigned long);
+void testVectorDouble(uint&, uint&, std::stringstream&);
 
-Vector<double> doubleVector(const unsigned long);
 
-Vector<std::string> stringVector(const unsigned long);
 
+
+template <typename Data>
+void TraversePrint(const Data & dat) {
+  std::cout << dat << " ";
+}
+
+template <typename Data>
+Data FoldAdd(const Data & dat, const Data & acc) {
+  return (acc + dat);
+}
 
 /* ************************************************************************** */
 
