@@ -3,6 +3,7 @@
 #define MYTEST_HPP
 
 #include <sstream>
+#include <iostream>
 
 #include "../container/container.hpp"
 
@@ -26,9 +27,15 @@ void mytest();
 
 void choiceVectorType(uint&, uint&, std::stringstream&);
 
+void choiceListType(uint&, uint&, std::stringstream&);
+
 void testVectorInt(uint&, uint&, std::stringstream&);
 
 void testVectorDouble(uint&, uint&, std::stringstream&);
+
+void testVectorString(uint&, uint&, std::stringstream&);
+
+void testListInt(uint&, uint&, std::stringstream&);
 
 
 
@@ -42,6 +49,8 @@ template <typename Data>
 Data FoldAdd(const Data & dat, const Data & acc) {
   return (acc + dat);
 }
+
+
 
 /* ************************************************************************** */
 

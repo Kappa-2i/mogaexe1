@@ -146,8 +146,12 @@ public:
   // Move assignment
   SortableVector& operator=(SortableVector&&) noexcept;
 
-  //Using operator[] from Vector
+  //Using operators from Vector
   using Vector<Data>::operator[];
+
+  using Vector<Data>::operator==;
+
+  using Vector<Data>::operator!=;
 
 protected:
 
