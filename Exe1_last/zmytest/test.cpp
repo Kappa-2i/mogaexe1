@@ -98,11 +98,11 @@ void choiceListType(uint& testerr, uint& testnum, stringstream& numerr){
             break;
         }
         case 2:{
-            //testListDouble(testerr, testnum, numerr);
+            testListDouble(testerr, testnum, numerr);
             break;
         }
         case 3:{
-            //testListString(testerr, testnum, numerr);
+            testListString(testerr, testnum, numerr);
             break;
         }
         default:
@@ -192,6 +192,7 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
+    
     // Genera numeri casuali e popola il vettore
     default_random_engine gen(random_device{}());
     uniform_int_distribution<int> dist(-500, 500);
@@ -496,7 +497,6 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
 
 
     // Genera caratteri casuali e popola il vettore
-    // Genera numeri casuali e popola il vettore
     std::string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     std::default_random_engine gen(std::random_device{}());
     std::uniform_int_distribution<int> randPos(0, table.size()-1);
@@ -611,7 +611,26 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    
+    //Clear di move vec e copy vec
+    movvec.Clear();
+    copvec.Clear();
+    cout << "\t Clear of move vec and copy vec..." << endl;
+    // Verifica che il vettore sia vuoto
+    chk = copvec.Empty();
+    cout << testnum+1 << ") Copy vec is " << (chk ? "" : "not ") << "empty" << endl;
+    if (!chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+    // Verifica che il vettore sia vuoto
+    chk = movvec.Empty();
+    cout << testnum+1 << ") Move vec is " << (chk ? "" : "not ") << "empty" << endl;
+    if (!chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
 
     cout << "---------------------------------End of test Vector<string>---------------------------------" << endl;
 }
@@ -786,7 +805,7 @@ void testListInt(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    //Stampa della somma degli elementi del vettore in PostOrderFold
+    //Stampa della somma degli elementi di move lst in PostOrderFold
     try{
         int sum = movlst.PostOrderFold(&FoldAdd<int>, 0);
         cout << testnum+1 << ") Sum elements: " << sum << endl;
@@ -796,9 +815,331 @@ void testListInt(uint& testerr, uint& testnum, stringstream& numerr){
         numerr << testnum +1 << " ";
     }
     testnum++;
+    
+    //Clear di movlst e verifica che sia vuoto
+    cout << "\t Clear of move list..." << endl;
+    movlst.Clear();
+    chk = movlst.Empty();
+    cout << testnum+1 << ") Move list is " << (chk ? "" : "not ") << "empty" << endl;
+    if (!chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
 
 
 
     cout << "---------------------------------End of test List<int>---------------------------------" << endl;
 
+}
+
+void testListDouble(uint& testerr, uint& testnum, stringstream& numerr){
+    cout << "---------------------------------Test on List<double>---------------------------------" << endl;
+
+    
+    lasd::SortableVector<double> vec(5);
+    // Genera numeri casuali e popola il vettore
+    default_random_engine gen(random_device{}());
+    uniform_real_distribution<double> dist(-500, 500);
+    for (uint i = 0; i < vec.Size(); ++i) {
+        vec[i] = dist(gen);
+    }
+    cout << "New SortableVector<double>: ";
+    vec.Sort();
+    vec.PreOrderTraverse(&TraversePrint<double>);   
+    cout << endl;
+
+    
+
+    lasd::List<double> lst;
+
+    //Test per controllare se esiste un elemento
+    cout << "New List<double>..." << endl;
+    bool chk = lst.Exists(vec[0]);
+    cout << testnum+1 << ") Element " << vec[0] <<(chk ? "" : " not ") << "exists in the list" << endl;
+    if (chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    //aggiunge elementi del vettore nella lista
+    try{
+        cout << testnum+1 << ") Insert vec elements in list..." << endl ;
+        for(uint i = 0; i < vec.Size(); i++){
+            lst.Insert(vec[i]);
+        }
+    } catch(const bad_alloc& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+
+    chk = lst.Empty();
+    cout << testnum+1 << ") List is " << (chk ? "" : "not ") << "empty" << endl;
+    if (chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+
+    //Stampa della lista in PreOrderTraverse
+    try{
+        cout << testnum+1 << ") Print List in PreOrderTraverse: " << endl << "\t";
+        lst.PreOrderTraverse(&TraversePrint<double>);   
+        cout << endl;
+    } catch(const exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    lasd::List<double> movlst(move(vec));
+    cout << "Move of vec in move list..." << endl;
+    
+    //Stampa della lista in PreOrderTraverse
+    try{
+        cout << testnum+1 << ") Print move list in PreOrderTraverse: " << endl << "\t";
+        movlst.PreOrderTraverse(&TraversePrint<double>);   
+        cout << endl;
+    } catch(const exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+
+    //Confronto uguaglianza della somma degli elementi delle liste
+    try{
+        double sum_lst = lst.PostOrderFold(&FoldAdd<double>, 0.0);
+        cout << testnum+1 << ") Sum elements of list: " << sum_lst;
+
+        double sum_movlst = movlst.PostOrderFold(&FoldAdd<double>, 0.0);
+        cout << " \t Sum elements of move list: " << sum_movlst << endl;
+
+        if(sum_lst != sum_movlst){
+            testerr += 1;
+            numerr << testnum +1 << " ";
+        }
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    //Confronto e rimozione degli elementi in testa delle due liste
+    try{
+        for(uint i = 0; i<lst.Size(); i++){
+            cout << testnum+1 << ") " << i+1 << "° element both lists are " << ((lst.Front() == movlst.Front()) ? "" : "not ") << "equal"<< endl;
+            testnum++;
+        }
+        
+    }catch(const bad_alloc& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    
+    //Rimozione degli elementi di list
+    try{
+        cout << testnum+1 << ") Remove elements from list..." <<endl;
+        for(uint i = lst.Size(); i>0; i--){
+            lst.RemoveFromFront();
+        }
+    }catch(const exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    //Rimozione degli elementi di move list
+    try{
+        cout << testnum+1 << ") Remove elements from move list..." <<endl;
+        for(uint i = movlst.Size(); i>0; i--){
+            movlst.RemoveFromFront();
+        }
+    }catch(const exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    //Controllo che la list sia vuota
+    chk = lst.Empty();
+    cout << testnum+1 << ") List is " << (chk ? "" : "not ") << "empty" << endl;
+    if (!chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    //Controllo che la move list sia vuota
+    chk = movlst.Empty();
+    cout << testnum+1 << ") Move list is " << (chk ? "" : "not ") << "empty" << endl;
+    if (!chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+
+
+    cout << "---------------------------------End of test List<double>---------------------------------" << endl;
+}
+
+
+void testListString(uint& testerr, uint& testnum, stringstream& numerr){
+    cout << "---------------------------------Test on List<string>---------------------------------" << endl;
+    lasd::List<string> lst;
+
+    //Controllo che la move list sia vuota
+    bool chk = lst.Empty();
+    cout << testnum+1 << ") List is " << (chk ? "" : "not ") << "empty" << endl;
+    if (!chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    
+    // Genera caratteri casuali e popola la lista
+    cout << "Insert random elements..." << endl;
+    std::string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    std::default_random_engine gen(std::random_device{}());
+    std::uniform_int_distribution<int> randPos(0, table.size()-1);
+    string random;
+    try{
+        for (uint i = 0; i < 5; ++i) {
+            random = table[randPos(gen)];
+            lst.InsertAtFront(random);
+        }
+    }catch(const bad_alloc& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    
+
+    
+    //Stampa della lista in PreOrderTraverse
+    try{
+        cout << testnum+1 << ") Print list in PreOrderTraverse: " << endl << "\t";
+        lst.PreOrderMap(&TraversePrint<string>);   
+        cout << endl;
+    } catch(const exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+
+    cout << "Copy of the list..." << endl;
+    lasd::List<string> coplst(lst);
+
+
+    //Stampa della somma degli elementi del vettore in PreOrderFold
+    try{
+        string conc = lst.PreOrderFold(&FoldAdd<string>, string(""));
+        cout << testnum+1 << ") Concatenate list in pre order: " << conc << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+
+    //Stampa della somma degli elementi del vettore in PreOrderFold
+    try{
+        string conc = coplst.PostOrderFold(&FoldAdd<string>, string(""));
+        cout << testnum+1 << ") Concatenate copy list in post order: " << conc << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+
+
+    //Rimozione degli elementi di list
+    try{
+        cout << testnum+1 << ") Remove elements from list..." <<endl;
+        for(uint i = lst.Size(); i>0; i--){
+            lst.RemoveFromFront();
+        }
+    }catch(const exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    //Rimozione degli elementi di copy list
+    try{
+        cout << testnum+1 << ") Remove elements from copy list..." <<endl;
+        for(uint i = coplst.Size(); i>0; i--){
+            coplst.RemoveFromFront();
+        }
+    }catch(const exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    //Creazione nuovo vettore: a b c d e
+    lasd::Vector<string> vec(5);
+    try{
+        char c = 'a';
+        for (uint i = 0; i < vec.Size(); ++i) {
+            vec[i] = c++;
+        }
+        cout << testnum+1 << ") New Vector<string>: ";
+        vec.PreOrderMap(&TraversePrint<string>);
+        cout << endl;
+    }
+    catch(const out_of_range& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    //Move of vec in a move list
+    lasd::List<string> movlst(move(vec));
+    
+    //Stampa della somma degli elementi del vettore in PreOrderFold
+    try{
+        string conc = movlst.PreOrderFold(&FoldAdd<string>, string(""));
+        cout << testnum+1 << ") Concatenate move list: " << conc << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+
+    //Controllo uguaglianza di copy vec e move vec
+    if(movlst != lst){
+        cout << testnum+1 << ") Copy vec is not equals to move vec" << endl;
+    }else{
+        cout << testnum+1 << ") Copy vec is equals to move vec" << endl;
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+
+    cout << "---------------------------------End of test List<string>---------------------------------" << endl;
 }

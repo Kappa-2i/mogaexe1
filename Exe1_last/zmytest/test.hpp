@@ -37,18 +37,22 @@ void testVectorString(uint&, uint&, std::stringstream&);
 
 void testListInt(uint&, uint&, std::stringstream&);
 
+void testListDouble(uint&, uint&, std::stringstream&);
 
+void testListString(uint&, uint&, std::stringstream&);
 
 
 template <typename Data>
-void TraversePrint(const Data & dat) {
+void TraversePrint(const Data& dat) {
   std::cout << dat << " ";
 }
 
 template <typename Data>
-Data FoldAdd(const Data & dat, const Data & acc) {
+Data FoldAdd(const Data& dat, const Data& acc) {
   return (acc + dat);
 }
+
+
 
 
 
