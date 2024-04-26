@@ -31,6 +31,8 @@ void choiceListType(uint&, uint&, std::stringstream&);
 
 void choiceStackType(uint&, uint&, std::stringstream&);
 
+void choiceQueueType(uint&, uint&, std::stringstream&);
+
 
 
 void testVectorInt(uint&, uint&, std::stringstream&);
@@ -56,6 +58,16 @@ void testStackVecString(uint&, uint&, std::stringstream&);
 void testStackListFloat(uint&, uint&, std::stringstream&);
 
 void testStackListString(uint&, uint&, std::stringstream&);
+
+
+
+void testQueueVecFloat(uint&, uint&, std::stringstream&);
+
+void testQueueVecString(uint&, uint&, std::stringstream&);
+
+void testQueueListFloat(uint&, uint&, std::stringstream&);
+
+void testQueueListString(uint&, uint&, std::stringstream&);
 
 
 

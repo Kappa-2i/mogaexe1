@@ -233,7 +233,7 @@ namespace lasd {
 
     template<typename Data>
     Data List<Data>::FrontNRemove(){
-         if(head == nullptr){
+        if(head == nullptr){
             throw std::length_error("EXC - Empty list");
         }
 
