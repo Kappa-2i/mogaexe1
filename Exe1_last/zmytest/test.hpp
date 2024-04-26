@@ -29,17 +29,35 @@ void choiceVectorType(uint&, uint&, std::stringstream&);
 
 void choiceListType(uint&, uint&, std::stringstream&);
 
+void choiceStackType(uint&, uint&, std::stringstream&);
+
+
+
 void testVectorInt(uint&, uint&, std::stringstream&);
 
 void testVectorDouble(uint&, uint&, std::stringstream&);
 
 void testVectorString(uint&, uint&, std::stringstream&);
 
+
+
 void testListInt(uint&, uint&, std::stringstream&);
 
 void testListDouble(uint&, uint&, std::stringstream&);
 
 void testListString(uint&, uint&, std::stringstream&);
+
+
+
+void testStackVecFloat(uint&, uint&, std::stringstream&);
+
+void testStackVecString(uint&, uint&, std::stringstream&);
+
+void testStackListFloat(uint&, uint&, std::stringstream&);
+
+void testStackListString(uint&, uint&, std::stringstream&);
+
+
 
 
 template <typename Data>

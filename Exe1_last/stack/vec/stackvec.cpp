@@ -3,7 +3,7 @@ namespace lasd {
 
 /* ************************************************************************** */
 
-//Specific Constructor - StackList
+//Specific Constructor - StackVec
     template<typename Data>
     StackVec<Data>::StackVec(const TraversableContainer<Data>& container){
         try{
@@ -39,7 +39,7 @@ namespace lasd {
     };
 /* ************************************************************************** */
 
-//Copy and Move assignement - StackList
+//Copy and Move assignement - StackVec
     template<typename Data>
     StackVec<Data>& StackVec<Data>::operator=(const StackVec& stackVec){
         if(this != &stackVec){
@@ -60,7 +60,7 @@ namespace lasd {
 
 /* ************************************************************************** */
 
-//Comparison operators - StackList
+//Comparison operators - StackVec
     template<typename Data>
     bool StackVec<Data>::operator==(const StackVec& stackVec) const noexcept{
         if(this == &stackVec){
@@ -77,7 +77,7 @@ namespace lasd {
 
 /* ************************************************************************** */
 
-//Specific Function - StackList
+//Specific Function - StackVec
     template<typename Data>
     const Data& StackVec<Data>::Top() const{
         if(index == 0){
@@ -126,7 +126,7 @@ namespace lasd {
 
 /* ************************************************************************** */
 
-//Specific Function inherited from Container - StackList
+//Specific Function inherited from Container - StackVec
     template <typename Data>
     bool StackVec<Data>::Empty()const noexcept{
         return (index  == 0);
@@ -139,7 +139,7 @@ namespace lasd {
 
 /* ************************************************************************** */
 
-//Specific Function inherited from ClearableContainer - StackList
+//Specific Function inherited from ClearableContainer - StackVec
     template <typename Data>
     void StackVec<Data>::Clear(){
         index = 0;
@@ -148,7 +148,7 @@ namespace lasd {
 
 /* ************************************************************************** */
 
-//Auxiliary Function - StackList
+//Auxiliary Function - StackVec
     template <typename Data>
     void StackVec<Data>::Expand(){
         if(index == size){

@@ -31,7 +31,7 @@ protected:
 public:
 
   // Default constructor
-  StackVec() : Vector<Data>(5){};
+  StackVec() : Vector<Data>(){};
 
   /* ************************************************************************ */
 
@@ -97,7 +97,7 @@ public:
 
 protected:
 
-  // Auxiliary functions, if necessary!+
+  // Auxiliary functions, if necessary!
   void Expand();
   void Reduce();
 
