@@ -151,15 +151,15 @@ void choiceQueueType(uint& testerr, uint& testnum, stringstream& numerr){
             break;
         }
         case 2:{
-            //testQueueVecString(testerr, testnum, numerr);
+            testQueueVecString(testerr, testnum, numerr);
             break;
         }
         case 3:{
-            //testQueueListFloat(testerr, testnum, numerr);
+            testQueueListFloat(testerr, testnum, numerr);
             break;
         }
         case 4:{
-            //testQueueListString(testerr, testnum, numerr);
+            testQueueListString(testerr, testnum, numerr);
             break;
         }
         default:
@@ -1657,10 +1657,199 @@ void testStackListString(uint& testerr, uint& testnum, stringstream& numerr){
 
 void testQueueVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "---------------------------------Test on QueueVec<float>---------------------------------" << endl;
-    lasd::QueueVec<float> quelst;
+    lasd::QueueVec<float> quevec;
 
     // Controllo size del contenitore
-    cout << "QueueVec<float> with size: " << quelst.Size() << endl;
+    cout << "QueueVec<float> with size: " << quevec.Size() << endl;
+
+
+    // Test quando il contenitore è vuoto
+    try {
+        cout << testnum+1 << ") Head element: " << quevec.Head() << endl;
+        testerr += 1; 
+        numerr << testnum + 1 << " "; 
+    } catch (const std::length_error& e) {
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+
+    // Genera numeri casuali e popola la queue
+    default_random_engine gen(random_device{}());
+    uniform_real_distribution<float> dist(-500, 500);
+    try{
+        for (uint i = 0; i < 5; ++i) {
+            float val = dist(gen);
+            cout << testnum+1 << ") Enqueue of the value: " << val << endl;
+            quevec.Enqueue(val);
+            testnum++;
+        }
+    }catch (std::exception & exc) {
+        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
+        testerr += 1; 
+        numerr << testnum + 1 << " ";
+    }
+
+    // Controllo size del contenitore
+    cout << "QueueVec<float> with size: " << quevec.Size() << endl;
+
+
+    cout << "Copy of Quevec..." << endl;
+    lasd::QueueVec<float> quecpy(quevec);
+
+    //Controllo uguaglianza di queuevec e copy queuevec
+    if(quevec == quecpy){
+        cout << testnum+1 << ") Copy Quevec is equals to Quevec" << endl;
+    }else{
+        cout << testnum+1 << ") Copy Quevec is not equals to Quevec" << endl;
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    // Test quando il contenitore non è vuoto
+    try {
+        cout << testnum+1 << ") Head element of Copy: " << quecpy.HeadNDequeue() << ", remove..." <<  endl;
+    } catch (const std::length_error& e) {
+        cout << e.what() << endl;
+        testerr += 1; 
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    //Confronto elementi in testa dei due contenitori
+    if(quevec.Head() != quecpy.Head()){
+        cout << testnum+1 << ") Both head elements are not equal" << endl;
+    }else{
+        cout << testnum+1 << ") Both head elements are equal" << endl;
+        testerr += 1; 
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    
+    try{
+        cout << testnum+1 << ") Clear of Quevec and copy..." << endl;
+        quevec.Clear();
+        quecpy.Clear();
+    }catch(bad_alloc& e){
+        cout << e.what() << endl;
+        testerr += 1; 
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    // Verifica che il contenitore sia vuoto
+    bool chk = quevec.Empty();
+    cout << testnum+1 << ") Quevec is " << (chk ? "" : "not ") << "empty" << endl;
+    if (!chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    // Verifica che il contenitore sia vuoto
+    chk = quecpy.Empty();
+    cout << testnum+1 << ") Copy Quevec is " << (chk ? "" : "not ") << "empty" << endl;
+    if (!chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+
+    cout << "---------------------------------End of test QueueVec<float>---------------------------------" << endl;
+}
+
+void testQueueVecString(uint& testerr, uint& testnum, stringstream& numerr){
+    cout << "---------------------------------Test on QueueVec<string>---------------------------------" << endl;
+    
+    lasd::SortableVector<string> vec(5);
+
+        // Genera valori casuali e popola lo stack
+        std::string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        std::default_random_engine gen(std::random_device{}());
+        std::uniform_int_distribution<int> randPos(0, table.size()-1);
+        cout << "New SortableVector<string>: ";
+        try{
+            for (uint i = 0; i < vec.Size(); ++i) {
+                vec[i] = table[randPos(gen)];
+            }
+        }catch (const out_of_range& e) {
+            std::cout << "\"" << e.what() << "\": " << "Error!" << std::endl;
+        }
+        vec.Sort();
+        vec.Traverse(&TraversePrint<string>);
+        cout << endl;
+
+
+        cout << "Copy of vec in a QueVec<string>..." << endl; 
+        lasd::QueueVec<string> quevec(vec);
+
+        //Controllo che la move list sia vuota
+        bool chk = quevec.Empty();
+        cout << testnum+1 << ") QueVec is " << (chk ? "" : "not ") << "empty" << endl;
+        if (chk) {
+            testerr += 1;
+            numerr << testnum + 1 << " "; 
+        }
+        testnum++;
+
+        try{
+            for(uint i = quevec.Size(); i > 0; i--){
+                cout << testnum+1 << ") Head element of QueVec is: " << quevec.HeadNDequeue() << ", remove..." << endl;
+                testnum++;
+            }
+        }catch(const length_error& e){
+            cout << e.what() << endl;
+            testerr += 1;
+            numerr << testnum + 1 << " "; 
+        }
+
+        //Controllo che la move list sia vuota
+        chk = quevec.Empty();
+        cout << testnum+1 << ") QueVec is " << (chk ? "" : "not ") << "empty" << endl;
+        if (!chk) {
+            testerr += 1;
+            numerr << testnum + 1 << " "; 
+        }
+        testnum++;
+
+
+        cout << "Move of vec in QueVec..." << endl; 
+        lasd::QueueVec<string> quemov (move(vec));
+
+        //Controllo che la move list sia vuota
+        chk = quemov.Empty();
+        cout << testnum+1 << ") Move QueVec is " << (chk ? "" : "not ") << "empty" << endl;
+        if (chk) {
+            testerr += 1;
+            numerr << testnum + 1 << " "; 
+        }
+        testnum++;
+
+        //Controllo elemento in testa e rimozione
+        try{
+            for(uint i = quemov.Size(); i > 0; i--){
+                cout << testnum+1 << ") Head element of Move QueVec is: " << quemov.HeadNDequeue() << ", remove..." << endl;
+                testnum++;
+            }
+        }catch(const length_error& e){
+            cout << e.what() << endl;
+            testerr += 1;
+            numerr << testnum + 1 << " "; 
+        }
+        testnum++; 
+
+    cout << "---------------------------------End of test QueueVec<string>---------------------------------" << endl;
+}
+
+void testQueueListFloat(uint& testerr, uint& testnum, stringstream& numerr){
+    cout << "---------------------------------Test on QueueList<float>---------------------------------" << endl;
+    lasd::QueueLst<float> quelst;
+
+    // Controllo size del contenitore
+    cout << "QueueLst<float> with size: " << quelst.Size() << endl;
 
 
     // Test quando il contenitore è vuoto
@@ -1673,21 +1862,89 @@ void testQueueVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
+
+    // Genera numeri casuali e popola la queue
+    default_random_engine gen(random_device{}());
+    uniform_real_distribution<float> dist(-500, 500);
+    try{
+        for (uint i = 0; i < 5; ++i) {
+            float val = dist(gen);
+            cout << testnum+1 << ") Enqueue of the value: " << val << endl;
+            quelst.Enqueue(val);
+            testnum++;
+        }
+    }catch (std::exception & exc) {
+        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
+        testerr += 1; 
+        numerr << testnum + 1 << " ";
+    }
+
+    // Controllo size del contenitore
+    cout << "QueueLst<float> with size: " << quelst.Size() << endl;
+
+
+    cout << "Copy of QueueLst..." << endl;
+    lasd::QueueLst<float> quecpy(quelst);
+
+    //Controllo uguaglianza di queuevec e copy queuevec
+    if(quelst == quecpy){
+        cout << testnum+1 << ") Copy QueueLst is equals to QueueLst" << endl;
+    }else{
+        cout << testnum+1 << ") Copy QueueLst is not equals to QueueLst" << endl;
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    // Test quando il contenitore non è vuoto
+    try {
+        cout << testnum+1 << ") Head element of Copy: " << quecpy.HeadNDequeue() << ", remove..." <<  endl;
+    } catch (const std::length_error& e) {
+        cout << e.what() << endl;
+        testerr += 1; 
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    //Confronto elementi in testa dei due contenitori
+    if(quelst.Head() != quecpy.Head()){
+        cout << testnum+1 << ") Both head elements are not equal" << endl;
+    }else{
+        cout << testnum+1 << ") Both head elements are equal" << endl;
+        testerr += 1; 
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
     
+    try{
+        cout << testnum+1 << ") Clear of QueueLst and copy..." << endl;
+        quelst.Clear();
+        quecpy.Clear();
+    }catch(bad_alloc& e){
+        cout << e.what() << endl;
+        testerr += 1; 
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
 
-    cout << "---------------------------------End of test QueueVec<float>---------------------------------" << endl;
-}
+    // Verifica che il contenitore sia vuoto
+    bool chk = quelst.Empty();
+    cout << testnum+1 << ") QueueLst is " << (chk ? "" : "not ") << "empty" << endl;
+    if (!chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
 
-void testQueueVecString(uint& testerr, uint& testnum, stringstream& numerr){
-    cout << "---------------------------------Test on QueueVec<string>---------------------------------" << endl;
-
-
-    cout << "---------------------------------End of test QueueVec<string>---------------------------------" << endl;
-}
-
-void testQueueListFloat(uint& testerr, uint& testnum, stringstream& numerr){
-    cout << "---------------------------------Test on QueueList<float>---------------------------------" << endl;
-
+    // Verifica che il contenitore sia vuoto
+    chk = quecpy.Empty();
+    cout << testnum+1 << ") Copy QueueLst is " << (chk ? "" : "not ") << "empty" << endl;
+    if (!chk) {
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
 
     cout << "---------------------------------End of test QueueList<float>---------------------------------" << endl;
 }
@@ -1695,6 +1952,90 @@ void testQueueListFloat(uint& testerr, uint& testnum, stringstream& numerr){
 void testQueueListString(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "---------------------------------Test on QueueList<string>---------------------------------" << endl;
 
+    lasd::SortableVector<string> vec(5);
+
+        // Genera valori casuali e popola lo stack
+        std::string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        std::default_random_engine gen(std::random_device{}());
+        std::uniform_int_distribution<int> randPos(0, table.size()-1);
+        cout << "New SortableVector<string>: ";
+        try{
+            for (uint i = 0; i < vec.Size(); ++i) {
+                vec[i] = table[randPos(gen)];
+            }
+        }catch (const out_of_range& e) {
+            std::cout << "\"" << e.what() << "\": " << "Error!" << std::endl;
+        }
+        vec.Sort();
+        vec.Traverse(&TraversePrint<string>);
+        cout << endl;
+
+
+        cout << "Copy of vec in a QueLst<string>..." << endl; 
+        lasd::QueueLst<string> quelst(vec);
+
+        //Controllo che la move list sia vuota
+        bool chk = quelst.Empty();
+        cout << testnum+1 << ") QueLst is " << (chk ? "" : "not ") << "empty" << endl;
+        if (chk) {
+            testerr += 1;
+            numerr << testnum + 1 << " "; 
+        }
+        testnum++;
+
+        try{
+            for(uint i = quelst.Size(); i > 0; i--){
+                cout << testnum+1 << ") Head element of QueLst is: " << quelst.HeadNDequeue() << ", remove..." << endl;
+                testnum++;
+            }
+        }catch(const length_error& e){
+            cout << e.what() << endl;
+            testerr += 1;
+            numerr << testnum + 1 << " "; 
+        }
+
+        //Controllo che la move list sia vuota
+        chk = quelst.Empty();
+        cout << testnum+1 << ") QueLst is " << (chk ? "" : "not ") << "empty" << endl;
+        if (!chk) {
+            testerr += 1;
+            numerr << testnum + 1 << " "; 
+        }
+        testnum++;
+
+
+        cout << "Move of vec in QueLst..." << endl; 
+        lasd::QueueLst<string> quemov (move(vec));
+
+        //Controllo che la move list sia vuota
+        chk = quemov.Empty();
+        cout << testnum+1 << ") Move QueLst is " << (chk ? "" : "not ") << "empty" << endl;
+        if (chk) {
+            testerr += 1;
+            numerr << testnum + 1 << " "; 
+        }
+        testnum++;
+
+        //Controllo elemento in testa e rimozione
+        try{
+            for(uint i = quemov.Size(); i > 0; i--){
+                cout << testnum+1 << ") Head element of Move QueLst is: " << quemov.HeadNDequeue() << ", remove..." << endl;
+                testnum++;
+            }
+        }catch(const length_error& e){
+            cout << e.what() << endl;
+            testerr += 1;
+            numerr << testnum + 1 << " "; 
+        }
+
+        //Controllo che la move list sia vuota
+        chk = quemov.Empty();
+        cout << testnum+1 << ") Move QueLst is " << (chk ? "" : "not ") << "empty" << endl;
+        if (!chk) {
+            testerr += 1;
+            numerr << testnum + 1 << " "; 
+        }
+        testnum++;
 
     cout << "---------------------------------End of test QueueList<string>---------------------------------" << endl;
 }

@@ -35,7 +35,7 @@ namespace lasd {
                 }
             );
         }catch(std::bad_alloc &exception){
-            std::cerr << "[EXCEPTION] Cannot allocate memory for Queue: " <<  exception.what();
+            std::cerr << "EXC - Cannot allocate memory for queue: " <<  exception.what();
         }
     }
 
@@ -201,25 +201,29 @@ unsigned long QueueVec<Data>::Size() const noexcept{
 
     template<typename Data>
     void QueueVec<Data>::Resize(unsigned long newSize, unsigned long length){
-        Data *tmp = new Data[newSize];
+        try{
+            Data *tmp = new Data[newSize];
         
-        unsigned long max = (length <= newSize) ? length : newSize;
+            unsigned long max = (length <= newSize) ? length : newSize;
 
-        unsigned long index1 = head;
-        unsigned long index2 = 0;
-        while (index2 < max){
-            std::swap(elements[index1], tmp[index2]);
+            unsigned long index1 = head;
+            unsigned long index2 = 0;
+            while (index2 < max){
+                std::swap(elements[index1], tmp[index2]);
 
-            ++index1 %= size;
-            index2++;
+                ++index1 %= size;
+                index2++;
+            }
+
+            std::swap(elements, tmp);
+            delete[] tmp;
+            
+            head = 0;
+            tail = length;
+            size = newSize;
+        }catch(std::bad_alloc& exception){
+            std::cerr << "EXC - Cannot allocate memory for queue: " <<  exception.what();
         }
-
-        std::swap(elements, tmp);
-        delete[] tmp;
-        
-        head = 0;
-        tail = length;
-        size = newSize;
     }
 
 }
