@@ -34,8 +34,8 @@ void mytest() {
     
     int choice = 1;
     while(choice){
-        std::cout << endl << "Pick the data structure:\n 1-Vector\n 2-List \n 3-Stack \n 4-Queue \n 0-Exit for results." << endl;
-        std::cin >> choice;
+        cout << endl << "Pick the data structure:\n 1-Vector\n 2-List \n 3-Stack \n 4-Queue \n 0-Exit for results." << endl;
+        cin >> choice;
         switch(choice){
             case 1:
                 choiceVectorType(testerr, testnum, numerr);
@@ -64,10 +64,10 @@ void mytest() {
 void choiceVectorType(uint& testerr, uint& testnum, stringstream& numerr){
 
 
-    std::cout << "Pick the data type: \n 1-Int \n 2-Double \n 3-String" << std::endl;
+    cout << "Pick the data type: \n 1-Int \n 2-Double \n 3-String" << endl;
     int choice = 1;
     
-    std::cin >> choice;
+    cin >> choice;
     switch(choice){
         case 1:{
             testVectorInt(testerr, testnum, numerr);
@@ -82,7 +82,7 @@ void choiceVectorType(uint& testerr, uint& testnum, stringstream& numerr){
             break;
         }
         default:
-            std::cout << "Invalid choice" << std::endl;
+            cout << "Invalid choice" << endl;
     }
     
 }
@@ -90,10 +90,10 @@ void choiceVectorType(uint& testerr, uint& testnum, stringstream& numerr){
 void choiceListType(uint& testerr, uint& testnum, stringstream& numerr){
 
 
-    std::cout << "Pick the data type: \n 1-Int \n 2-Double \n 3-String" << std::endl;
+    cout << "Pick the data type: \n 1-Int \n 2-Double \n 3-String" << endl;
     int choice = 1;
     
-    std::cin >> choice;
+    cin >> choice;
     switch(choice){
         case 1:{
             testListInt(testerr, testnum, numerr);
@@ -108,16 +108,16 @@ void choiceListType(uint& testerr, uint& testnum, stringstream& numerr){
             break;
         }
         default:
-            std::cout << "Invalid choice" << std::endl;
+            cout << "Invalid choice" << endl;
     }
     
 }
 
 void choiceStackType(uint& testerr, uint& testnum, stringstream& numerr){
-    std::cout << "Pick the data type: \n 1-StackVec<float> \n 2-StackVec<string> \n 3-StackList<float> \n 4-StackList<string>" << std::endl;
+    cout << "Pick the data type: \n 1-StackVec<float> \n 2-StackVec<string> \n 3-StackList<float> \n 4-StackList<string>" << endl;
     int choice = 1;
     
-    std::cin >> choice;
+    cin >> choice;
     switch(choice){
         case 1:{
             testStackVecFloat(testerr, testnum, numerr);
@@ -136,15 +136,15 @@ void choiceStackType(uint& testerr, uint& testnum, stringstream& numerr){
             break;
         }
         default:
-            std::cout << "Invalid choice" << std::endl;
+            cout << "Invalid choice" << endl;
     }
 }
 
 void choiceQueueType(uint& testerr, uint& testnum, stringstream& numerr){
-    std::cout << "Pick the data type: \n 1-QueueVec<float> \n 2-QueueVec<string> \n 3-QueueList<float> \n 4-QueueList<string>" << std::endl;
+    cout << "Pick the data type: \n 1-QueueVec<float> \n 2-QueueVec<string> \n 3-QueueList<float> \n 4-QueueList<string>" << endl;
     int choice = 1;
     
-    std::cin >> choice;
+    cin >> choice;
     switch(choice){
         case 1:{
             testQueueVecFloat(testerr, testnum, numerr);
@@ -163,7 +163,7 @@ void choiceQueueType(uint& testerr, uint& testnum, stringstream& numerr){
             break;
         }
         default:
-            std::cout << "Invalid choice" << std::endl;
+            cout << "Invalid choice" << endl;
     }
 }
 
@@ -175,10 +175,10 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
 
     lasd::SortableVector<int> vec;
     
-    // Controllo size del vec
+    // Controllo size del contenitore
     cout << "Vector<int> with size: " << vec.Size() << endl;
 
-    // Verifica che il vettore sia vuoto
+    // Verifica che il contenitore sia vuoto
     bool chk = vec.Empty();
     cout << testnum+1 << ") Vector is " << (chk ? "" : "not ") << "empty" << endl;
     if (!chk) {
@@ -187,7 +187,7 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    //Stampa della somma degli elementi del vettore in PostOrderFold
+    //Stampa della somma degli elementi del contenitore in PostOrderFold
     try{
         int sum = vec.PostOrderFold(&FoldAdd<int>, 0);
         cout << testnum+1 << ") Sum elements: " << sum << endl;
@@ -203,7 +203,7 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Front value is: " << vec.Front() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
     }
     testnum++;
@@ -213,7 +213,7 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Back value is: " << vec.Back() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
     }
     testnum++;
@@ -223,7 +223,7 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Value at index 1 is: " << vec[1] << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::out_of_range& e) {
+    } catch (const out_of_range& e) {
         cout << e.what() << endl;
     }
     testnum++;
@@ -239,11 +239,11 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
     testnum++;
 
 
-    //Test per il Resize e il fill del vettore
-    vec.Resize(5);
+    //Test per il Resize e il popolamento del contenitore
     try{
+      vec.Resize(5);
       cout << testnum+1 << ") Resize... New vector size: "<< vec.Size() << endl;
-    }catch(const std::bad_alloc& e){
+    }catch(const bad_alloc& e){
       cout << e.what() << endl;
       testerr += 1;
       numerr << testnum +1 << " ";
@@ -251,14 +251,14 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
     testnum++;
 
     
-    // Genera numeri casuali e popola il vettore
+    // Genera numeri casuali e popola il contenitore
     default_random_engine gen(random_device{}());
     uniform_int_distribution<int> dist(-500, 500);
     for (uint i = 0; i < vec.Size(); ++i) {
         vec[i] = dist(gen);
     }
 
-    // Riconferma che il vettore non sia vuoto dopo aver aggiunto gli elementi
+    // Riconferma che il contenitore non sia vuoto dopo aver aggiunto gli elementi
     chk = vec.Empty();
     cout << testnum+1 <<") Vector is " << (chk ? "" : "not ") << "empty after filling" << endl;
     if (chk) {
@@ -268,7 +268,7 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
     testnum++;
     
 
-    //Stampa del vettore in PreOrderTraverse
+    //Stampa del contenitore in PreOrderTraverse
     try{
         cout << testnum+1 << ") Print Vec in PreOrderTraverse: " << endl << "\t";
         vec.PreOrderTraverse(&TraversePrint<int>);   
@@ -281,7 +281,7 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
     testnum++;
 
 
-    //Stampa della somma degli elementi del vettore in PreOrderFold
+    //Stampa della somma degli elementi del contenitore in PreOrderFold
     
     try{
         int sum = vec.PreOrderFold(&FoldAdd<int>, 0);
@@ -293,7 +293,7 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    // Sort del vec, con stampa
+    // Sort del contenitore, con stampa
     try{
         vec.Sort();
         cout << testnum+1 << ") Print Sort vec: " << endl << "\t";
@@ -306,18 +306,19 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    //Test per il Resize e il fill del vettore
-    vec.Resize(3);
+    //Test per il Resize del contenitore
+    
     try{
+      vec.Resize(3);
       cout << testnum+1 << ") Resize... New vector size: "<< vec.Size() << endl;
-    }catch(const std::bad_alloc& e){
+    }catch(const bad_alloc& e){
       cout << e.what() << endl;
       testerr += 1;
       numerr << testnum +1 << " ";
     }
     testnum++;
 
-     //Stampa del vettore in PreOrderTraverse
+     //Stampa del contenitore in PreOrderTraverse
     try{
         cout << testnum+1 << ") Print Vec in PostOrderTraverse: " << endl << "\t";
         vec.PostOrderTraverse(&TraversePrint<int>);   
@@ -330,7 +331,7 @@ void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
     testnum++;
 
 
-    //Stampa della somma degli elementi del vettore in PostOrderFold
+    //Stampa della somma degli elementi del contenitore in PostOrderFold
     try{
         int sum = vec.PostOrderFold(&FoldAdd<int>, 0);
         cout << testnum+1 << ") Sum elements: " << sum << endl;
@@ -350,10 +351,10 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
     
     lasd::SortableVector<double> vec;
     
-    // Controllo size del vec
+    // Controllo size del contenitore
     cout << "Vector<double> with size: " << vec.Size() << endl;
 
-    // Verifica che il vettore sia vuoto
+    // Verifica che il contenitore sia vuoto
     bool chk = vec.Empty();
     cout << testnum+1 << ") Vector is " << (chk ? "" : "not ") << "empty" << endl;
     if (!chk) {
@@ -362,7 +363,7 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    //Stampa della somma degli elementi del vettore in PostOrderFold
+    //Stampa della somma degli elementi del contenitore in PostOrderFold
     try{
         double sum = vec.PostOrderFold(&FoldAdd<double>, 0.0);
         cout << testnum+1 << ") Sum elements: " << sum << endl;
@@ -378,7 +379,7 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Front value is: " << vec.Front() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
     }
     testnum++;
@@ -388,7 +389,7 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Back value is: " << vec.Back() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
     }
     testnum++;
@@ -398,7 +399,7 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Value at index 1 is: " << vec[1] << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::out_of_range& e) {
+    } catch (const out_of_range& e) {
         cout << e.what() << endl;
     }
     testnum++;
@@ -414,25 +415,25 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
     testnum++;
 
 
-    //Test per il Resize e il fill del vettore
-    vec.Resize(5);
+    //Test per il Resize e il poplamento del contenitore
     try{
+      vec.Resize(5);
       cout << testnum+1 << ") Resize... New vector size: "<< vec.Size() << endl;
-    }catch(const std::bad_alloc& e){
+    }catch(const bad_alloc& e){
       cout << e.what() << endl;
       testerr += 1;
       numerr << testnum +1 << " ";
     }
     testnum++;
 
-    // Genera numeri casuali e popola il vettore
+    // Genera numeri casuali e popola il contenitore
     default_random_engine gen(random_device{}());
     uniform_real_distribution<double> dist(-500, 500);
     for (uint i = 0; i < vec.Size(); ++i) {
         vec[i] = dist(gen);
     }
 
-    // Riconferma che il vettore non sia vuoto dopo aver aggiunto gli elementi
+    // Riconferma che il contenitore non sia vuoto dopo aver aggiunto gli elementi
     chk = vec.Empty();
     cout << testnum+1 <<") Vector is " << (chk ? "" : "not ") << "empty after filling" << endl;
     if (chk) {
@@ -442,7 +443,7 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
     testnum++;
     
 
-    //Stampa del vettore in PreOrderTraverse
+    //Stampa del contenitore in PreOrderTraverse
     try{
         cout << testnum+1 << ") Print Vec in PreOrderTraverse: " << endl << "\t";
         vec.PreOrderTraverse(&TraversePrint<double>);   
@@ -455,7 +456,7 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
     testnum++;
 
 
-    //Stampa della somma degli elementi del vettore in PreOrderFold
+    //Stampa della somma degli elementi del contenitore in PreOrderFold
     try{
         double sum = vec.PreOrderFold(&FoldAdd<double>, 0.0);
         cout << testnum+1 << ") Sum elements: " << sum << endl;
@@ -466,7 +467,7 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    // Sort del vec, con stampa
+    // Sort del contenitore e stampa
     try{
         vec.Sort();
         cout << testnum+1 << ") Print Sort vec: " << endl << "\t";
@@ -479,18 +480,19 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    //Test per il Resize e il fill del vettore
-    vec.Resize(3);
+    //Test per il Resize del contenitore
+    
     try{
+      vec.Resize(3);
       cout << testnum+1 << ") Resize... New vector size: "<< vec.Size() << endl;
-    }catch(const std::bad_alloc& e){
+    }catch(const bad_alloc& e){
       cout << e.what() << endl;
       testerr += 1;
       numerr << testnum +1 << " ";
     }
     testnum++;
 
-    //Stampa del vettore in PreOrderTraverse
+    //Stampa del contenitore in PreOrderTraverse
     try{
         cout << testnum+1 << ") Print Vec in PostOrderTraverse: " << endl << "\t";
         vec.PostOrderTraverse(&TraversePrint<double>);   
@@ -503,7 +505,7 @@ void testVectorDouble(uint& testerr, uint& testnum, stringstream& numerr){
     testnum++;
 
 
-    //Stampa della somma degli elementi del vettore in PostOrderFold
+    //Stampa della somma degli elementi del contenitore in PostOrderFold
     try{
         double sum = vec.PostOrderFold(&FoldAdd<double>, 0.0);
         cout << testnum+1 << ") Sum elements: " << sum << endl;
@@ -521,10 +523,10 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "---------------------------------Test on Vector<string>---------------------------------" << endl;
     lasd::SortableVector<string> vec;
 
-    // Controllo size del vec
+    // Controllo size del contenitore
     cout << "Vector<string> with size: " << vec.Size() << endl;
 
-    // Verifica che il vettore sia vuoto
+    // Verifica che il contenitore sia vuoto
     bool chk = vec.Empty();
     cout << testnum+1 << ") Vector is " << (chk ? "" : "not ") << "empty" << endl;
     if (!chk) {
@@ -542,11 +544,11 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    //Test per il Resize e il fill del vettore
-    vec.Resize(5);
+    //Test per il Resize e il popolamento del contenitore
     try{
+      vec.Resize(5);
       cout << testnum+1 << ") Resize... New vector size: "<< vec.Size() << endl;
-    }catch(const std::bad_alloc& e){
+    }catch(const bad_alloc& e){
       cout << e.what() << endl;
       testerr += 1;
       numerr << testnum +1 << " ";
@@ -554,15 +556,15 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
     testnum++;
 
 
-    // Genera caratteri casuali e popola il vettore
-    std::string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    std::default_random_engine gen(std::random_device{}());
-    std::uniform_int_distribution<int> randPos(0, table.size()-1);
+    // Genera caratteri casuali e popola il contenitore
+    string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    default_random_engine gen(random_device{}());
+    uniform_int_distribution<int> randPos(0, table.size()-1);
     for (uint i = 0; i < vec.Size(); ++i) {
         vec[i] = table[randPos(gen)];
     }
 
-    //Stampa del vettore in PreOrderTraverse
+    //Stampa del contenitore in PreOrderTraverse
     try{
         cout << testnum+1 << ") Print Vec in PreOrderTraverse: " << endl << "\t";
         vec.PreOrderTraverse(&TraversePrint<string>);   
@@ -574,7 +576,7 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    // Sort del vec, con stampa
+    // Sort del contenitore e stampa
     try{
         vec.Sort();
         cout << testnum+1 << ") Print Sort vec: " << endl << "\t";
@@ -587,7 +589,7 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    //Stampa della somma degli elementi del vettore in PreOrderFold
+    //Stampa della somma degli elementi del contenitore in PreOrderFold
     try{
         string conc = vec.PreOrderFold(&FoldAdd<string>, string(""));
         cout << testnum+1 << ") Concatenate vector: " << conc << endl;
@@ -601,7 +603,7 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
     lasd::SortableVector<string> copvec(vec);
     //Stampa del copy vec in PreOrderTraverse
     try{
-        cout << "\t" << "copy of vec in movvec..." << endl;
+        cout << "\t" << "Copy of vec in movvec..." << endl;
         cout << testnum+1 << ") Print copy vec in PreOrderTraverse: " << endl << "\t";
         copvec.PreOrderTraverse(&TraversePrint<string>);   
         cout << endl;
@@ -612,7 +614,7 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    //Stampa del vettore in PreOrderTraverse
+    //Stampa del contenitore in PreOrderTraverse
     try{
         cout << testnum+1 << ") Print Vec in PreOrderTraverse: " << endl << "\t";
         vec.PreOrderTraverse(&TraversePrint<string>);   
@@ -627,7 +629,7 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
     lasd::SortableVector<string> movvec(move(vec));
     //Stampa del move vec in PreOrderTraverse
     try{
-        cout << "\t" << "move of vec in movvec..." << endl;
+        cout << "\t" << "Move of vec in movvec..." << endl;
         cout << testnum+1 << ") Print move vec in PreOrderTraverse: " << endl << "\t";
         movvec.PreOrderTraverse(&TraversePrint<string>);   
         cout << endl;
@@ -638,7 +640,7 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    // Verifica che il vettore sia vuoto
+    // Verifica che il contenitore sia vuoto
     chk = vec.Empty();
     cout << testnum+1 << ") Vector is " << (chk ? "" : "not ") << "empty" << endl;
     if (!chk) {
@@ -647,7 +649,7 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    //Stampa del vettore in PreOrderTraverse
+    //Stampa del contenitore in PreOrderTraverse
     try{
         cout << testnum+1 << ") Print Vec in PostOrderTraverse: " << endl << "\t";
         vec.PostOrderTraverse(&TraversePrint<string>);   
@@ -673,7 +675,8 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
     movvec.Clear();
     copvec.Clear();
     cout << "\t Clear of move vec and copy vec..." << endl;
-    // Verifica che il vettore sia vuoto
+
+    // Verifica che il contenitore sia vuoto
     chk = copvec.Empty();
     cout << testnum+1 << ") Copy vec is " << (chk ? "" : "not ") << "empty" << endl;
     if (!chk) {
@@ -681,7 +684,8 @@ void testVectorString(uint& testerr, uint& testnum, stringstream& numerr){
         numerr << testnum + 1 << " "; 
     }
     testnum++;
-    // Verifica che il vettore sia vuoto
+
+    // Verifica che il contenitore sia vuoto
     chk = movvec.Empty();
     cout << testnum+1 << ") Move vec is " << (chk ? "" : "not ") << "empty" << endl;
     if (!chk) {
@@ -699,7 +703,7 @@ void testListInt(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "---------------------------------Test on List<int>---------------------------------" << endl;
     lasd::List<int> lst;
 
-     // Controllo size del vec
+     // Controllo size del contenitore
     cout << "List<int> with size: " << lst.Size() << endl;
 
     //Test per controllare se esiste un elemento
@@ -719,9 +723,9 @@ void testListInt(uint& testerr, uint& testnum, stringstream& numerr){
         testerr += 1;
         numerr << testnum + 1 << " "; 
     }
-    catch(const std::length_error& e)
+    catch(const length_error& e)
     {
-        std::cerr << e.what() << endl;
+        cout << e.what() << endl;
     }
     testnum++;
 
@@ -732,13 +736,13 @@ void testListInt(uint& testerr, uint& testnum, stringstream& numerr){
         testerr += 1;
         numerr << testnum + 1 << " "; 
     }
-    catch(const std::length_error& e)
+    catch(const length_error& e)
     {
-        std::cerr << e.what() << endl;
+        cout << e.what() << endl;
     }
     testnum++;
     
-    // Genera numeri casuali e popola la lista
+    // Genera numeri casuali e popola il contenitore
     cout << testnum+1 << ") Insert random number in back..." << endl;
     default_random_engine gen(random_device{}());
     uniform_int_distribution<int> dist(-500, 500);
@@ -746,7 +750,7 @@ void testListInt(uint& testerr, uint& testnum, stringstream& numerr){
         try{
             lst.InsertAtBack(dist(gen));
         }catch(const bad_alloc& e){
-            std::cerr << e.what() << endl;
+            cout << e.what() << endl;
             testerr += 1;
             numerr << testnum + 1 << " ";
         }
@@ -898,7 +902,7 @@ void testListDouble(uint& testerr, uint& testnum, stringstream& numerr){
 
     
     lasd::SortableVector<double> vec(5);
-    // Genera numeri casuali e popola il vettore
+    // Genera numeri casuali e popola il contenitore
     default_random_engine gen(random_device{}());
     uniform_real_distribution<double> dist(-500, 500);
     for (uint i = 0; i < vec.Size(); ++i) {
@@ -923,7 +927,7 @@ void testListDouble(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    //aggiunge elementi del vettore nella lista
+    //aggiunge elementi del contenitore nella lista
     try{
         cout << testnum+1 << ") Insert vec elements in list..." << endl ;
         for(uint i = 0; i < vec.Size(); i++){
@@ -936,7 +940,7 @@ void testListDouble(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-
+    //Controlla che la lista non sia vuota
     chk = lst.Empty();
     cout << testnum+1 << ") List is " << (chk ? "" : "not ") << "empty" << endl;
     if (chk) {
@@ -1012,7 +1016,7 @@ void testListDouble(uint& testerr, uint& testnum, stringstream& numerr){
         for(uint i = lst.Size(); i>0; i--){
             lst.RemoveFromFront();
         }
-    }catch(const exception& e){
+    }catch(const length_error& e){
         cout << e.what();
         testerr += 1;
         numerr << testnum +1 << " ";
@@ -1025,7 +1029,7 @@ void testListDouble(uint& testerr, uint& testnum, stringstream& numerr){
         for(uint i = movlst.Size(); i>0; i--){
             movlst.RemoveFromFront();
         }
-    }catch(const exception& e){
+    }catch(const length_error& e){
         cout << e.what();
         testerr += 1;
         numerr << testnum +1 << " ";
@@ -1071,9 +1075,9 @@ void testListString(uint& testerr, uint& testnum, stringstream& numerr){
     
     // Genera caratteri casuali e popola la lista
     cout << "Insert random elements..." << endl;
-    std::string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    std::default_random_engine gen(std::random_device{}());
-    std::uniform_int_distribution<int> randPos(0, table.size()-1);
+    string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    default_random_engine gen(random_device{}());
+    uniform_int_distribution<int> randPos(0, table.size()-1);
     string random;
     try{
         for (uint i = 0; i < 5; ++i) {
@@ -1105,7 +1109,7 @@ void testListString(uint& testerr, uint& testnum, stringstream& numerr){
     lasd::List<string> coplst(lst);
 
 
-    //Stampa della somma degli elementi del vettore in PreOrderFold
+    //Stampa della somma degli elementi del contenitore in PreOrderFold
     try{
         string conc = lst.PreOrderFold(&FoldAdd<string>, string(""));
         cout << testnum+1 << ") Concatenate list in pre order: " << conc << endl;
@@ -1117,7 +1121,7 @@ void testListString(uint& testerr, uint& testnum, stringstream& numerr){
     testnum++;
 
 
-    //Stampa della somma degli elementi del vettore in PreOrderFold
+    //Stampa della somma degli elementi del contenitore in PreOrderFold
     try{
         string conc = coplst.PostOrderFold(&FoldAdd<string>, string(""));
         cout << testnum+1 << ") Concatenate copy list in post order: " << conc << endl;
@@ -1136,7 +1140,7 @@ void testListString(uint& testerr, uint& testnum, stringstream& numerr){
         for(uint i = lst.Size(); i>0; i--){
             lst.RemoveFromFront();
         }
-    }catch(const exception& e){
+    }catch(const length_error& e){
         cout << e.what();
         testerr += 1;
         numerr << testnum +1 << " ";
@@ -1149,7 +1153,7 @@ void testListString(uint& testerr, uint& testnum, stringstream& numerr){
         for(uint i = coplst.Size(); i>0; i--){
             coplst.RemoveFromFront();
         }
-    }catch(const exception& e){
+    }catch(const length_error& e){
         cout << e.what();
         testerr += 1;
         numerr << testnum +1 << " ";
@@ -1176,8 +1180,9 @@ void testListString(uint& testerr, uint& testnum, stringstream& numerr){
 
     //Move of vec in a move list
     lasd::List<string> movlst(move(vec));
+    cout << "Move vec in a Move List..." << endl;
     
-    //Stampa della somma degli elementi del vettore in PreOrderFold
+    //Stampa della somma degli elementi del contenitore in PreOrderFold
     try{
         string conc = movlst.PreOrderFold(&FoldAdd<string>, string(""));
         cout << testnum+1 << ") Concatenate move list: " << conc << endl;
@@ -1218,7 +1223,7 @@ void testStackVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") TopNPop from the stack with value: " << stkvec.TopNPop() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
     }
     testnum++;
@@ -1233,8 +1238,8 @@ void testStackVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
             stkvec.Push(val);
             testnum++;
         }
-    }catch (std::exception & exc) {
-        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
+    }catch (exception & e) {
+        cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " ";
     }
@@ -1246,8 +1251,7 @@ void testStackVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     // Test quando il contenitore è vuoto
     try {
         cout << testnum+1 << ") Top value is: " << stkvec.Top() << endl;
-        
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
@@ -1258,7 +1262,7 @@ void testStackVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     try {
         cout << testnum+1 << ") Pop from the stack the top value:" << stkvec.Top() << endl;
         stkvec.Pop();
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
@@ -1268,7 +1272,7 @@ void testStackVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     // Test quando il contenitore è vuoto
     try {
         cout << testnum+1 << ") Top value is: " << stkvec.Top() << endl;
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
@@ -1278,7 +1282,7 @@ void testStackVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "Clear of StackVec..." << endl;
     stkvec.Clear();
 
-    //Controllo che la move list sia vuota
+    //Controllo che il contenitore sia vuoto
     bool chk = stkvec.Empty();
     cout << testnum+1 << ") StackVec is " << (chk ? "" : "not ") << "empty" << endl;
     if (!chk) {
@@ -1291,9 +1295,9 @@ void testStackVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
 }
 
 void testStackVecString(uint& testerr, uint& testnum, stringstream& numerr){
-    cout << "---------------------------------Test on StackVec<float>---------------------------------" << endl;
+    cout << "---------------------------------Test on StackVec<string>---------------------------------" << endl;
     lasd::StackVec<string> stkvec;
-    // Controllo size del vec
+    // Controllo size del contenitore
     cout << "StackVec<string> with size: " << stkvec.Size() << endl;
 
     // Test quando il contenitore è vuoto
@@ -1301,15 +1305,15 @@ void testStackVecString(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Top value is: " << stkvec.Top() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
     }
     testnum++;
 
     // Genera valori casuali e popola lo stack
-    std::string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    std::default_random_engine gen(std::random_device{}());
-    std::uniform_int_distribution<int> randPos(0, table.size()-1);
+    string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    default_random_engine gen(random_device{}());
+    uniform_int_distribution<int> randPos(0, table.size()-1);
     try{
         for (uint i = 0; i < 5; ++i) {
             string val = string(1, table[randPos(gen)]);
@@ -1317,13 +1321,13 @@ void testStackVecString(uint& testerr, uint& testnum, stringstream& numerr){
             stkvec.Push(val);
             testnum++;
         }
-    }catch (std::exception & exc) {
-        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
+    }catch (exception & e) {
+        cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " ";
     }
 
-    // Controllo size del vec
+    // Controllo size del contenitore
     cout << "StackVec<string> with size: " << stkvec.Size() << endl;
 
 
@@ -1331,7 +1335,7 @@ void testStackVecString(uint& testerr, uint& testnum, stringstream& numerr){
     try {
         cout << testnum+1 << ") Top value is: " << stkvec.Top() << endl;
         
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
@@ -1341,21 +1345,21 @@ void testStackVecString(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "Copy of stackvec..." << endl;
     lasd::StackVec<string> stkcpy(stkvec);
 
-    // Controllo size del vec
+    // Controllo size del contenitore
     cout << "StackVec copy with size: " << stkcpy.Size() << endl;
 
     // Test quando il contenitore è pieno
     try {
         cout << testnum+1 << ") Top value of copy stackvec is: " << stkcpy.Top() << endl;
         
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
     }
     testnum++;
 
-    //Controllo uguaglianza di copy vec e move vec
+    //Controllo uguaglianza di copy stack e move stack
     if(stkcpy == stkvec){
         cout << testnum+1 << ") Copy stackvec is equals to stackvec" << endl;
     }else{
@@ -1368,14 +1372,14 @@ void testStackVecString(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "Move of stackvec..." << endl;
     lasd::StackVec<string> stkmov(move(stkvec));
 
-    // Controllo size del vec
+    // Controllo size del contenitore
     cout << "StackVec move with size: " << stkmov.Size() << endl;
 
     // Test quando il contenitore è pieno
     try {
         cout << testnum+1 << ") Top value of move stackvec is: " << stkmov.Top() << endl;
         
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
@@ -1387,12 +1391,12 @@ void testStackVecString(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Top value of stackvec is: " << stkvec.Top() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
     }
     testnum++;
 
-    //Controllo che la move list sia vuota
+    //Controllo che il contenitore sia vuoto
     bool chk = stkvec.Empty();
     cout << testnum+1 << ") StackVec is " << (chk ? "" : "not ") << "empty" << endl;
     if (!chk) {
@@ -1402,7 +1406,7 @@ void testStackVecString(uint& testerr, uint& testnum, stringstream& numerr){
     testnum++;
 
 
-    //Controllo uguaglianza di copy vec e move vec
+    //Controllo uguaglianza di move stack e stack
     if(stkmov != stkvec){
         cout << testnum+1 << ") Move stackvec is not equals to stackvec" << endl;
     }else{
@@ -1412,7 +1416,7 @@ void testStackVecString(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    //Controllo uguaglianza di copy vec e move vec
+    //Controllo uguaglianza di copy stack e move stack
     if(stkcpy == stkmov){
         cout << testnum+1 << ") Copy stackvec is equals to move stackvec" << endl;
     }else{
@@ -1425,7 +1429,7 @@ void testStackVecString(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "Clear of Copy StackVec..." << endl;
     stkcpy.Clear();
 
-    //Controllo che la move list sia vuota
+    //Controllo che il copy stack sia vuoto
     chk = stkcpy.Empty();
     cout << testnum+1 << ") Copy StackVec is " << (chk ? "" : "not ") << "empty" << endl;
     if (!chk) {
@@ -1438,7 +1442,7 @@ void testStackVecString(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "Clear of Copy StackVec..." << endl;
     stkmov.Clear();
 
-    //Controllo che la move list sia vuota
+    //Controllo che il move stack sia vuoto
     chk = stkmov.Empty();
     cout << testnum+1 << ") Move StackVec is " << (chk ? "" : "not ") << "empty" << endl;
     if (!chk) {
@@ -1447,7 +1451,7 @@ void testStackVecString(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    cout << "---------------------------------End of test StackVec<float>---------------------------------" << endl;
+    cout << "---------------------------------End of test StackVec<string>---------------------------------" << endl;
 
 }
 
@@ -1463,13 +1467,13 @@ void testStackListFloat(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") TopNPop from the stack with value: " << stklst.TopNPop() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
     }
     testnum++;
 
     lasd::SortableVector<float> vec(5);
-    // Genera numeri casuali e popola il vettore
+    // Genera numeri casuali e popola il contenitore
     default_random_engine gen(random_device{}());
     uniform_real_distribution<float> dist(-500, 500);
     for (uint i = 0; i < vec.Size(); ++i) {
@@ -1489,7 +1493,7 @@ void testStackListFloat(uint& testerr, uint& testnum, stringstream& numerr){
     // Test quando il contenitore è vuoto
     try {
         cout << testnum+1 << ") Top from the stack with value: " << stklst.Top() << endl;
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
@@ -1504,7 +1508,7 @@ void testStackListFloat(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Top from the stack with value: " << stklst.Top() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
     }
     testnum++;
@@ -1512,7 +1516,7 @@ void testStackListFloat(uint& testerr, uint& testnum, stringstream& numerr){
     // Test quando il contenitore non è vuoto
     try {
         cout << testnum+1 << ") TopNPop from the move stack with value: " << stkmov.TopNPop() << endl;
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " ";
@@ -1529,7 +1533,7 @@ void testStackListFloat(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    
+    //Sposto gli elementi dal move stack allo stack
     try{
         for(uint i = stkmov.Size(); i>0; i--){
             cout << testnum+1 << ") Insert top value of move StackLst: " << stkmov.Top() << ", in StackLst..." << endl;
@@ -1547,7 +1551,7 @@ void testStackListFloat(uint& testerr, uint& testnum, stringstream& numerr){
         numerr << testnum +1 << " ";
     }
 
-
+    //Controllo elemento in testa e poi lo rimuovo
     try{
         cout << "Size of StackLst: " << stklst.Size() << endl;
         for(uint i = stklst.Size(); i > 0; i--){
@@ -1571,16 +1575,16 @@ void testStackListString(uint& testerr, uint& testnum, stringstream& numerr){
         lasd::SortableVector<string> vec(5);
 
         // Genera valori casuali e popola lo stack
-        std::string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        std::default_random_engine gen(std::random_device{}());
-        std::uniform_int_distribution<int> randPos(0, table.size()-1);
+        string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        default_random_engine gen(random_device{}());
+        uniform_int_distribution<int> randPos(0, table.size()-1);
         cout << "New SortableVector<string>: ";
         try{
             for (uint i = 0; i < vec.Size(); ++i) {
                 vec[i] = table[randPos(gen)];
             }
         }catch (const out_of_range& e) {
-            std::cout << "\"" << e.what() << "\": " << "Error!" << std::endl;
+            cout << e.what() << endl;
         }
         vec.Sort();
         vec.Traverse(&TraversePrint<string>);
@@ -1590,7 +1594,7 @@ void testStackListString(uint& testerr, uint& testnum, stringstream& numerr){
         cout << "Copy of vec in a StackLst<string>..." << endl; 
         lasd::StackLst<string> stklst(vec);
 
-        //Controllo che la move list sia vuota
+        //Controllo che il contenitore sia vuoto
         bool chk = stklst.Empty();
         cout << testnum+1 << ") StackLst is " << (chk ? "" : "not ") << "empty" << endl;
         if (chk) {
@@ -1599,6 +1603,7 @@ void testStackListString(uint& testerr, uint& testnum, stringstream& numerr){
         }
         testnum++;
 
+        //Controllo l'elemento in testa e poi lo rimuovo
         try{
             for(uint i = stklst.Size(); i > 0; i--){
                 cout << testnum+1 << ") Top element of Staklst is: " << stklst.TopNPop() << ", remove..." << endl;
@@ -1610,7 +1615,7 @@ void testStackListString(uint& testerr, uint& testnum, stringstream& numerr){
             numerr << testnum + 1 << " "; 
         }
 
-        //Controllo che la move list sia vuota
+        //Controllo che il contenitore sia vuoto
         chk = stklst.Empty();
         cout << testnum+1 << ") StackLst is " << (chk ? "" : "not ") << "empty" << endl;
         if (!chk) {
@@ -1619,6 +1624,7 @@ void testStackListString(uint& testerr, uint& testnum, stringstream& numerr){
         }
         testnum++;
 
+        //Inserisco nello stack gli elementi del vettore con Push move
         try{
             cout << "Move Push of vec's elements in StackLst..." << endl;
             for(uint i = 0; i < vec.Size(); i++){
@@ -1639,7 +1645,7 @@ void testStackListString(uint& testerr, uint& testnum, stringstream& numerr){
         stklst.Clear();
 
         cout << "Clear of StackLst..." << endl;
-        //Controllo che la move list sia vuota
+        //Controllo che il contenitore sia vuoto
         chk = stklst.Empty();
         cout << testnum+1 << ") StackLst is " << (chk ? "" : "not ") << "empty" << endl;
         if (!chk) {
@@ -1668,7 +1674,7 @@ void testQueueVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Head element: " << quevec.Head() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
     }
     testnum++;
@@ -1684,8 +1690,8 @@ void testQueueVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
             quevec.Enqueue(val);
             testnum++;
         }
-    }catch (std::exception & exc) {
-        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
+    }catch (const exception& e) {
+        cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " ";
     }
@@ -1710,7 +1716,7 @@ void testQueueVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     // Test quando il contenitore non è vuoto
     try {
         cout << testnum+1 << ") Head element of Copy: " << quecpy.HeadNDequeue() << ", remove..." <<  endl;
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
@@ -1732,7 +1738,7 @@ void testQueueVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Clear of Quevec and copy..." << endl;
         quevec.Clear();
         quecpy.Clear();
-    }catch(bad_alloc& e){
+    }catch(const bad_alloc& e){
         cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
@@ -1767,16 +1773,16 @@ void testQueueVecString(uint& testerr, uint& testnum, stringstream& numerr){
     lasd::SortableVector<string> vec(5);
 
         // Genera valori casuali e popola lo stack
-        std::string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        std::default_random_engine gen(std::random_device{}());
-        std::uniform_int_distribution<int> randPos(0, table.size()-1);
+        string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        default_random_engine gen(random_device{}());
+        uniform_int_distribution<int> randPos(0, table.size()-1);
         cout << "New SortableVector<string>: ";
         try{
             for (uint i = 0; i < vec.Size(); ++i) {
                 vec[i] = table[randPos(gen)];
             }
         }catch (const out_of_range& e) {
-            std::cout << "\"" << e.what() << "\": " << "Error!" << std::endl;
+            cout << e.what() << endl;
         }
         vec.Sort();
         vec.Traverse(&TraversePrint<string>);
@@ -1857,7 +1863,7 @@ void testQueueListFloat(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Head element: " << quelst.Head() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
     }
     testnum++;
@@ -1873,8 +1879,8 @@ void testQueueListFloat(uint& testerr, uint& testnum, stringstream& numerr){
             quelst.Enqueue(val);
             testnum++;
         }
-    }catch (std::exception & exc) {
-        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
+    }catch (exception& e) {
+        cout << exc.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " ";
     }
@@ -1899,7 +1905,7 @@ void testQueueListFloat(uint& testerr, uint& testnum, stringstream& numerr){
     // Test quando il contenitore non è vuoto
     try {
         cout << testnum+1 << ") Head element of Copy: " << quecpy.HeadNDequeue() << ", remove..." <<  endl;
-    } catch (const std::length_error& e) {
+    } catch (const length_error& e) {
         cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
@@ -1921,7 +1927,7 @@ void testQueueListFloat(uint& testerr, uint& testnum, stringstream& numerr){
         cout << testnum+1 << ") Clear of QueueLst and copy..." << endl;
         quelst.Clear();
         quecpy.Clear();
-    }catch(bad_alloc& e){
+    }catch(const bad_alloc& e){
         cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " "; 
@@ -1954,17 +1960,17 @@ void testQueueListString(uint& testerr, uint& testnum, stringstream& numerr){
 
     lasd::SortableVector<string> vec(5);
 
-        // Genera valori casuali e popola lo stack
-        std::string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        std::default_random_engine gen(std::random_device{}());
-        std::uniform_int_distribution<int> randPos(0, table.size()-1);
+        // Genera valori casuali e popola il contenitore
+        string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        default_random_engine gen(random_device{}());
+        uniform_int_distribution<int> randPos(0, table.size()-1);
         cout << "New SortableVector<string>: ";
         try{
             for (uint i = 0; i < vec.Size(); ++i) {
                 vec[i] = table[randPos(gen)];
             }
         }catch (const out_of_range& e) {
-            std::cout << "\"" << e.what() << "\": " << "Error!" << std::endl;
+            cout << e.what() << endl;
         }
         vec.Sort();
         vec.Traverse(&TraversePrint<string>);
@@ -1974,7 +1980,7 @@ void testQueueListString(uint& testerr, uint& testnum, stringstream& numerr){
         cout << "Copy of vec in a QueLst<string>..." << endl; 
         lasd::QueueLst<string> quelst(vec);
 
-        //Controllo che la move list sia vuota
+        //Controllo che il contenitore sia vuoto
         bool chk = quelst.Empty();
         cout << testnum+1 << ") QueLst is " << (chk ? "" : "not ") << "empty" << endl;
         if (chk) {
@@ -1983,6 +1989,7 @@ void testQueueListString(uint& testerr, uint& testnum, stringstream& numerr){
         }
         testnum++;
 
+        //Controllo elemento in testa e rimozione
         try{
             for(uint i = quelst.Size(); i > 0; i--){
                 cout << testnum+1 << ") Head element of QueLst is: " << quelst.HeadNDequeue() << ", remove..." << endl;
@@ -1994,7 +2001,7 @@ void testQueueListString(uint& testerr, uint& testnum, stringstream& numerr){
             numerr << testnum + 1 << " "; 
         }
 
-        //Controllo che la move list sia vuota
+        //Controllo che il contenitore sia vuoto
         chk = quelst.Empty();
         cout << testnum+1 << ") QueLst is " << (chk ? "" : "not ") << "empty" << endl;
         if (!chk) {
@@ -2007,7 +2014,7 @@ void testQueueListString(uint& testerr, uint& testnum, stringstream& numerr){
         cout << "Move of vec in QueLst..." << endl; 
         lasd::QueueLst<string> quemov (move(vec));
 
-        //Controllo che la move list sia vuota
+        //Controllo che il contenitore sia vuoto
         chk = quemov.Empty();
         cout << testnum+1 << ") Move QueLst is " << (chk ? "" : "not ") << "empty" << endl;
         if (chk) {
