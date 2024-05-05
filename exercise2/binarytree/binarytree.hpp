@@ -141,6 +141,17 @@ protected:
 
   // Auxiliary functions, if necessary!
 
+  void Traverse(TraverseFun, const Node*) const override;
+
+  void PreOrderTraverse(TraverseFun, const Node*) const override;
+
+  void PostOrderTraverse(TraverseFun, const Node*) const override;
+
+  void InOrderTraverse(TraverseFun, const Node*) const override;
+
+  void BreadthTraverse(TraverseFun, const Node*) const override;
+
+
 };
 
 /* ************************************************************************** */
@@ -368,7 +379,7 @@ public:
   BTPreOrderMutableIterator& operator=(const BTPreOrderMutableIterator&);
 
   // Move assignment
-  BTPreOrderMutableIterator& operator=(const BTPreOrderMutableIterator&) noexcept;
+  BTPreOrderMutableIterator& operator=(BTPreOrderMutableIterator&&) noexcept;
 
   /* ************************************************************************ */
 
@@ -439,7 +450,7 @@ public:
 
   // Specific member functions (inherited from Iterator)
 
-  const Data& operator*() override; // (throw std::out_of_range when terminated)
+  const Data& operator*() const override; // (throw std::out_of_range when terminated)
 
   bool Terminated() const noexcept override; // (should not throw exceptions)
 
@@ -494,10 +505,10 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-  BTPostOrderMutableIterator& operator=(const BTPostOrderMutableIterator&&);
+  BTPostOrderMutableIterator& operator=(const BTPostOrderMutableIterator&);
 
   // Move assignment
-  BTPostOrderMutableIterator& =(BTPostOrderMutableIterator&&) noexcept;
+  BTPostOrderMutableIterator& operator=(BTPostOrderMutableIterator&&) noexcept;
 
   /* ************************************************************************ */
 
@@ -605,15 +616,15 @@ protected:
 public:
 
   // Specific constructors
-  BTInOrderMutableIterator(const BinaryTree<Data>&); // An iterator over a given mutable binary tree
+  BTInOrderMutableIterator(MutableBinaryTree<Data>&); // An iterator over a given mutable binary tree
 
   /* ************************************************************************ */
 
   // Copy constructor
-  BTInOrderMutableIterator(const BTInOrderIterator&);
+  BTInOrderMutableIterator(const BTInOrderMutableIterator&);
 
   // Move constructor
-  BTInOrderMutableIterator(BTInOrderIterator&&) noexcept;
+  BTInOrderMutableIterator(BTInOrderMutableIterator&&) noexcept;
 
   /* ************************************************************************ */
 
@@ -663,7 +674,7 @@ protected:
 public:
 
   // Specific constructors
-  BTBreadthIterator(const BinaryTree&); // An iterator over a given binary tree
+  BTBreadthIterator(const BinaryTree<Data>&); // An iterator over a given binary tree
 
   /* ************************************************************************ */
 
@@ -733,7 +744,7 @@ protected:
 public:
 
   // Specific constructors
-  BTBreadthMutableIterator(const MutableBinaryTree<Data>&); // An iterator over a given mutable binary tree
+  BTBreadthMutableIterator(MutableBinaryTree<Data>&); // An iterator over a given mutable binary tree
 
   /* ************************************************************************ */
 
