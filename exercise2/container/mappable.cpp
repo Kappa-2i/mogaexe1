@@ -5,7 +5,7 @@ namespace lasd {
 //Specific Methods - PreOrderMappableContainer
 template <typename Data>
 void PreOrderMappableContainer<Data>::Map(MapFun func){
-        PreOrderMap(func);
+    PreOrderMap(func);
 }
 
 //Specific Methods - PostOrderMappableContainer
@@ -23,7 +23,7 @@ void InOrderMappableContainer<Data>::Map(MapFun func){
 //Specific Methods - BreadthOrderMappableContainer
 template <typename Data>
 void BreadthMappableContainer<Data>::Map(MapFun func){
-    InOrderMap(func);
+    BreadthMap(func);
 }
 /* ************************************************************************** */
 

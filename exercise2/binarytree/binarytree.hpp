@@ -263,8 +263,13 @@ public:
 
 protected:
 
-  // Auxiliary functions, if necessary!
+  void PreOrderMap(MapFun, MutableNode*);
 
+  void PostOrderMap(MapFun, MutableNode*); 
+
+  void InOrderMap(MapFun, MutableNode*);
+
+  void BreadthMap(MapFun, MutableNode*);
 };
 
 /* ************************************************************************** */
@@ -281,8 +286,8 @@ private:
 
 protected:
 
-  BinaryTree<Data>::Node* root = nullptr;
-  BinaryTree<Data>::Node* curr = nullptr;
+  const typename BinaryTree<Data>::Node* root = nullptr;
+  const typename BinaryTree<Data>::Node* curr = nullptr;
   StackVec<typename BinaryTree<Data>::Node*> stk;
 
 public:
@@ -409,9 +414,9 @@ private:
 
 protected:
 
-  BinaryTree<Data>::Node* root = nullptr;
-  BinaryTree<Data>::Node* curr = nullptr;
-  StackVec<typename BinaryTree<Data>::Node*> stk;
+  const typename BinaryTree<Data>::Node* root = nullptr;
+  const typename BinaryTree<Data>::Node* curr = nullptr;
+  StackVec<const typename BinaryTree<Data>::Node*> stk;
   void LeftMostLeaf();
 
 public:

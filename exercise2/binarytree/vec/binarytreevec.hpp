@@ -67,12 +67,12 @@ protected:
     };
 
     //Specifc Member Functions
-    const Data& Element() const noexcept override;
-    Data& Element() noexcept override;
+    const Data& Element() const noexcept;
+    Data& Element() noexcept ;
 
-    bool IsLeaf() const noexcept override;
-    bool HasRightChild() const noexcept override;
-    bool HasLeftChild() const noexcept override;
+    bool IsLeaf() const noexcept ;
+    bool HasRightChild() const noexcept ;
+    bool HasLeftChild() const noexcept ;
 
     virtual const Node& RightChild() const override;
     virtual const Node& LeftChild() const override;

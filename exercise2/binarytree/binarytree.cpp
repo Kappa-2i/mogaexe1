@@ -56,15 +56,6 @@ bool BinaryTree<Data>::operator!=(const BinaryTree<Data>& bt) const noexcept {
     return !(*this == bt);
 }
 
-/* ************************************************************************** */
-
-// Specific function inherited from Traversable - BinaryTree
-
-
-
-
-
-
 
 
 
@@ -172,16 +163,120 @@ void BinaryTree<Data>::BreadthTraverse(TraverseFun fun, const Node* node) const{
         fun(que.Head()->Element());
 
         if(que.Head()->HasLeftChild()){
-            que.Enqueue(&que.Head->LeftChild());
+            que.Enqueue(&que.Head()->LeftChild());
         }
 
         if(que.Head()->HasRightChild()){
-            que.Enqueue(&que.Head->RightChild());
+            que.Enqueue(&que.Head()->RightChild());
         }
 
         que.Dequeue();
     }
 }
+
+
+/* ************************************************************************** */
+
+// Specific Function - MutableBinaryTree 
+
+template <typename Data>
+void MutableBinaryTree<Data>::Map(MapFun fun) {
+    if(size>0) {
+        PreOrderMap(fun, &Root());
+    }
+}
+
+template <typename Data>
+void MutableBinaryTree<Data>::PreOrderMap(MapFun fun) {
+    if(size>0) {
+        PreOrderMap(fun, &Root());
+    }
+}
+
+template <typename Data>
+void MutableBinaryTree<Data>::PostOrderMap(MapFun fun) {
+    if(size>0) {
+        PostOrderMap(fun, &Root());
+    }
+}
+
+template <typename Data>
+void MutableBinaryTree<Data>::InOrderMap(MapFun fun) {
+    if(size>0) {
+        InOrderMap(fun, &Root());
+    }
+}
+
+template <typename Data>
+void MutableBinaryTree<Data>::BreadthMap(MapFun fun) {
+    if(size>0) {
+        BreadthMap(fun, &Root());
+    }
+}
+
+template <typename Data>
+void MutableBinaryTree<Data>::PreOrderMap(MapFun fun, MutableNode* node) {
+    if(node != nullptr) {
+        fun(node->Element());
+
+        if(node->HasLeftChild()) {
+            PreOrderMap(fun, &node->LeftChild());
+        }
+
+        if(node->HasRightChild()) {
+            PreOrderMap(fun, &node->RightChild());
+        }
+    }
+}
+
+template <typename Data>
+void MutableBinaryTree<Data>::PostOrderMap(MapFun fun, MutableNode* node) {
+    if(node != nullptr) {
+        if(node->HasLeftChild()) {
+            PostOrderMap(fun, &node->LeftChild());
+        }
+        if(node->HasRightChild()) {
+            PostOrderMap(fun, &node->RightChild());
+        }
+        fun(node->Element());
+    }    
+}
+
+template <typename Data>
+void MutableBinaryTree<Data>::InOrderMap(MapFun fun, MutableNode* node) {
+    if(node != nullptr) {
+        if(node->HasLeftChild()) {
+            InOrderMap(fun, &node->LeftChild());
+        }
+
+        fun(node->Element());
+
+        if(node->HasRightChild()) {
+            InOrderMap(fun, &node->RightChild());
+        }
+    }      
+}
+
+template <typename Data>
+void MutableBinaryTree<Data>::BreadthMap(MapFun fun, MutableNode* node) {
+    lasd::QueueVec<MutableNode*> que;
+    if(node != nullptr) {
+        que.Enqueue(node);
+    }
+    while (!que.Empty()) {
+        fun(que.Head()->Element());
+        
+        if (que.Head()->HasLeftChild()) {
+            que.Enqueue(&(que.Head()->LeftChild()));
+        }
+        
+        if (que.Head()->HasRightChild()) {
+            que.Enqueue(&(que.Head()->RightChild()));
+        }
+        que.Dequeue();
+    }
+}
+
 
 
 
