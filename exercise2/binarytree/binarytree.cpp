@@ -469,7 +469,9 @@ template <typename Data>
 void BTPostOrderIterator<Data>::Reset() noexcept {
     stk.Clear();
     curr = root;
-    LeftMostLeaf();
+    if(curr != nullptr){
+        LeftMostLeaf();
+    }
 }
 
 

@@ -145,7 +145,7 @@ const typename BinaryTree<Data>::Node& BinaryTreeLnk<Data>::NodeLnk::RightChild(
     if(right == nullptr) {
         throw std::out_of_range("Right child does not exists");
     } else {
-        return *right;
+        return* right;
     }
 }
 
@@ -154,7 +154,7 @@ const typename BinaryTree<Data>::Node& BinaryTreeLnk<Data>::NodeLnk::LeftChild()
     if(left == nullptr) {
         throw std::out_of_range("Left child does not exists");    
     } else {
-        return *left;
+        return* left;
     }
 }
 
@@ -163,7 +163,7 @@ typename MutableBinaryTree<Data>::MutableNode& BinaryTreeLnk<Data>::NodeLnk::Rig
     if(right == nullptr) {
         throw std::out_of_range("Right child does not exists");
     } else {
-        return *right;
+        return* right;
     }
 }
 
@@ -172,7 +172,7 @@ typename MutableBinaryTree<Data>::MutableNode& BinaryTreeLnk<Data>::NodeLnk::Lef
     if(left == nullptr) {
         throw std::out_of_range("Left child does not exists"); 
     } else {
-        return *left;
+        return* left;
     }
 }
 
@@ -250,7 +250,7 @@ BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk& btlnk) 
     } else {
         Clear();
     }
-    return *this;
+    return* this;
 }
 
 
@@ -258,7 +258,7 @@ template <typename Data>
 BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(BinaryTreeLnk&& btlnk) noexcept {
     std::swap(root, btlnk.root);
     std::swap(size, btlnk.size);
-    return *this;
+    return* this;
 }
 
 /* ************************************************************************** */
@@ -284,7 +284,7 @@ const typename BinaryTree<Data>::Node& BinaryTreeLnk<Data>::Root() const {
     if(root == nullptr) {
         throw std::length_error("Empty Tree!");
     } else {
-        return *root;
+        return* root;
     }
 }
 
@@ -293,7 +293,7 @@ typename MutableBinaryTree<Data>::MutableNode& BinaryTreeLnk<Data>::Root() {
     if(root == nullptr) {
         throw std::length_error("Empty Tree!");
     } else {
-        return *root;
+        return* root;
     }
 }
 
