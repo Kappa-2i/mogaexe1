@@ -14,18 +14,23 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeVec : public virtual MutableBinaryTree<Data>{
+class BinaryTreeVec : public virtual MutableBinaryTree<Data> {
   // Must extend MutableBinaryTree<Data>
 
 private:
 
   // ...
 
+public:
+
+  using typename BinaryTree<Data>::Node;
+  using typename MutableBinaryTree<Data>::MutableNode;
+
 protected:
 
   using MutableBinaryTree<Data>::size;
 
-  struct NodeVec : virtual MutableNode{ // Must extend MutableNode
+  struct NodeVec : virtual MutableNode { // Must extend MutableNode
 
   private:
 
@@ -40,7 +45,6 @@ protected:
     Data elem;
     unsigned long curr = 0;
     Vector<NodeVec*>* vecptr = nullptr; 
-    Vector<NodeVec*>* vec = nullptr;
 
     //Default Constructors
     NodeVec() = default;
@@ -58,13 +62,9 @@ protected:
     NodeVec& operator=(NodeVec&&) noexcept;
 
     //Comparison Operators
-    bool operator==(const NodeVec& node) const noexcept {
-      return BinaryTree<Data>::Node::operator==(node);
-    };
+    bool operator==(const NodeVec& node) const noexcept;
 
-    bool operator!=(const NodeVec& node) const noexcept {
-      return BinaryTree<Data>::Node::operator!=(node);
-    };
+    bool operator!=(const NodeVec& node) const noexcept;
 
     //Specifc Member Functions
     const Data& Element() const noexcept;
@@ -153,7 +153,7 @@ public:
 
   using typename BreadthMappableContainer<Data>::MapFun;
 
-  void BreadthMap(MapFun) const override; // Override BreadthMappableContainer member
+  void BreadthMap(MapFun) override; // Override BreadthMappableContainer member
 
 protected:
 

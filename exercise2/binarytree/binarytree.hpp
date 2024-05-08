@@ -141,15 +141,15 @@ protected:
 
   // Auxiliary functions, if necessary!
 
-  void Traverse(TraverseFun, const Node*) const override;
+  void Traverse(TraverseFun, const Node*) const;
 
-  void PreOrderTraverse(TraverseFun, const Node*) const override;
+  void PreOrderTraverse(TraverseFun, const Node*) const;
 
-  void PostOrderTraverse(TraverseFun, const Node*) const override;
+  void PostOrderTraverse(TraverseFun, const Node*) const;
 
-  void InOrderTraverse(TraverseFun, const Node*) const override;
+  void InOrderTraverse(TraverseFun, const Node*) const;
 
-  void BreadthTraverse(TraverseFun, const Node*) const override;
+  void BreadthTraverse(TraverseFun, const Node*) const;
 
 
 };
@@ -288,7 +288,7 @@ protected:
 
   const typename BinaryTree<Data>::Node* root = nullptr;
   const typename BinaryTree<Data>::Node* curr = nullptr;
-  StackVec<typename BinaryTree<Data>::Node*> stk;
+  StackVec<const typename BinaryTree<Data>::Node*> stk;
 
 public:
 
@@ -311,10 +311,20 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-  BTPreOrderIterator& operator=(const BTPreOrderIterator&);
+  BTPreOrderIterator& operator=(const BTPreOrderIterator& it) {
+    root = it.root;
+    curr = it.curr;
+    stk = it.stk;
+    return* this;
+  }
 
   // Move assignment
-  BTPreOrderIterator& operator=(BTPreOrderIterator&&) noexcept;
+  BTPreOrderIterator& operator=(BTPreOrderIterator&& it) noexcept {
+    std::swap(root, it.root);
+    std::swap(curr, it.curr);
+    std::swap(stk, it.stk);
+    return* this;
+  };
 
   /* ************************************************************************ */
 
@@ -380,11 +390,15 @@ public:
 
   /* ************************************************************************ */
 
-  // Copy assignment
-  BTPreOrderMutableIterator& operator=(const BTPreOrderMutableIterator&);
+   // Copy assignment
+  BTPreOrderMutableIterator& operator=(const BTPreOrderMutableIterator& it) {
+    BTPreOrderIterator<Data>::operator=(it);
+  };
 
   // Move assignment
-  BTPreOrderMutableIterator& operator=(BTPreOrderMutableIterator&&) noexcept;
+  BTPreOrderMutableIterator& operator=(BTPreOrderMutableIterator&& it) noexcept {
+    BTPreOrderIterator<Data>::operator=(std::move(it));
+  };
 
   /* ************************************************************************ */
 
@@ -440,10 +454,20 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-  BTPostOrderIterator& operator=(const BTPostOrderIterator&);
+  BTPostOrderIterator& operator=(const BTPostOrderIterator& it) {
+    root = it.root;
+    curr = it.curr;
+    stk = it.stk;
+    return* this;
+  };
 
   // Move assignment
-  BTPostOrderIterator& operator=(BTPostOrderIterator&&) noexcept;
+  BTPostOrderIterator& operator=(BTPostOrderIterator&& it) noexcept {
+    std::swap(root, it.root);
+    std::swap(curr, it.curr);
+    std::swap(stk, it.stk);
+    return* this;
+  };
 
   /* ************************************************************************ */
 
@@ -510,10 +534,14 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-  BTPostOrderMutableIterator& operator=(const BTPostOrderMutableIterator&);
+  BTPostOrderMutableIterator& operator=(const BTPostOrderMutableIterator& it) {
+    BTPostOrderIterator<Data>::operator=(it);
+  };
 
   // Move assignment
-  BTPostOrderMutableIterator& operator=(BTPostOrderMutableIterator&&) noexcept;
+  BTPostOrderMutableIterator& operator=(BTPostOrderMutableIterator&& it) noexcept {
+    BTPostOrderIterator<Data>::operator=(std::move(it));
+  };
 
   /* ************************************************************************ */
 
@@ -543,9 +571,9 @@ private:
 
 protected:
 
-  BinaryTree<Data>::Node* root = nullptr;
-  BinaryTree<Data>::Node* curr = nullptr;
-  StackVec<typename BinaryTree<Data>::Node *> stk;
+  const typename BinaryTree<Data>::Node* root = nullptr;
+  const typename BinaryTree<Data>::Node* curr = nullptr;
+  StackVec<const typename BinaryTree<Data>::Node *> stk;
   void LeftMostNode();
 
 public:
@@ -569,10 +597,20 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-  BTInOrderIterator& operator=(const BTInOrderIterator&);
+  BTInOrderIterator& operator=(const BTInOrderIterator& it) {
+    root = it.root;
+    curr = it.curr;
+    stk = it.stk;
+    return* this;
+  };
 
   // Move assignment
-  BTInOrderIterator& operator=(BTInOrderIterator&&) noexcept;
+  BTInOrderIterator& operator=(BTInOrderIterator&& it) noexcept {
+    std::swap(root, it.root);
+    std::swap(curr, it.curr);
+    std::swap(stk, it.stk);
+    return* this;
+  };
 
   /* ************************************************************************ */
 
@@ -639,11 +677,15 @@ public:
   /* ************************************************************************ */
 
   // Copy assignment
-  BTInOrderMutableIterator& operator=(const BTInOrderMutableIterator&);
+   // Copy assignment
+  BTInOrderMutableIterator& operator=(const BTInOrderMutableIterator& it) {
+    BTInOrderIterator<Data>::operator=(it);
+  };
 
   // Move assignment
-  BTInOrderMutableIterator& operator=(BTInOrderMutableIterator&&) noexcept;
-
+  BTInOrderMutableIterator& operator=(BTInOrderMutableIterator&& it) noexcept {
+    BTInOrderIterator<Data>::operator=(std::move(it));
+  };
   /* ************************************************************************ */
 
   // Comparison operators
@@ -672,9 +714,9 @@ private:
 
 protected:
 
-  typename BinaryTree<Data>::Node* root = nullptr;
-  typename BinaryTree<Data>::Node* curr = nullptr;
-  QueueVec<typename BinaryTree<Data>::Node *> que;
+  const typename BinaryTree<Data>::Node* root = nullptr;
+  const typename BinaryTree<Data>::Node* curr = nullptr;
+  QueueVec<const typename BinaryTree<Data>::Node*> que;
 
 public:
 
@@ -696,11 +738,21 @@ public:
 
   /* ************************************************************************ */
 
-  // Copy assignment
-  BTBreadthIterator& operator=(const BTBreadthIterator&);
+// Copy assignment
+  BTBreadthIterator& operator=(const BTBreadthIterator& it) {
+    root = it.root;
+    curr = it.curr;
+    que = it.que;
+    return* this;
+  };
 
   // Move assignment
-  BTBreadthIterator& operator=(BTBreadthIterator&&) noexcept;
+  BTBreadthIterator& operator=(BTBreadthIterator&& it) noexcept {
+    std::swap(root, it.root);
+    std::swap(curr, it.curr);
+    std::swap(que, it.que);
+    return* this;
+  };
 
   /* ************************************************************************ */
 
@@ -766,17 +818,19 @@ public:
 
   /* ************************************************************************ */
 
-  // Copy assignment
-  BTBreadthMutableIterator& operator=(const BTBreadthMutableIterator&);
+  BTBreadthMutableIterator& operator=(const BTBreadthMutableIterator& it) {
+    BTBreadthMutableIterator<Data>::operator=(it);
+  };
 
   // Move assignment
-  BTBreadthMutableIterator& operator=(BTBreadthMutableIterator&&) noexcept;
-
+  BTBreadthMutableIterator& operator=(BTBreadthMutableIterator&& it) noexcept {
+    BTBreadthMutableIterator<Data>::operator=(std::move(it));
+  };
   /* ************************************************************************ */
 
   // Comparison operators
   bool operator==(const BTBreadthMutableIterator&) const noexcept = default;
-  bool operator!=(argument) const noexcept = default;
+  bool operator!=(const BTBreadthMutableIterator&) const noexcept = default;
 
   /* ************************************************************************ */
 

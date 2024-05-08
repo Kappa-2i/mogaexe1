@@ -1,4 +1,4 @@
-
+#include "binarytreelnk.hpp"
 namespace lasd {
 
 /* ************************************************************************** */
@@ -81,7 +81,7 @@ BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::operator=(NodeLnk&& 
 template <typename Data>
 bool BinaryTreeLnk<Data>::NodeLnk::operator==(const NodeLnk& other) const noexcept {
     
-    if (info != other.info){
+    if (elem != other.elem){
         return false;
     }
 
@@ -115,13 +115,13 @@ bool BinaryTreeLnk<Data>::NodeLnk::operator!=(const NodeLnk& node) const noexcep
 
 template <typename Data>
 const Data& BinaryTreeLnk<Data>::NodeLnk::Element() const noexcept {
-    return info;
+    return elem;
 }
 
 
 template <typename Data>
 Data& BinaryTreeLnk<Data>::NodeLnk::Element() noexcept {
-    return info;
+    return elem;
 }
 
 
@@ -218,7 +218,7 @@ template <typename Data>
 BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk& btlnk) {
     size = btlnk.Size();
     if(btlnk.Size() > 0) {
-        root = BTLCopy(btl.root);
+        root = BTLCopy(btlnk.root);
     }
 }
 

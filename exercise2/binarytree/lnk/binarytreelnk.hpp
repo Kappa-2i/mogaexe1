@@ -18,11 +18,16 @@ class BinaryTreeLnk : public virtual MutableBinaryTree<Data> {
 
 private:
 
+
   // ...
 
+public:
+
+  using typename BinaryTree<Data>::Node;
+  using typename MutableBinaryTree<Data>::MutableNode;
 protected:
 
-  using BinaryTree<Data>::size;
+  using Container::size;
 
   
 
@@ -77,15 +82,16 @@ protected:
     bool HasRightChild() const noexcept override;
     bool HasLeftChild() const noexcept override;
 
-    const Node& RightChild() const override;
-    const Node& LeftChild() const override;
-    MutableNode& RightChild() override;
-    MutableNode& LeftChild() override;
+    virtual const Node& RightChild() const override;
+    virtual const Node& LeftChild() const override;
+    virtual MutableNode& RightChild() override;
+    virtual MutableNode& LeftChild() override;
   };
 
   NodeLnk* root = nullptr;
 
 public:
+
 
   // Default constructor
   BinaryTreeLnk() = default;

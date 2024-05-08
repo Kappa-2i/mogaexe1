@@ -51,12 +51,12 @@ bool BinaryTreeVec<Data>::NodeVec::operator!=(const NodeVec& node) const noexcep
 
 template <typename Data>
 const Data& BinaryTreeVec<Data>::NodeVec::Element() const noexcept {
-    return info;
+    return elem;
 }
 
 template <typename Data>
 Data& BinaryTreeVec<Data>::NodeVec::Element() noexcept {
-    return info;
+    return elem;
 }
 
 template <typename Data>
@@ -66,19 +66,19 @@ bool BinaryTreeVec<Data>::NodeVec::IsLeaf() const noexcept {
 
 template <typename Data>
 bool BinaryTreeVec<Data>::NodeVec::HasRightChild() const noexcept {
-    return ((2*curr+2) < tree->Size());
+    return ((2*curr+2) < vecptr->Size());
 }
 
 template <typename Data>
 bool BinaryTreeVec<Data>::NodeVec::HasLeftChild() const noexcept {
-    return ((2*curr+1) < tree->Size());
+    return ((2*curr+1) < vecptr->Size());
 }
 
 
 template <typename Data>
 const typename BinaryTree<Data>::Node& BinaryTreeVec<Data>::NodeVec::RightChild() const {
     if(HasRightChild()) {
-        return *(tree->operator[](2*curr+2));
+        return *(vecptr->operator[](2*curr+2));
     } else {
         throw std::out_of_range("EXC - No Right Child!");
     }
@@ -88,7 +88,7 @@ const typename BinaryTree<Data>::Node& BinaryTreeVec<Data>::NodeVec::RightChild(
 template <typename Data>
 const typename BinaryTree<Data>::Node& BinaryTreeVec<Data>::NodeVec::LeftChild() const {
     if(HasLeftChild()) {
-        return *(tree->operator[](2*curr+1));
+        return *(vecptr->operator[](2*curr+1));
     } else {
         throw std::out_of_range("EXC - No Left Child!");
     }
@@ -97,7 +97,7 @@ const typename BinaryTree<Data>::Node& BinaryTreeVec<Data>::NodeVec::LeftChild()
 template <typename Data>
 typename MutableBinaryTree<Data>::MutableNode& BinaryTreeVec<Data>::NodeVec::RightChild() {
     if(HasRightChild()) {
-        return *(tree->operator[](2*curr+2));
+        return *(vecptr->operator[](2*curr+2));
     } else {
         throw std::out_of_range("Right child does not exists!");
     }
@@ -106,7 +106,7 @@ typename MutableBinaryTree<Data>::MutableNode& BinaryTreeVec<Data>::NodeVec::Rig
 template <typename Data>
 typename MutableBinaryTree<Data>::MutableNode& BinaryTreeVec<Data>::NodeVec::LeftChild() {
     if(HasLeftChild()) {
-        return *(tree->operator[](2*curr+1));
+        return *(vecptr->operator[](2*curr+1));
     } else {
         throw std::out_of_range("Left child does not exists!");
     }    
@@ -250,7 +250,7 @@ void BinaryTreeVec<Data>::BreadthTraverse(TraverseFun fun) const {
 
 
 template <typename Data>
-void BinaryTreeVec<Data>::BreadthMap(MapFun fun) const {
+void BinaryTreeVec<Data>::BreadthMap(MapFun fun) {
     for(unsigned long i=0; i<size; i++) {
         if(vec->operator[](i) != nullptr) {
             fun(vec->operator[](i)->Element());
