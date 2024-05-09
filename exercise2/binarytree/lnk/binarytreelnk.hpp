@@ -25,11 +25,10 @@ public:
 
   using typename BinaryTree<Data>::Node;
   using typename MutableBinaryTree<Data>::MutableNode;
+  
 protected:
 
   using Container::size;
-
-  
 
   struct NodeLnk : virtual MutableNode { // Must extend MutableNode
 

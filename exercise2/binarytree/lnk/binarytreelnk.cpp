@@ -143,7 +143,7 @@ bool BinaryTreeLnk<Data>::NodeLnk::HasLeftChild() const noexcept{
 template <typename Data>
 const typename BinaryTree<Data>::Node& BinaryTreeLnk<Data>::NodeLnk::RightChild() const {
     if(right == nullptr) {
-        throw std::out_of_range("Right child does not exists");
+        throw std::out_of_range("EXC - No Right Child");
     } else {
         return* right;
     }
@@ -152,7 +152,7 @@ const typename BinaryTree<Data>::Node& BinaryTreeLnk<Data>::NodeLnk::RightChild(
 template <typename Data>
 const typename BinaryTree<Data>::Node& BinaryTreeLnk<Data>::NodeLnk::LeftChild() const {
     if(left == nullptr) {
-        throw std::out_of_range("Left child does not exists");    
+        throw std::out_of_range("EXC - No Left Child");    
     } else {
         return* left;
     }
@@ -161,7 +161,7 @@ const typename BinaryTree<Data>::Node& BinaryTreeLnk<Data>::NodeLnk::LeftChild()
 template <typename Data>
 typename MutableBinaryTree<Data>::MutableNode& BinaryTreeLnk<Data>::NodeLnk::RightChild() {
     if(right == nullptr) {
-        throw std::out_of_range("Right child does not exists");
+        throw std::out_of_range("EXC - No Right Child");
     } else {
         return* right;
     }
@@ -170,7 +170,7 @@ typename MutableBinaryTree<Data>::MutableNode& BinaryTreeLnk<Data>::NodeLnk::Rig
 template <typename Data>
 typename MutableBinaryTree<Data>::MutableNode& BinaryTreeLnk<Data>::NodeLnk::LeftChild() {
     if(left == nullptr) {
-        throw std::out_of_range("Left child does not exists"); 
+        throw std::out_of_range("EXC - No Left Child"); 
     } else {
         return* left;
     }
@@ -282,7 +282,7 @@ bool BinaryTreeLnk<Data>::operator!=(const BinaryTreeLnk& btlnk) const noexcept 
 template <typename Data>
 const typename BinaryTree<Data>::Node& BinaryTreeLnk<Data>::Root() const {
     if(root == nullptr) {
-        throw std::length_error("Empty Tree!");
+        throw std::length_error("EXC - Empty Tree!");
     } else {
         return* root;
     }
@@ -291,7 +291,7 @@ const typename BinaryTree<Data>::Node& BinaryTreeLnk<Data>::Root() const {
 template <typename Data>
 typename MutableBinaryTree<Data>::MutableNode& BinaryTreeLnk<Data>::Root() {
     if(root == nullptr) {
-        throw std::length_error("Empty Tree!");
+        throw std::length_error("EXC - Empty Tree!");
     } else {
         return* root;
     }

@@ -99,7 +99,7 @@ typename MutableBinaryTree<Data>::MutableNode& BinaryTreeVec<Data>::NodeVec::Rig
     if(HasRightChild()) {
         return *(vecptr->operator[](2*curr+2));
     } else {
-        throw std::out_of_range("Right child does not exists!");
+        throw std::out_of_range("EXC - No Right Child!");
     }
 }
 
@@ -108,7 +108,7 @@ typename MutableBinaryTree<Data>::MutableNode& BinaryTreeVec<Data>::NodeVec::Lef
     if(HasLeftChild()) {
         return *(vecptr->operator[](2*curr+1));
     } else {
-        throw std::out_of_range("Left child does not exists!");
+        throw std::out_of_range("EXC - No Left Child!");
     }    
 }
 

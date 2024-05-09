@@ -453,7 +453,8 @@ BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator++() {
     }
     if(stk.Empty()) {
         curr = nullptr;
-    } else {
+    } 
+    else {
         if(stk.Top()->HasRightChild() && !(&stk.Top()->RightChild() == curr)) {
             curr = &stk.Top()->RightChild();
             LeftMostLeaf();

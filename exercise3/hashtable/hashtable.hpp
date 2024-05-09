@@ -21,7 +21,7 @@ class Hashable {
 
 public:
 
-  // type operator()(argument) specifiers; // (concrete function should not throw exceptions)
+  unsigned long operator()(const Data&) const noexcept; // (concrete function should not throw exceptions)
 
 };
 
