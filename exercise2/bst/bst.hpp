@@ -108,8 +108,8 @@ public:
 
   // Specific member function (inherited from BinaryTree)
 
-  //const Node& Root() const override; // Override BinaryTree member
-
+ //const Node& Root() const override; // Override BinaryTree member
+  using BinaryTreeLnk<Data>::Root;
   /* ************************************************************************ */
 
   // Specific member functions (inherited from DictionaryContainer)

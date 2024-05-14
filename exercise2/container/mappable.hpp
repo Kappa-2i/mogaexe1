@@ -86,8 +86,8 @@ public:
   /* ************************************************************************ */
 
   // Comparison operators
-  bool operator==(const PreOrderMappableContainer&) const noexcept; // Comparison of abstract types is not possible.
-  bool operator!=(const PreOrderMappableContainer&) const noexcept; // Comparison of abstract types is not possible.
+  bool operator==(const PreOrderMappableContainer&) const noexcept = delete; // Comparison of abstract types is not possible.
+  bool operator!=(const PreOrderMappableContainer&) const noexcept = delete; // Comparison of abstract types is not possible.
 
   /* ************************************************************************ */
 
@@ -135,8 +135,8 @@ public:
   /* ************************************************************************ */
 
   // Comparison operators
-  bool operator==(const PostOrderMappableContainer&) const noexcept; // Comparison of abstract types is not possible.
-  bool operator!=(const PostOrderMappableContainer&) const noexcept; // Comparison of abstract types is not possible.
+  bool operator==(const PostOrderMappableContainer&) const noexcept = delete; // Comparison of abstract types is not possible.
+  bool operator!=(const PostOrderMappableContainer&) const noexcept = delete; // Comparison of abstract types is not possible.
 
   /* ************************************************************************ */
 
@@ -184,8 +184,8 @@ public:
   /* ************************************************************************ */
 
   // Comparison operators
-  bool operator==(const InOrderMappableContainer&) const noexcept; // Comparison of abstract types is not possible.
-  bool operator!=(const InOrderMappableContainer&) const noexcept; // Comparison of abstract types is not possible.
+  bool operator==(const InOrderMappableContainer&) const noexcept = delete; // Comparison of abstract types is not possible.
+  bool operator!=(const InOrderMappableContainer&) const noexcept = delete; // Comparison of abstract types is not possible.
 
   /* ************************************************************************ */
 

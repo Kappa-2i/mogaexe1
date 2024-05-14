@@ -34,7 +34,7 @@ void mytest() {
     
     int choice = 1;
     while(choice){
-        cout << endl << "Pick the data structure:\n 1-Vector\n 2-List \n 3-Stack \n 4-Queue \n 0-Exit for results." << endl;
+        cout << endl << "Pick the data structure:\n 1-Vector\n 2-List \n 3-Stack \n 4-Queue \n 5-Test \n 0-Exit for results." << endl;
         cin >> choice;
         switch(choice){
             case 1:
@@ -49,6 +49,9 @@ void mytest() {
             case 4:
                 choiceQueueType(testerr, testnum, numerr);
                 break;
+            case 5:
+                test(testerr, testnum, numerr);
+                break;    
             case 0: 
                 break;
             default:
@@ -1880,7 +1883,7 @@ void testQueueListFloat(uint& testerr, uint& testnum, stringstream& numerr){
             testnum++;
         }
     }catch (exception& e) {
-        cout << exc.what() << endl;
+        cout << e.what() << endl;
         testerr += 1; 
         numerr << testnum + 1 << " ";
     }
@@ -2045,4 +2048,52 @@ void testQueueListString(uint& testerr, uint& testnum, stringstream& numerr){
         testnum++;
 
     cout << "---------------------------------End of test QueueList<string>---------------------------------" << endl;
+}
+
+
+
+void test(uint& testerr, uint& testnum, stringstream& numerr){
+    lasd::List<int> lst;
+    lasd::SortableVector<int> vec(6);
+
+    // Genera numeri casuali e popola il contenitore
+    cout << testnum+1 << ") Insert random number in back..." << endl;
+    default_random_engine gen(random_device{}());
+    uniform_int_distribution<int> dist(-500, 500);
+    for (uint i = 0; i < 5; ++i) {
+        try{
+            //int rand = dist(gen);
+            lst.InsertAtBack(dist(gen));
+            vec[i] = dist(gen);
+        }catch(const bad_alloc& e){
+            cout << e.what() << endl;
+            testerr += 1;
+            numerr << testnum + 1 << " ";
+        }
+    }
+    testnum++;
+
+    
+
+    lst.InsertAtBack(100);
+    vec[5] = 100;
+
+    cout << "Lst: ";
+    lst.PreOrderTraverse(&TraversePrint<int>);   
+    cout << endl;
+
+    cout << "Vec: ";
+    vec.PreOrderTraverse(&TraversePrint<int>);   
+    cout << endl;
+
+    if(lst.RemoveAll(vec)){
+        cout << "Insert Vero" << endl;
+    }
+    else{
+        cout << "Insert Falso" << endl;
+    }
+
+    lst.PreOrderTraverse(&TraversePrint<int>);   
+    cout << endl;
+
 }

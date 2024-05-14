@@ -302,7 +302,7 @@ namespace lasd {
 
     template <typename Data>
     bool List<Data>::Insert(Data&& data){
-        for(Node* temp=head; temp!=nullptr; temp=temp->next){
+        for(Node* temp = head; temp  != nullptr; temp = temp->next){
             if(temp->element == data){
                 return false;
             }

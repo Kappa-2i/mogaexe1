@@ -82,7 +82,7 @@ public:
 
   using typename MappableContainer<Data>::MapFun;
 
-  void Map(MapFun); // Override MappableContainer member
+  void Map(MapFun) override; // Override MappableContainer member
 
   /* ************************************************************************ */
 

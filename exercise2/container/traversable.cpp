@@ -14,6 +14,7 @@ Accumulator TraversableContainer<Data>::Fold(FoldFun<Accumulator> func, Accumula
     );
     return acc;
 }
+
 //Override Methods - TraversableContainer
 template <typename Data>
 bool TraversableContainer<Data>::Exists(const Data& data) const noexcept {
