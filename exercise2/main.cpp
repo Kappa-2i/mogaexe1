@@ -1,7 +1,7 @@
 
 #include "zlasdtest/test.hpp"
-
 #include "zlasdtest/test.hpp"
+#include "zmytest/test.hpp"
 
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main() {
       lasdtest();
       break;
     case 2:
-      //mytest();
+      mytest();
       break;
     default:
       std::cout << "Invalid choice" << std::endl;

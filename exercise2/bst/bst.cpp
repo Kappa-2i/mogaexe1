@@ -1,4 +1,5 @@
 #include "bst.hpp"
+
 namespace lasd {
 
 /* ************************************************************************** */
@@ -56,7 +57,7 @@ const Data& BST<Data>::Min() const {
     if(root != nullptr) {
         return FindPointerToMin(root)->elem;
     } else {
-        throw std::length_error(" EXC - Empty BST!");
+        throw std::length_error("EXC - Empty BST!");
     }
 }
 
@@ -66,7 +67,7 @@ Data BST<Data>::MinNRemove() {
     if(root != nullptr) {
        return DataNDelete(DetachMin(root));
     } else {
-        throw std::length_error("Empty BST!");
+        throw std::length_error("EXC - Empty BST!");
     }
 }
 
@@ -76,7 +77,7 @@ void BST<Data>::RemoveMin() {
     if(root != nullptr) {
         delete DetachMin(root);
     } else {
-        throw std::length_error("Empty BST!");
+        throw std::length_error("EXC - Empty BST!");
     }
 }
 
@@ -86,7 +87,7 @@ const Data& BST<Data>::Max() const {
     if(root != nullptr) {
         return FindPointerToMax(root)->elem;
     } else {
-        throw std::length_error("Empty BST!");
+        throw std::length_error("EXC - Empty BST!");
     }
 }
 
@@ -96,7 +97,7 @@ Data BST<Data>::MaxNRemove() {
     if(root != nullptr) {
         return DataNDelete(DetachMax(root));
     } else {
-        throw std::length_error("Empty BST!");
+        throw std::length_error("EXC - Empty BST!");
     }
 }
 
@@ -106,7 +107,7 @@ void BST<Data>::RemoveMax() {
     if(root != nullptr) {
         delete DetachMax(root);
     } else {
-        throw std::length_error("Empty BST!");
+        throw std::length_error("EXC - Empty BST!");
     }
 }
 
@@ -117,7 +118,7 @@ const Data& BST<Data>::Predecessor(const Data& data) const {
     if(tmp != nullptr) {
         return (*tmp)->elem;
     } else {
-        throw std::length_error("Not found!");
+        throw std::length_error("EXC - Element Not found!");
     }
 }
 
@@ -128,7 +129,7 @@ Data BST<Data>::PredecessorNRemove(const Data& data) {
     if(tmp != nullptr) {
         return DataNDelete(Detach(*tmp));
     } else {
-        throw std::length_error("Not found!");
+        throw std::length_error("EXC - Element Not found!");
     }
 }
 
@@ -139,7 +140,7 @@ void BST<Data>::RemovePredecessor(const Data& data) {
     if(tmp != nullptr) {
         delete Detach(*tmp);
     } else {
-        throw std::length_error("Not found!");
+        throw std::length_error("EXC - Element Not found!");
     }
 }
 
@@ -150,7 +151,7 @@ const Data& BST<Data>::Successor(const Data& data) const {
     if(tmp != nullptr) {
         return (*tmp)->elem;
     } else {
-        throw std::length_error("Not found!");
+        throw std::length_error("EXC - Element Not found!");
     }
 }
 
@@ -161,7 +162,7 @@ Data BST<Data>::SuccessorNRemove(const Data& data) {
     if(tmp != nullptr) {
         return DataNDelete(Detach(*tmp));
     } else {
-        throw std::length_error("Not found!");
+        throw std::length_error("EXC - Element Not found!");
     }
 }
 
@@ -172,18 +173,9 @@ void BST<Data>::RemoveSuccessor(const Data& data) {
     if(tmp != nullptr) {
         delete Detach(*tmp);
     } else {
-        throw std::length_error("Not found!");
+        throw std::length_error("EXC - Element Not found!");
     }
 }
-
-// template <typename Data>
-// const typename BST<Data>::NodeLnk& BST<Data>::Root() const {
-//     if(root == nullptr) {
-//         throw std::length_error(" EXC - Empty BST!");
-//     } else {
-//         return* root;
-//     }
-// }
 
 
 template <typename Data>
@@ -373,7 +365,7 @@ typename BST<Data>::NodeLnk* const * BST<Data>::FindPointerToPredecessor(NodeLnk
     NodeLnk* const * tmp = nullptr;
     while(*cur != nullptr && (*cur)->elem != data) {
         if((*cur)->elem < data) {
-            tmp = cur;
+            tmp = cur; 
             cur = &((*cur)->right);
         }
         else if((*cur)->elem > data) {

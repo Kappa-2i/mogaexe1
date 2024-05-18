@@ -615,8 +615,8 @@ public:
   /* ************************************************************************ */
 
   // Comparison operators
-  bool operator==(const BTInOrderIterator&) const noexcept;
-  bool operator!=(const BTInOrderIterator&) const noexcept;
+  bool operator==(const BTInOrderIterator&) const noexcept = default;
+  bool operator!=(const BTInOrderIterator&) const noexcept = default;
 
   /* ************************************************************************ */
 

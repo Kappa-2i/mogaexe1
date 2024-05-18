@@ -88,6 +88,7 @@ protected:
   };
 
   NodeLnk* root = nullptr;
+  
 
 public:
 
