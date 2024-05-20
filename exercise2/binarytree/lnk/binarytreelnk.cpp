@@ -55,7 +55,7 @@ BinaryTreeLnk<Data>::NodeLnk::~NodeLnk() {
 
 template <typename Data>
 BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::operator=(const NodeLnk& node) {
-    NodeLnk tmp(node.info);
+    NodeLnk tmp(node.elem);
     if(node.HasLeftChild()) {
         tmp.left = node.left;
     }
@@ -68,7 +68,7 @@ BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::operator=(const Node
 
 template <typename Data>
 BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::operator=(NodeLnk&& node) noexcept {
-    std::swap(elem, node.info);
+    std::swap(elem, node.elem);
     std::swap(left, node.left);
     std::swap(right, node.right);
     return* this;
