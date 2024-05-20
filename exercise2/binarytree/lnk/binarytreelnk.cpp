@@ -55,14 +55,15 @@ BinaryTreeLnk<Data>::NodeLnk::~NodeLnk() {
 
 template <typename Data>
 BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::operator=(const NodeLnk& node) {
-    NodeLnk* tmp = new NodeLnk(node.info);
+    NodeLnk tmp(node.info);
     if(node.HasLeftChild()) {
-        left = node.left;
+        tmp.left = node.left;
     }
     if(node.HasRightChild()) {
-        right = node.right;
+        tmp.right = node.right;
     }
-    return* tmp;
+    std::swap(tmp, *this);
+    return* this;
 }
 
 template <typename Data>
