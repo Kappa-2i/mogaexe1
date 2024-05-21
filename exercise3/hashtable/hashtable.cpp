@@ -5,7 +5,7 @@ namespace lasd {
 
 class Hashable<int>{
     public:
-    
+
         unsigned long operator()(const int& data) const noexcept{
             return (data * data);
         }
@@ -36,6 +36,20 @@ class Hashable<std::string>{
             return hash;
         }
 };
+
+
+template <typename Data>
+unsigned long HashTable<Data>::HashKey(const Data& dat) const noexcept{
+    return HashKey(enchash(dat));
+}
+
+
+template <typename Data>
+unsigned long HashTable<Data>::HashKey(const unsigned long key) const noexcept {
+    return (((a * key + b) % prime) % tablesize);
+}
+
+
 /* ************************************************************************** */
 
 }

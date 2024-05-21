@@ -5,7 +5,10 @@
 /* ************************************************************************** */
 
 #include "../hashtable.hpp"
-// #include ...
+#include "../vector/vector.hpp"
+
+#define MIN_SIZE 128
+#define MAX_SIZE 2097152
 
 /* ************************************************************************** */
 
@@ -14,7 +17,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class HashTableOpnAdr {
+class HashTableOpnAdr : virtual public HashTable<Data>{
   // Must extend HashTable<Data>
 
 private:
@@ -23,50 +26,61 @@ private:
 
 protected:
 
-  // using HashTable<Data>::???;
-
-  // ...
+  using HashTable<Data>::size;
+  using HashTable<Data>::enchash;
+  using HashTable<Data>::a;
+  using HashTable<Data>::b;
+  using HashTable<Data>::dista;
+  using HashTable<Data>::distb;
+  using HashTable<Data>::generator;
+  using HashTable<Data>::tablesize;
+  using HashTable<Data>::HashKey;
+  using HashTable<Data>::Insert;
+  using HashTable<Data>::InsertAll;
+  double capacity = 0;
+  Vector<Data> table;
+  Vector<char> statusVec;
 
 public:
 
   // Default constructor
-  // HashTableOpnAdr() specifiers;
+  HashTableOpnAdr();
 
   /* ************************************************************************ */
 
   // Specific constructors
-  // HashTableOpnAdr(argument) specifiers; // A hash table of a given size
-  // HashTableOpnAdr(argument) specifiers; // A hash table obtained from a TraversableContainer
-  // HashTableOpnAdr(argument) specifiers; // A hash table of a given size obtained from a TraversableContainer
-  // HashTableOpnAdr(argument) specifiers; // A hash table obtained from a MappableContainer
-  // HashTableOpnAdr(argument) specifiers; // A hash table of a given size obtained from a MappableContainer
+  HashTableOpnAdr(unsigned long); // A hash table of a given size
+  HashTableOpnAdr(const TraversableContainer<Data>&); // A hash table obtained from a TraversableContainer
+  HashTableOpnAdr(unsigned long, const TraversableContainer<Data>&); // A hash table of a given size obtained from a TraversableContainer
+  HashTableOpnAdr(MappableContainer<Data>&&); // A hash table obtained from a MappableContainer
+  HashTableOpnAdr(unsigned long, MappableContainer<Data>&&); // A hash table of a given size obtained from a MappableContainer
 
   /* ************************************************************************ */
 
   // Copy constructor
-  // HashTableOpnAdr(argument) specifiers;
+  HashTableOpnAdr(const HashTableOpnAdr<Data>&);
 
   // Move constructor
-  // HashTableOpnAdr(argument) specifiers;
+  HashTableOpnAdr(HashTableOpnAdr<Data>&&) noexcept;
 
   /* ************************************************************************ */
 
   // Destructor
-  // ~HashTableOpnAdr() specifiers;
+  virtual ~HashTableOpnAdr() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument) specifiers;
+  HashTableOpnAdr& operator=(const HashTableOpnAdr<Data>&);
 
   // Move assignment
-  // type operator=(argument) specifiers;
+  HashTableOpnAdr& operator=(HashTableOpnAdr<Data>&&) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
+  bool operator==(const HashTableOpnAdr<Data>&) const noexcept;
+  bool operator!=(const HashTableOpnAdr<Data>&) const noexcept;
 
   /* ************************************************************************ */
 

@@ -28,7 +28,8 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class HashTable {
+class HashTable : virtual public ResizableContainer,
+                  virtual public DictionaryContainer<Data>{
                   // Must extend ResizableContainer,
                   //             DictionaryContainer<Data>
 
@@ -38,14 +39,24 @@ private:
 
 protected:
 
-  // using DictionaryContainer<Data>::???;
+  using DictionaryContainer<Data>::size;
 
-  // ...
+  ulong a = 1;
+  ulong b = 0;
+  static const ulong prime = 1000000016531; //Big Prime
 
+  std::default_random_engine generator = std::default_random_engine(std::random_device{}());
+  std::uniform_int_distribution<unsigned long> dista = std::uniform_int_distribution<unsigned long>(1, prime-1);
+  std::uniform_int_distribution<unsigned long> distb = std::uniform_int_distribution<unsigned long>(0, prime-1);
+
+  static const Hashable<Data> enchash;
+
+  ulong tablesize = 128;
+  
 public:
 
   // Destructor
-  // ~HashTable() specifiers
+  virtual ~HashTable() = default;
 
   /* ************************************************************************ */
 
@@ -58,14 +69,56 @@ public:
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract hashtable is possible but not required.
-  // type operator!=(argument) specifiers; // Comparison of abstract hashtable is possible but not required.
+  bool operator==(const HashTable&) const noexcept = delete; // Comparison of abstract hashtable is possible but not required.
+  bool operator!=(const HashTable&) const noexcept = delete; // Comparison of abstract hashtable is possible but not required.
 
 protected:
 
   // Auxiliary member functions
 
-  // type HashKey(argument) specifiers;
+  // Default Constructor
+  HashTable(){
+    a = dista(gen);
+    b = distb(gen);
+  }
+
+  //Copy Constructor
+  HashTable(const HashTable& ht){
+    size = ht.size;
+    a = ht.a;
+    b = ht.b;
+    tablesize = ht.tablesize;
+  }
+
+  // Move Constructor
+  HashTable(HashTable&& ht){
+    std::swap(size, ht.size);
+    std::swap(a, ht.a);
+    std::swap(b, ht.b);
+    std::swap(tablesize, ht.tablesize);
+  }
+
+  // Copy Assignment
+  HashTable& operator=(const HashTable& ht){
+    size = ht.size;
+    a = ht.a;
+    b = ht.b;
+    tablesize = ht.tablesize;
+    return* this;
+  }
+
+  // Move Assignment
+  HashTable& operator=(HashTable&& ht){
+    std::swap(size, ht.size);
+    std::swap(a, ht.a);
+    std::swap(b, ht.b);
+    std::swap(tablesize, ht.tablesize);
+    return* this;
+  }
+
+  virtual unsigned long HashKey(const Data&) const noexcept;
+
+  virtual unsigned long HashKey(unsigned long) const noexcept;
 
 };
 
