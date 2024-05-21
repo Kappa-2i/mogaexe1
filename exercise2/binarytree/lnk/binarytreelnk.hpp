@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeLnk : public virtual MutableBinaryTree<Data> {
+class BinaryTreeLnk : virtual public MutableBinaryTree<Data> {
   // Must extend MutableBinaryTree<Data>
 
 private:
@@ -25,11 +25,6 @@ public:
 
   using typename BinaryTree<Data>::Node;
   using typename MutableBinaryTree<Data>::MutableNode;
-  
-protected:
-
-  using Container::size;
-
   struct NodeLnk : virtual MutableNode { // Must extend MutableNode
 
   private:
@@ -86,6 +81,11 @@ protected:
     virtual MutableNode& RightChild() override;
     virtual MutableNode& LeftChild() override;
   };
+protected:
+
+  using Container::size;
+
+  
 
   NodeLnk* root = nullptr;
   

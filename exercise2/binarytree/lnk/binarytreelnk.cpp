@@ -45,6 +45,7 @@ BinaryTreeLnk<Data>::NodeLnk::NodeLnk(NodeLnk&& node) noexcept {
 // Destructor - NodeLnk
 template <typename Data>
 BinaryTreeLnk<Data>::NodeLnk::~NodeLnk() {
+    // std::cout << "DISTR: " << this->elem << std::endl;
     delete left;
     delete right;
 }

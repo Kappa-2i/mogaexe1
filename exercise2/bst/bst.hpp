@@ -13,10 +13,10 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BST : public virtual ClearableContainer,
-            public virtual DictionaryContainer<Data>,
-            public virtual BinaryTree<Data>,
-            protected virtual BinaryTreeLnk<Data>{
+class BST : virtual public ClearableContainer,
+            virtual public DictionaryContainer<Data>,
+            virtual public BinaryTree<Data>,
+            virtual protected BinaryTreeLnk<Data>{
   // Must extend ClearableContainer,
   //             DictionaryContainer<Data>,
   //             BinaryTree<Data>,
@@ -35,11 +35,11 @@ protected:
 
 public:
 
-  using BinaryTreeLnk<Data>::Traverse;
-  using BinaryTreeLnk<Data>::InOrderTraverse;
-  using BinaryTreeLnk<Data>::PreOrderTraverse;
-  using BinaryTreeLnk<Data>::PostOrderTraverse;
-  using BinaryTreeLnk<Data>::BreadthTraverse;
+  // using BinaryTreeLnk<Data>::Traverse;
+  // using BinaryTreeLnk<Data>::InOrderTraverse;
+  // using BinaryTreeLnk<Data>::PreOrderTraverse;
+  // using BinaryTreeLnk<Data>::PostOrderTraverse;
+  // using BinaryTreeLnk<Data>::BreadthTraverse;
 
 
   // Default constructor

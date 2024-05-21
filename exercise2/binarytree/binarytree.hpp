@@ -21,10 +21,10 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTree : public virtual PreOrderTraversableContainer<Data>,
-                   public virtual PostOrderTraversableContainer<Data>,
-                   public virtual InOrderTraversableContainer<Data>,
-                   public virtual BreadthTraversableContainer<Data> {
+class BinaryTree : virtual public PreOrderTraversableContainer<Data>,
+                   virtual public PostOrderTraversableContainer<Data>,
+                   virtual public InOrderTraversableContainer<Data>,
+                   virtual public BreadthTraversableContainer<Data> {
   // Must extend PreOrderTraversableContainer<Data>,
   //             PostOrderTraversableContainer<Data>,
   //             InOrderTraversableContainer<Data>,
@@ -157,12 +157,12 @@ protected:
 /* ************************************************************************** */
 
 template <typename Data>
-class MutableBinaryTree : public virtual ClearableContainer,
-                          public virtual BinaryTree<Data>,
-                          public virtual PreOrderMappableContainer<Data>,
-                          public virtual PostOrderMappableContainer<Data>,
-                          public virtual InOrderMappableContainer<Data>,
-                          public virtual BreadthMappableContainer<Data> {
+class MutableBinaryTree : virtual public ClearableContainer,
+                          virtual public BinaryTree<Data>,
+                          virtual public PreOrderMappableContainer<Data>,
+                          virtual public PostOrderMappableContainer<Data>,
+                          virtual public InOrderMappableContainer<Data>,
+                          virtual public BreadthMappableContainer<Data> {
   // Must extend ClearableContainer,
   //             BinaryTree<Data>,
   //             PreOrderMappableContainer<Data>,
@@ -275,8 +275,8 @@ protected:
 /* ************************************************************************** */
 
 template <typename Data>
-class BTPreOrderIterator : public virtual ForwardIterator<Data>, 
-                           public virtual ResettableIterator<Data>{
+class BTPreOrderIterator : virtual public ForwardIterator<Data>, 
+                           virtual public ResettableIterator<Data>{
   // Must extend ForwardIterator<Data>,
   //             ResettableIterator<Data>
 
