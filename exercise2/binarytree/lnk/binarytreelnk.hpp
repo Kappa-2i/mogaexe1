@@ -25,6 +25,7 @@ public:
 
   using typename BinaryTree<Data>::Node;
   using typename MutableBinaryTree<Data>::MutableNode;
+  
   struct NodeLnk : virtual MutableNode { // Must extend MutableNode
 
   private:

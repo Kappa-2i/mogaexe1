@@ -106,7 +106,7 @@ namespace lasd {
         }
 
         for(unsigned long i=0; i<size; i++){
-            if(elements[i] != vec[i]){
+            if(elements[i] != vec.elements[i]){
                 return false;
             }
         }
@@ -138,7 +138,7 @@ namespace lasd {
             return;
         }
         try{
-            Data* temp = new Data[newSize];
+            Data* temp = new Data[newSize]{};
             unsigned long min = (size < newSize) ? size : newSize;
             for(unsigned long i = 0; i<min; i++){
                 std::swap(elements[i], temp[i]);
