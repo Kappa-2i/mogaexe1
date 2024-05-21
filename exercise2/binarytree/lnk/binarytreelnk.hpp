@@ -26,6 +26,11 @@ public:
   using typename BinaryTree<Data>::Node;
   using typename MutableBinaryTree<Data>::MutableNode;
   
+  
+protected:
+
+  using Container::size;
+
   struct NodeLnk : virtual MutableNode { // Must extend MutableNode
 
   private:
@@ -82,11 +87,6 @@ public:
     virtual MutableNode& RightChild() override;
     virtual MutableNode& LeftChild() override;
   };
-protected:
-
-  using Container::size;
-
-  
 
   NodeLnk* root = nullptr;
   
@@ -102,7 +102,7 @@ public:
   // Specific constructors
   BinaryTreeLnk(const TraversableContainer<Data>&); // A binary tree obtained from a TraversableContainer
   BinaryTreeLnk(MappableContainer<Data>&&); // A binary tree obtained from a MappableContainer
-
+  
   /* ************************************************************************ */
 
   // Copy constructor

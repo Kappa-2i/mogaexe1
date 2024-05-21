@@ -45,7 +45,6 @@ BinaryTreeLnk<Data>::NodeLnk::NodeLnk(NodeLnk&& node) noexcept {
 // Destructor - NodeLnk
 template <typename Data>
 BinaryTreeLnk<Data>::NodeLnk::~NodeLnk() {
-    // std::cout << "DISTR: " << this->elem << std::endl;
     delete left;
     delete right;
 }
@@ -56,15 +55,10 @@ BinaryTreeLnk<Data>::NodeLnk::~NodeLnk() {
 
 template <typename Data>
 BinaryTreeLnk<Data>::NodeLnk& BinaryTreeLnk<Data>::NodeLnk::operator=(const NodeLnk& node) {
-    NodeLnk tmp(node.elem);
-    if(node.HasLeftChild()) {
-        tmp.left = node.left;
-    }
-    if(node.HasRightChild()) {
-        tmp.right = node.right;
-    }
-    std::swap(tmp, *this);
-    return* this;
+    NodeLnk* tmp = new NodeLnk(node);
+    std::swap(*tmp, *this);
+    delete tmp;
+    return *this;
 }
 
 template <typename Data>
