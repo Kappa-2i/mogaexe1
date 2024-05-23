@@ -61,7 +61,7 @@ exc2bf.o: $(libexc2b) zlasdtest/exercise2b/fulltest.cpp
 	$(cc) $(cflags) -c zlasdtest/exercise2b/fulltest.cpp -o exc2bf.o
 
 exc3s.o: $(libexc3) zlasdtest/exercise3/simpletest.cpp
-	$(cc) $(cflags) -c zlasdtest/exercise3/simpletest.cpp -o exc3s.o
+ 	$(cc) $(cflags) -c zlasdtest/exercise3/simpletest.cpp -o exc3s.o
 
 exc3f.o: $(libexc3) zlasdtest/exercise3/fulltest.cpp
 	$(cc) $(cflags) -c zlasdtest/exercise3/fulltest.cpp -o exc3f.o
