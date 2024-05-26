@@ -43,7 +43,7 @@ void mytest() {
     
     int choice = 1;
     while(choice){
-        cout << endl << "Pick the data structure:\n 1-Vector\n 2-List \n 3-Stack \n 4-Queue \n 5-BinaryTree \n 0-Exit for results." << endl;
+        cout << endl << "Pick the data structure:\n 1-Vector\n 2-List \n 3-Stack \n 4-Queue \n 5-BinaryTree/Iterator \n 0-Exit for results." << endl;
         cin >> choice;
         switch(choice){
             case 1:
@@ -2466,6 +2466,41 @@ void testBinaryTreeVecString(uint& testerr, uint& testnum, stringstream& numerr)
         testerr += 1;
         numerr << testnum + 1 << " ";
     }
+
+    cout << "\tMove of BtVec..." << endl;
+    lasd::BinaryTreeVec<string> btvecmov(move(btvec));
+
+    try{
+        cout << "\tBreadthIterator of BtVec..." << endl;
+        lasd::BTBreadthIterator<string> BrIt2(btvec);
+        if(BrIt2.Terminated()){
+            cout << testnum+1 << ") Iterator Terminated" << endl;
+        }
+        else{
+            testerr += 1;
+            numerr << testnum + 1 << " ";
+        }
+        
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+    try{
+        cout << "\tNew BreadthIterator of BtVecMove..." << endl;
+        lasd::BTBreadthIterator<string> BrIt(btvecmov);
+        for(*BrIt; !BrIt.Terminated(); BrIt.operator++()){
+            cout << testnum+1 << ") BreadthIterator's Value: '" << *BrIt << "', next..." << endl;
+            testnum++;
+        }
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+
     
 
 
