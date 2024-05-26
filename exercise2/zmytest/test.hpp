@@ -75,15 +75,15 @@ void testQueueListString(uint&, uint&, std::stringstream&);
 
 void testBinaryTreeVecFloat(uint&, uint&, std::stringstream&);
 
-void tesBinaryTreeVecString(uint&, uint&, std::stringstream&);
+void testBinaryTreeVecString(uint&, uint&, std::stringstream&);
 
-void testBinaryTreeLnkFloat(uint&, uint&, std::stringstream&);
+// void testBinaryTreeLnkFloat(uint&, uint&, std::stringstream&);
 
-void testBinaryTreeLnkString(uint&, uint&, std::stringstream&);
+// void testBinaryTreeLnkString(uint&, uint&, std::stringstream&);
 
-void testBSTFloat(uint&, uint&, std::stringstream&);
+// void testBSTFloat(uint&, uint&, std::stringstream&);
 
-void testBSTString(uint&, uint&, std::stringstream&);
+// void testBSTString(uint&, uint&, std::stringstream&);
 
 
 

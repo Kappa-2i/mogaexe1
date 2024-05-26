@@ -1,5 +1,13 @@
 /* ************************************************************************** */
 
+#include <iostream>
+#include <random>
+#include <string>
+#include <sstream>
+#include "test.hpp"
+
+/* ************************************************************************** */
+
 #include "../container/container.hpp"
 #include "../container/testable.hpp"
 #include "../container/dictionary.hpp"
@@ -8,9 +16,8 @@
 #include "../container/linear.hpp"
 
 #include "../vector/vector.hpp"
+
 #include "../list/list.hpp"
-#include "../stack/stack.hpp"
-#include "../queue/queue.hpp"
 
 #include "../binarytree/binarytree.hpp"
 #include "../binarytree/vec/binarytreevec.hpp"
@@ -18,14 +25,11 @@
 #include "../bst/bst.hpp"
 
 
+#include "../zlasdtest/binarytree/binarytree.hpp"
+
 
 /* ************************************************************************** */
 
-#include <iostream>
-#include <random>
-#include <string>
-#include <sstream>
-#include "test.hpp"
 using namespace std;
 
 /* ************************************************************************** */
@@ -175,6 +179,8 @@ void choiceQueueType(uint& testerr, uint& testnum, stringstream& numerr){
     }
 }
 
+
+
 void choiceBinaryTreeType(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "Pick the data type: \n 1-BinaryTreeVec<float> \n 2-BinaryTreeVec<string> \n 3-BinaryTreeLnk<float> \n 4-BinaryTreeLnk<string> \n 5-BST<float> \n 6-BST<string>" << endl;
     int choice = 1;
@@ -186,7 +192,7 @@ void choiceBinaryTreeType(uint& testerr, uint& testnum, stringstream& numerr){
             break;
         }
         case 2:{
-            tesBinaryTreeVecString(testerr, testnum, numerr);
+            testBinaryTreeVecString(testerr, testnum, numerr);
             break;
         }
         case 3:{
@@ -2282,6 +2288,7 @@ void testBinaryTreeVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
+
     cout << testnum+1 <<") BtVecCopy and BtVec2 are: ";
     if(btvecpy == btvec2){
         cout << "equal" << endl;
@@ -2292,6 +2299,8 @@ void testBinaryTreeVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
         numerr << testnum + 1 << " ";
     }
     testnum++;
+
+    //EqualBT(testnum, testnum, btvec, btvec2);
 
     cout << "PreOrderTraverse of BtVec2: ";
     btvec2.Traverse(&TraversePrint<float>);
@@ -2344,45 +2353,120 @@ void testBinaryTreeVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
 void testBinaryTreeVecString(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "---------------------------------Test on BinaryTreeVec<string>---------------------------------" << endl;
     lasd::SortableVector<string> vec(5);
-
     // Genera valori casuali e popola il contenitore
-    string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    default_random_engine gen(random_device{}());
-    uniform_int_distribution<int> randPos(0, table.size()-1);
-    cout << "New SortableVector<string>: ";
-    try{
-        for (uint i = 0; i < vec.Size(); ++i) {
-            vec[i] = table[randPos(gen)];
+        string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        default_random_engine gen(random_device{}());
+        uniform_int_distribution<int> randPos(0, table.size()-1);
+        cout << "New SortableVector<string>: ";
+        try{
+            for (uint i = 0; i < vec.Size(); ++i) {
+                vec[i] = table[randPos(gen)];
+            }
+        }catch (const out_of_range& e) {
+            cout << e.what() << endl;
         }
-    }catch (const out_of_range& e) {
-        cout << e.what() << endl;
-    }
-    vec.Sort();
-    vec.Traverse(&TraversePrint<string>);
-    cout << endl;
+        vec.Sort();
+        vec.Traverse(&TraversePrint<string>);
+        cout << endl;
 
     cout << "\tMove of Sortable Vector in BinaryTreeVec..." << endl;
     lasd::BinaryTreeVec<string> btvec(move(vec));
 
-    cout << "PreOrderTraverse of BtVec: ";
-    btvec.Traverse(&TraversePrint<string>);
-    cout << endl;
+    try{
+        cout << testnum+1 << ") Writing in Root..." << endl;
+        btvec.Root().Element() = "S";
+        testnum++;
 
-    cout << "PostOrderTraverse of BtVec: ";
-    btvec.PostOrderTraverse(&TraversePrint<string>);
-    cout << endl;
+        cout << testnum+1 << ") Writing in LeftChild of Root..." << endl;
+        btvec.Root().LeftChild().Element() = "A";
+        testnum++;
 
-    cout << "InOrderTraverse of BtVec: ";
-    btvec.InOrderTraverse(&TraversePrint<string>);
-    cout << endl;
+        cout << testnum+1 << ") Writing in RightChild of Root..." << endl;
+        btvec.Root().RightChild().Element() = "L";
+        testnum++;
 
-    cout << "BreadthTraverse of BtVec: ";
-    btvec.BreadthTraverse(&TraversePrint<string>);
-    cout << endl;
+        cout << testnum+1 << ") Writing in LeftChild of LeftChild of Root..." << endl;
+        btvec.Root().LeftChild().LeftChild().Element() = "V";
+        testnum++;
 
-    string conc = btvec.PreOrderFold(&FoldAdd<string>, string(""));
-    cout << testnum+1 << ") Concatenate BtVec: " << conc << endl;
+        cout << testnum+1 << ") Writing in RightChild of LeftChild of Root..." << endl;
+        btvec.Root().LeftChild().RightChild().Element() = "E";
+        testnum++;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const out_of_range& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    
 
+
+    try{
+        cout << "\tNew BreadthIterator of BtVec..." << endl;
+        lasd::BTBreadthIterator<string> BrIt(btvec);
+        for(*BrIt; !BrIt.Terminated(); BrIt.operator++()){
+            cout << testnum+1 << ") BreadthIterator's Value: '" << *BrIt << "', next..." << endl;
+            testnum++;
+        }
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    
+    
+
+    try{
+        cout << "\tNew PreOrderIterator of BtVec..." << endl;
+        lasd::BTPreOrderIterator<string> PreIt(btvec);
+        for(*PreIt; !PreIt.Terminated(); PreIt.operator++()){
+            cout << testnum+1 << ") PreOrderIterator's Value: '" << *PreIt << "', next..." << endl;
+            testnum++;
+        }
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    
+
+    try{
+        cout << "\tNew PostOrderIterator of BtVec..." << endl;
+        lasd::BTPostOrderIterator<string> PostIt(btvec);
+        for(*PostIt; !PostIt.Terminated(); PostIt.operator++()){
+            cout << testnum+1 << ") PreOrderIterator's Value: '" << *PostIt << "', next..." << endl;
+            testnum++;
+        }
+        
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    
+
+    try{
+        cout << "\tNew InOrderIterator of BtVec..." << endl;
+        lasd::BTInOrderIterator<string> InIt(btvec);
+        for(*InIt; !InIt.Terminated(); InIt.operator++()){
+            cout << testnum+1 << ") PreOrderIterator's Value: '" << *InIt << "', next..." << endl;
+            testnum++;
+        }
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    
 
 
 

@@ -200,6 +200,18 @@ BinaryTreeVec<Data>& BinaryTreeVec<Data>::operator=(BinaryTreeVec<Data>&& btvec)
     return* this;
 }
 
+// template <typename Data>
+// bool BinaryTreeVec<Data>::operator==(const BinaryTreeVec<Data>& btvec) const noexcept {
+//     std::cout << "PORCO DI QUEL DIO";
+//     return true;
+// }
+
+// template <typename Data>
+// bool BinaryTreeVec<Data>::operator!=(const BinaryTreeVec<Data>& btvec) const noexcept {
+//     std::cout << "NON PORCO DI QUEL DIO";
+//     return false;
+// }
+
 /* ************************************************************************** */
 
 //Specific Member Function - BinaryTreeVec

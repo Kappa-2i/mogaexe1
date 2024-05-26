@@ -227,6 +227,9 @@ public:
   // Move assignment
   MutableBinaryTree& operator=(MutableBinaryTree&&) noexcept = delete; // Move assignment of abstract types is not possible.
 
+  using BinaryTree<Data>::operator==;
+  using BinaryTree<Data>::operator!=;
+
   /* ************************************************************************ */
 
   // Specific member functions

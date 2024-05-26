@@ -56,9 +56,6 @@ bool BinaryTree<Data>::operator!=(const BinaryTree<Data>& bt) const noexcept {
     return !(*this == bt);
 }
 
-
-
-
 /* ************************************************************************** */
 
 // Specific function inherited from Traversable - BinaryTree

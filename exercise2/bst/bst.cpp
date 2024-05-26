@@ -355,14 +355,12 @@ typename BST<Data>::NodeLnk* const & BST<Data>::FindPointerTo(NodeLnk* const & n
 
 template <typename Data>
 typename BST<Data>::NodeLnk** BST<Data>::FindPointerToPredecessor(NodeLnk*& node, const Data& data) noexcept {
-    std::cout << "Versione non costante" << std::endl;
     return const_cast<NodeLnk* *>(static_cast<const BST<Data> *>(this)->FindPointerToPredecessor(node, data));
 }
 
 
 template <typename Data>
 typename BST<Data>::NodeLnk* const * BST<Data>::FindPointerToPredecessor(NodeLnk* const & node, const Data& data) const noexcept {
-    std::cout << "Versione costante" << std::endl;
     NodeLnk* const * cur = &node;
     NodeLnk* const * tmp = nullptr;
     while(*cur != nullptr && (*cur)->elem != data) {
