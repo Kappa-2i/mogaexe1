@@ -45,7 +45,7 @@ protected:
   ulong b = 0;
   static const ulong prime = 1000000016531; //Big Prime
 
-  std::default_random_engine generator = std::default_random_engine(std::random_device{}());
+  std::default_random_engine gen = std::default_random_engine(std::random_device{}());
   std::uniform_int_distribution<unsigned long> dista = std::uniform_int_distribution<unsigned long>(1, prime-1);
   std::uniform_int_distribution<unsigned long> distb = std::uniform_int_distribution<unsigned long>(0, prime-1);
 

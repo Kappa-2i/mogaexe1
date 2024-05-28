@@ -3,6 +3,7 @@ namespace lasd {
 
 /* ************************************************************************** */
 
+template <>
 class Hashable<int>{
     public:
 
@@ -11,6 +12,7 @@ class Hashable<int>{
         }
 };
 
+template <>
 class Hashable<double>{
     public:
     
@@ -22,6 +24,7 @@ class Hashable<double>{
 };
 
 
+template <>
 class Hashable<std::string>{
     //Va visto come un hash di array: sommare tutti gli hash dei dati, ma dato che stringhe diverse con stessi caratteri danno stesso valor (a+b+c) = (c+b+a), devo trattare in modo diverso
     //Quello che facciamo è Prendere il dato, sommarlo all'hash e shiftarlo di 5, partendo con un valore a caso dell'hash (5381: magic key, spesso utilizzato in molte librerie)

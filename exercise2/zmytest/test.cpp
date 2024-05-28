@@ -196,11 +196,11 @@ void choiceBinaryTreeType(uint& testerr, uint& testnum, stringstream& numerr){
             break;
         }
         case 3:{
-            //testBinaryTreeLnkFloat(testerr, testnum, numerr);
+            testBinaryTreeLnkFloat(testerr, testnum, numerr);
             break;
         }
         case 4:{
-            //testBinaryTreeLnkString(testerr, testnum, numerr);
+            testBinaryTreeLnkString(testerr, testnum, numerr);
             break;
         }
         case 5:{
@@ -2117,21 +2117,42 @@ void testBinaryTreeVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "\tCopy of Sortable Vector in BinaryTreeVec..." << endl;
     lasd::BinaryTreeVec<float> btvec(vec);
 
-    cout << "PreOrderTraverse of BtVec: ";
-    btvec.Traverse(&TraversePrint<float>);
-    cout << endl;
+    try{
+        cout << testnum+1 << ") PreOrderTraverse of BtVec: ";
+        btvec.Traverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
 
-    cout << "PostOrderTraverse of BtVec: ";
-    btvec.PostOrderTraverse(&TraversePrint<float>);
-    cout << endl;
+        cout << testnum+1 << ") PostOrderTraverse of BtVec: ";
+        btvec.PostOrderTraverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
 
-    cout << "InOrderTraverse of BtVec: ";
-    btvec.InOrderTraverse(&TraversePrint<float>);
-    cout << endl;
+        cout << testnum+1 << ") InOrderTraverse of BtVec: ";
+        btvec.InOrderTraverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
 
-    cout << "BreadthTraverse of BtVec: ";
-    btvec.BreadthTraverse(&TraversePrint<float>);
-    cout << endl;
+        cout << testnum+1 << ") BreadthTraverse of BtVec: ";
+        btvec.BreadthTraverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+
+    try{
+        float sum = btvec.Fold(&FoldAdd<float>, 0.0);
+        cout << testnum+1 << ") Sum elements: " << sum << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
 
     cout << testnum+1 << ") BtVec root: ";
     if(btvec.Root().Element() == vec[0]){
@@ -2225,7 +2246,7 @@ void testBinaryTreeVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    cout << testnum+1 << ") BtVecCopy right child Root: ";
+    cout << testnum+1 << ") BtVecCopy right child of Root: ";
     if(!btvecpy.Root().RightChild().HasLeftChild()){
         cout << "hasn't left child" << endl;
     }
@@ -2236,8 +2257,8 @@ void testBinaryTreeVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    cout << testnum+1 << ") BtVecCopy right child Root: ";
-    if(!btvec.Root().RightChild().HasRightChild()){
+    cout << testnum+1 << ") BtVecCopy right child of Root: ";
+    if(!btvecpy.Root().RightChild().HasRightChild()){
         cout << "hasn't right child" << endl;
     }
     else{
@@ -2247,7 +2268,7 @@ void testBinaryTreeVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    cout << testnum+1 << ") BtVecCopy left child right child Root: ";
+    cout << testnum+1 << ") BtVecCopy left child of right child of Root: ";
     try
     {
         cout << btvecpy.Root().RightChild().LeftChild().Element() << endl;
@@ -2260,7 +2281,7 @@ void testBinaryTreeVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    cout << testnum+1 << ") BtVecCopy right child right child Root: ";
+    cout << testnum+1 << ") BtVecCopy right child of right child of Root: ";
     try
     {
         cout << btvecpy.Root().RightChild().RightChild().Element() << endl;
@@ -2300,23 +2321,32 @@ void testBinaryTreeVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     }
     testnum++;
 
-    //EqualBT(testnum, testnum, btvec, btvec2);
+    try{
+        cout << testnum+1 << ") PreOrderTraverse of BtVec2: ";
+        btvec2.Traverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
 
-    cout << "PreOrderTraverse of BtVec2: ";
-    btvec2.Traverse(&TraversePrint<float>);
-    cout << endl;
+        cout << testnum+1 << ") PostOrderTraverse of BtVec2: ";
+        btvec2.PostOrderTraverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
 
-    cout << "PostOrderTraverse of BtVec2: ";
-    btvec2.PostOrderTraverse(&TraversePrint<float>);
-    cout << endl;
+        cout << testnum+1 << ") InOrderTraverse of BtVec2: ";
+        btvec2.InOrderTraverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
 
-    cout << "InOrderTraverse of BtVec2: ";
-    btvec2.InOrderTraverse(&TraversePrint<float>);
-    cout << endl;
-
-    cout << "BreadthTraverse of BtVec2: ";
-    btvec2.BreadthTraverse(&TraversePrint<float>);
-    cout << endl;
+        cout << testnum+1 << ") BreadthTraverse of BtVec2: ";
+        btvec2.BreadthTraverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
 
     cout << "\tClear of BtVec..." << endl;
     btvec.Clear();
@@ -2348,7 +2378,6 @@ void testBinaryTreeVecFloat(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "---------------------------------End of test BinaryTreeVec<float>---------------------------------" << endl;
 
 }
-
 
 void testBinaryTreeVecString(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "---------------------------------Test on BinaryTreeVec<string>---------------------------------" << endl;
@@ -2487,16 +2516,55 @@ void testBinaryTreeVecString(uint& testerr, uint& testnum, stringstream& numerr)
     }
     testnum++;
 
+    lasd::BTBreadthIterator<string> BrIt3(btvecmov);
     try{
         cout << "\tNew BreadthIterator of BtVecMove..." << endl;
-        lasd::BTBreadthIterator<string> BrIt(btvecmov);
-        for(*BrIt; !BrIt.Terminated(); BrIt.operator++()){
-            cout << testnum+1 << ") BreadthIterator's Value: '" << *BrIt << "', next..." << endl;
+        for(*BrIt3; !BrIt3.Terminated(); BrIt3.operator++()){
+            cout << testnum+1 << ") BreadthIterator's Value: '" << *BrIt3 << "', next..." << endl;
             testnum++;
         }
     }
     catch(exception& e){
         cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+
+    try{
+        BrIt3.Reset();
+        cout << testnum+1 <<") Reset of BreadthIterator, current value: '" << *BrIt3 << "'" << endl;
+        testnum++;
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+
+    lasd::BinaryTreeVec<string> btvec2;
+    cout << "\tMove Assignment of BtVecMove in BtVec2" << endl;
+    btvec2 = move(btvecmov);
+
+    cout << testnum+1 <<") BtVecMove and BtVec2 are:";
+    if(btvecmov != btvec2){
+        cout << " not equal" << endl;
+    }
+    else{
+        cout << " equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+    
+    cout << "\tClear of BtVec2..." << endl;
+    btvec2.Clear();
+
+    cout << testnum+1 << ") BtVec2 Size: ";
+    if(btvec2.Size() == 0){
+        cout <<  btvec2.Size() << endl;
+    }
+    else{
+        cout << endl;
         testerr += 1;
         numerr << testnum + 1 << " ";
     }
@@ -2508,4 +2576,433 @@ void testBinaryTreeVecString(uint& testerr, uint& testnum, stringstream& numerr)
 
     cout << "---------------------------------End of test BinaryTreeVec<string>---------------------------------" << endl;
 
+}
+
+void testBinaryTreeLnkFloat(uint& testerr, uint& testnum, stringstream& numerr){
+    cout << "---------------------------------Test on BinaryTreeLnk<float>---------------------------------" << endl;
+
+    lasd::SortableVector<float> vec(5);
+    // Genera numeri casuali e popola il contenitore
+    default_random_engine gen(random_device{}());
+    uniform_real_distribution<float> dist(-10, 10);
+    for (uint i = 0; i < vec.Size(); ++i) {
+        vec[i] = dist(gen);
+    }
+    vec.Sort();
+    cout << "New SortableVector<float>: ";
+    vec.Traverse(&TraversePrint<float>);
+    cout << endl;
+
+
+    cout << "\tCopy of Sortable Vector in BinaryTreeLnk..." << endl;
+    lasd::BinaryTreeLnk<float> btlnk(vec);
+
+    try{
+        cout << testnum+1 << ") PreOrderTraverse of BtLnk: ";
+        btlnk.Traverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
+
+        cout << testnum+1 << ") PostOrderTraverse of BtLnk: ";
+        btlnk.PostOrderTraverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
+
+        cout << testnum+1 << ") InOrderTraverse of BtLnk: ";
+        btlnk.InOrderTraverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
+
+        cout << testnum+1 << ") BreadthTraverse of BtLnk: ";
+        btlnk.BreadthTraverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+
+    try{
+        float sum = btlnk.Fold(&FoldAdd<float>, 0.0);
+        cout << testnum+1 << ") Sum elements: " << sum << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") BtLnk root: ";
+    try{
+        cout << btlnk.Root().Element() << endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+    
+
+    cout << "\tCopy of BtLnk..." << endl;
+    lasd::BinaryTreeLnk<float> btlnkcpy(btlnk);
+
+    cout << testnum+1 << ") BtLnkCopy Root: ";
+    if(!btlnkcpy.Root().IsLeaf()){
+        cout << "is not leaf" << endl;
+    }
+    else{
+        cout << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    cout << testnum+1 << ") BtLnkCopy Root: ";
+    if(btlnkcpy.Root().HasLeftChild()){
+        cout << "has left child" << endl;
+    }
+    else{
+        cout << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+    
+    cout << testnum+1 << ") BtLnkCopy Root: ";
+    if(btlnkcpy.Root().HasRightChild()){
+        cout << "has right child" << endl;
+    }
+    else{
+        cout << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    cout << testnum+1 << ") BtLnkCopy right child of Root: ";
+    if(!btlnkcpy.Root().RightChild().HasLeftChild()){
+        cout << "hasn't left child" << endl;
+    }
+    else{
+        cout << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    cout << testnum+1 << ") BtLnkCopy right child of Root: ";
+    if(!btlnkcpy.Root().RightChild().HasRightChild()){
+        cout << "hasn't right child" << endl;
+    }
+    else{
+        cout << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " "; 
+    }
+    testnum++;
+
+    cout << testnum+1 << ") BtLnkCopy left child of right child of Root: ";
+    try
+    {
+        cout << btlnkcpy.Root().RightChild().LeftChild().Element() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const out_of_range& e)
+    {
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+    cout << testnum+1 << ") BtLnkCopy right child of right child of Root: ";
+    try
+    {
+        cout << btlnkcpy.Root().RightChild().RightChild().Element() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const out_of_range& e)
+    {
+        cout << e.what() << endl;
+    }
+    testnum++;
+    
+    lasd::BinaryTreeLnk<float> btlnk2;
+    cout << "\tCopy Assignment of BtLnk in BtLnk2" << endl;
+    btlnk2 = btlnkcpy;
+
+    cout << testnum+1 <<") BtLnk and BtLnk2 are: ";
+    if(btlnk == btlnk2){
+        cout << "equal" << endl;
+    }
+    else{
+        cout << "not equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+    cout << testnum+1 <<") BtLnkCopy and BtLnk2 are: ";
+    if(btlnkcpy == btlnk2){
+        cout << "equal" << endl;
+    }
+    else{
+        cout << "not equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    try{
+        cout << testnum+1 << ") BreadthTraverse of BtLnk2: ";
+        btlnk2.BreadthTraverse(&TraversePrint<float>);
+        cout << endl;
+        testnum++;
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    
+
+
+    cout << "\tClear of BtLnk..." << endl;
+    btlnk.Clear();
+    
+    cout << testnum+1 << ") BtLnk Root: ";
+    try
+    {
+        cout << btlnk.Root().Element() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const length_error& e)
+    {
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+    try{
+        float sum = btlnk.Fold(&FoldAdd<float>, 0.0);
+        cout << testnum+1 << ") Sum elements: " << sum << endl;
+    } catch(exception& e){
+        cout << e.what();
+        testerr += 1;
+        numerr << testnum +1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") BtLnk Size: ";
+    if(btlnk.Size() == 0){
+        cout <<  btlnk.Size() << endl;
+    }
+    else{
+        cout << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+
+
+
+
+    cout << "---------------------------------End of test BinaryTreeLnk<float>---------------------------------" << endl;
+
+}   
+
+void testBinaryTreeLnkString(uint& testerr, uint& testnum, stringstream& numerr){
+    cout << "---------------------------------Test on BinaryTreeLnk<string>---------------------------------" << endl;
+    lasd::SortableVector<string> vec(5);
+    // Genera valori casuali e popola il contenitore
+        string table = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        default_random_engine gen(random_device{}());
+        uniform_int_distribution<int> randPos(0, table.size()-1);
+        cout << "New SortableVector<string>: ";
+        try{
+            for (uint i = 0; i < vec.Size(); ++i) {
+                vec[i] = table[randPos(gen)];
+            }
+        }catch (const out_of_range& e) {
+            cout << e.what() << endl;
+        }
+        vec.Sort();
+        vec.Traverse(&TraversePrint<string>);
+        cout << endl;
+
+    cout << "\tMove of Sortable Vector in BinaryTreeLnk..." << endl;
+    lasd::BinaryTreeLnk<string> btlnk(move(vec));
+
+    try{
+        cout << testnum+1 << ") Writing in Root..." << endl;
+        btlnk.Root().Element() = "S";
+        testnum++;
+
+        cout << testnum+1 << ") Writing in LeftChild of Root..." << endl;
+        btlnk.Root().LeftChild().Element() = "A";
+        testnum++;
+
+        cout << testnum+1 << ") Writing in RightChild of Root..." << endl;
+        btlnk.Root().RightChild().Element() = "L";
+        testnum++;
+
+        cout << testnum+1 << ") Writing in LeftChild of LeftChild of Root..." << endl;
+        btlnk.Root().LeftChild().LeftChild().Element() = "V";
+        testnum++;
+
+        cout << testnum+1 << ") Writing in RightChild of LeftChild of Root..." << endl;
+        btlnk.Root().LeftChild().RightChild().Element() = "E";
+        testnum++;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const out_of_range& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    
+
+
+    try{
+        cout << "\tNew BreadthIterator of BtLnk..." << endl;
+        lasd::BTBreadthIterator<string> BrIt(btlnk);
+        for(*BrIt; !BrIt.Terminated(); BrIt.operator++()){
+            cout << testnum+1 << ") BreadthIterator's Value: '" << *BrIt << "', next..." << endl;
+            testnum++;
+        }
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    
+    
+
+    try{
+        cout << "\tNew PreOrderIterator of BtVec..." << endl;
+        lasd::BTPreOrderIterator<string> PreIt(btlnk);
+        for(*PreIt; !PreIt.Terminated(); PreIt.operator++()){
+            cout << testnum+1 << ") PreOrderIterator's Value: '" << *PreIt << "', next..." << endl;
+            testnum++;
+        }
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    
+
+    try{
+        cout << "\tNew PostOrderIterator of BtVec..." << endl;
+        lasd::BTPostOrderIterator<string> PostIt(btlnk);
+        for(*PostIt; !PostIt.Terminated(); PostIt.operator++()){
+            cout << testnum+1 << ") PreOrderIterator's Value: '" << *PostIt << "', next..." << endl;
+            testnum++;
+        }
+        
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    
+
+    try{
+        cout << "\tNew InOrderIterator of BtVec..." << endl;
+        lasd::BTInOrderIterator<string> InIt(btlnk);
+        for(*InIt; !InIt.Terminated(); InIt.operator++()){
+            cout << testnum+1 << ") PreOrderIterator's Value: '" << *InIt << "', next..." << endl;
+            testnum++;
+        }
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+
+    cout << "\tMove of BtLnk..." << endl;
+    lasd::BinaryTreeLnk<string> btlnkmov(move(btlnk));
+
+    try{
+        cout << "\tBreadthIterator of BtLnk..." << endl;
+        lasd::BTBreadthIterator<string> BrIt2(btlnk);
+        if(BrIt2.Terminated()){
+            cout << testnum+1 << ") Iterator Terminated" << endl;
+        }
+        else{
+            testerr += 1;
+            numerr << testnum + 1 << " ";
+        }
+        
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+    lasd::BTBreadthIterator<string> BrIt3(btlnkmov);
+    try{
+        cout << "\tNew BreadthIterator of BtLnkMove..." << endl;
+        for(*BrIt3; !BrIt3.Terminated(); BrIt3.operator++()){
+            cout << testnum+1 << ") BreadthIterator's Value: '" << *BrIt3 << "', next..." << endl;
+            testnum++;
+        }
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+
+    try{
+        BrIt3.Reset();
+        cout << testnum+1 <<") Reset of BreadthIterator, current value: '" << *BrIt3 << "'" << endl;
+        testnum++;
+    }
+    catch(exception& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+
+    lasd::BinaryTreeLnk<string> btlnk2;
+    cout << "\tMove Assignment of BtLnkMove in BtLnk2" << endl;
+    btlnk2 = move(btlnkmov);
+
+    cout << testnum+1 <<") BtLnkMove and BtLnk2 are:";
+    if(btlnkmov != btlnk2){
+        cout << " not equal" << endl;
+    }
+    else{
+        cout << " equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+    
+    cout << "\tClear of BtLnk2..." << endl;
+    btlnk2.Clear();
+
+    cout << testnum+1 << ") Btlnk2 Size: ";
+    if(btlnk2.Size() == 0){
+        cout <<  btlnk2.Size() << endl;
+    }
+    else{
+        cout << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+
+    cout << "---------------------------------End of test BinaryTreeVec<string>---------------------------------" << endl;
 }

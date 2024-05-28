@@ -14,7 +14,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeVec : public virtual MutableBinaryTree<Data> {
+class BinaryTreeVec : virtual public MutableBinaryTree<Data> {
   // Must extend MutableBinaryTree<Data>
 
 private:
@@ -119,11 +119,12 @@ public:
 
   // Comparison operators
   bool operator==(const BinaryTreeVec<Data>& btv) const noexcept {
-    return MutableBinaryTree<Data>::operator==(btv);
-  };
+    return BinaryTree<Data>::operator==(btv);
+  }
+  
   bool operator!=(const BinaryTreeVec<Data>& btv) const noexcept {
     return !(*this == btv);
-  };
+  }  
 
   /* ************************************************************************ */
 

@@ -274,7 +274,7 @@ public:
   using FoldFun = typename TraversableContainer<Data>::FoldFun<Accumulator>;
 
   template <typename Accumulator>
-   Accumulator BreadthFold(FoldFun<Accumulator>, Accumulator) const;
+  Accumulator BreadthFold(FoldFun<Accumulator>, Accumulator) const;
 
   /* ************************************************************************ */
 

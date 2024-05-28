@@ -5,7 +5,7 @@
 /* ************************************************************************** */
 
 #include "../hashtable.hpp"
-#include "../vector/vector.hpp"
+#include "../../vector/vector.hpp"
 
 #define MIN_SIZE 128
 #define MAX_SIZE 2097152
@@ -26,13 +26,31 @@ private:
 
 protected:
 
+  // using HashTable<Data>::size;
+  // using HashTable<Data>::enchash;
+  // using HashTable<Data>::a;
+  // using HashTable<Data>::b;
+  // using HashTable<Data>::dista;
+  // using HashTable<Data>::distb;
+  // using HashTable<Data>::generator;
+  // using HashTable<Data>::tablesize;
+  // using HashTable<Data>::HashKey;
+  // using HashTable<Data>::Insert;
+  // using HashTable<Data>::InsertAll;
+  // double capacity = 0;
+  // Vector<Data> table;
+  // Vector<char> statusVec;
+
+public:
+
+
   using HashTable<Data>::size;
   using HashTable<Data>::enchash;
   using HashTable<Data>::a;
   using HashTable<Data>::b;
   using HashTable<Data>::dista;
   using HashTable<Data>::distb;
-  using HashTable<Data>::generator;
+  using HashTable<Data>::gen;
   using HashTable<Data>::tablesize;
   using HashTable<Data>::HashKey;
   using HashTable<Data>::Insert;
@@ -40,8 +58,6 @@ protected:
   double capacity = 0;
   Vector<Data> table;
   Vector<char> statusVec;
-
-public:
 
   // Default constructor
   HashTableOpnAdr();
@@ -86,36 +102,39 @@ public:
 
   // Specific member functions (inherited from DictionaryContainer)
 
-  // type Insert(argument) specifiers; // Override DictionaryContainer member (Copy of the value)
-  // type Insert(argument) specifiers; // Override DictionaryContainer member (Move of the value)
-  // type Remove(argument) specifiers; // Override DictionaryContainer member
+  bool Insert(const Data&) override; // Override DictionaryContainer member (Copy of the value)
+  bool Insert(Data&&) noexcept override; // Override DictionaryContainer member (Move of the value)
+  bool Remove(const Data&) override; // Override DictionaryContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from TestableContainer)
 
-  // type Exists(argument) specifiers; // Override TestableContainer member
+  bool Exists(const Data&) const noexcept override; // Override TestableContainer member
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from ResizableContainer)
 
-  // type Resize(argument) specifiers; // Resize the hashtable to a given size
+  void Resize(unsigned long) override; // Resize the hashtable to a given size
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from ClearableContainer)
 
-  // type Clear() specifiers; // Override Container member
+  void Clear() override; // Override Container member
 
 protected:
 
   // Auxiliary member functions
 
-  // type HashKey(argument) specifiers;
-  // type Find(argument) specifiers;
-  // type FindEmpty(argument) specifiers;
-  // type Remove(argument) specifiers;
+  unsigned long HashKey(const Data&, unsigned long) const noexcept;
+  unsigned long Find(const Data&, unsigned long) const noexcept;
+  unsigned long FindEmpty(const Data&, unsigned long) const noexcept;
+  bool Remove(const Data&, unsigned long);
+
+
+  bool IsResizable(unsigned long) const noexcept;
 
 };
 
