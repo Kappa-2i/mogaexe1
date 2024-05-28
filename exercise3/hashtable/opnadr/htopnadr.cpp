@@ -1,6 +1,6 @@
 
 namespace lasd {
-
+#include <iostream>
 /* ************************************************************************** */
 
 // E=Empty, F=Full, R=Removed
@@ -10,8 +10,14 @@ template <typename Data>
 HashTableOpnAdr<Data>::HashTableOpnAdr() {
     tablesize = MIN_SIZE;
     size = 0;
-    a = 2*(dista(gen))+1;
-    b = 2*(distb(gen));
+    unsigned long rand_a = dista(gen);
+    unsigned long rand_b = distb(gen);
+    std::cout << "rand_a: " << rand_a << std::endl;
+    std::cout << "rand_b: " << rand_b << std::endl;
+    a = 2*(rand_a)+1;
+    b = 2*(rand_b);
+    // a = 2*(dista(gen))+1;
+    // b = 2*(distb(gen));
     table.Resize(tablesize);
     statusVec.Resize(tablesize);
     for(unsigned long i=0; i<tablesize; i++) {
@@ -37,24 +43,81 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(unsigned long siz) {
     capacity = (static_cast<double>(size)/static_cast<double>(tablesize))*100;
 }
 
-template <typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(const TraversableContainer<Data>& con) : HashTableOpnAdr() {
-    InsertAll(con);
+template<typename Data>
+HashTableOpnAdr<Data>::HashTableOpnAdr(const TraversableContainer<Data>& container){
+    unsigned long newSize = 0;
+    if(container.Size() > tablesize){        
+        double log = ceil(log2(container.Size()));
+        newSize = pow(2, log);
+        table.Resize(newSize);
+        statusVec.Resize(newSize);
+        tablesize = newSize;
+        for(unsigned long i=0; i<tablesize; i++) {
+            statusVec[i] = 'E'; // Empty, Full, Removed
+        }
+    }
+    InsertAll(container);
 }
 
-template <typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(unsigned long siz, const TraversableContainer<Data>& con) : HashTableOpnAdr(siz) {
-    InsertAll(con);
+template<typename Data>
+HashTableOpnAdr<Data>::HashTableOpnAdr(unsigned long givenSize, const TraversableContainer<Data>& container){
+    unsigned long newSize = 0;
+    if(container.Size() > givenSize){
+        double log = ceil(log2(container.Size()));
+        newSize = pow(2, log);
+        table.Resize(newSize);
+        statusVec.Resize(newSize);
+        tablesize = newSize;
+    } else {
+        double log = ceil(log2(givenSize));
+        newSize = pow(2, log);
+        table.Resize(newSize);
+        statusVec.Resize(newSize);
+        std::swap(tablesize, newSize);
+    }
+    for(unsigned long i=0; i<tablesize; i++) {
+            statusVec[i] = 'E'; // Empty, Full, Removed
+        }
+    InsertAll(container);
 }
 
-template <typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(MappableContainer<Data>&& con) : HashTableOpnAdr() {
-    InsertAll(std::move(con));
+template<typename Data>
+HashTableOpnAdr<Data>::HashTableOpnAdr(MappableContainer<Data>&& container){
+    unsigned long newSize = 0;
+    if(container.Size() > tablesize){        
+        double log = ceil(log2(container.Size()));
+        newSize = pow(2, log);
+        table.Resize(newSize);
+        statusVec.Resize(newSize);
+        tablesize = newSize;
+        for(unsigned long i=0; i<tablesize; i++) {
+            statusVec[i] = 'E'; // Empty, Full, Removed
+        }
+    }
+    InsertAll(std::move(container));
 }
 
-template <typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(unsigned long siz, MappableContainer<Data>&& con) : HashTableOpnAdr(siz) {
-    InsertAll(std::move(con));
+template<typename Data>
+HashTableOpnAdr<Data>::HashTableOpnAdr(unsigned long givenSize, MappableContainer<Data>&& container){
+    unsigned long newSize = 0;
+    if(container.Size() > givenSize){
+        double log = ceil(log2(container.Size()));
+        newSize = pow(2, log);
+        table.Resize(newSize);
+        statusVec.Resize(newSize);
+        tablesize = newSize;
+    }
+    else {
+        double log = ceil(log2(givenSize));
+        newSize = pow(2, log);
+        table.Resize(newSize);
+        statusVec.Resize(newSize);
+        std::swap(tablesize, newSize);
+    }
+    for(unsigned long i=0; i<tablesize; i++) {
+        statusVec[i] = 'E'; 
+    }
+    InsertAll(std::move(container));
 }
 
 /* ************************************************************************** */
@@ -131,7 +194,7 @@ bool HashTableOpnAdr<Data>::operator!=(const HashTableOpnAdr<Data>& ht) const no
 
 /* ************************************************************************** */
 
-// Specific Member Function - HashTableOpnAdr
+// Specific Member Functions - HashTableOpnAdr
 template <typename Data>
 bool HashTableOpnAdr<Data>::Insert(const Data& data) {
     capacity = (static_cast<double>(size)/static_cast<double>(tablesize))*100;
@@ -304,6 +367,7 @@ bool HashTableOpnAdr<Data>::IsResizable(unsigned long siz) const noexcept {
     } 
 
 }
+
 
 /* ************************************************************************** */
 

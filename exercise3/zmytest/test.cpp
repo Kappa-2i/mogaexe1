@@ -3023,13 +3023,17 @@ void testhash(uint& testerr, uint& testnum, stringstream& numerr){
 
     cout << "Size: " << ht.Size() << endl;
     cout << "Table Size: " << ht.tablesize << endl;
+    cout << "a: " << ht.a << endl;
+    cout << "b: " << ht.b << endl;
 
     ht.Insert(10);
     ht.Insert(10);
+    ht.Insert(20);
 
     cout << "Size: " << ht.Size() << endl;
 
     ht.table.Traverse(&TraversePrint<int>);
+    cout << endl;
 
 cout << "---------------------------------HASHISH<int>---------------------------------" << endl;
 
