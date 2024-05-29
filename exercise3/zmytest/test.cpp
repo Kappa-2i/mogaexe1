@@ -3035,6 +3035,11 @@ void testhash(uint& testerr, uint& testnum, stringstream& numerr){
     ht.table.Traverse(&TraversePrint<int>);
     cout << endl;
 
+    ht.Remove(20);
+
+    ht.table.Traverse(&TraversePrint<int>);
+    cout << endl;
+
 cout << "---------------------------------HASHISH<int>---------------------------------" << endl;
 
 }
