@@ -1,4 +1,4 @@
-#include "list.hpp"
+#include <iostream>
 namespace lasd {
 
 /* ************************************************************************** */
@@ -132,7 +132,7 @@ namespace lasd {
                 std::swap(*temp, *this);
                 delete temp;
             }catch(std::bad_alloc& exception){
-                std::cerr << "EXC - Cannot allocate memory for lis :" << exception.what();
+                std::cerr << "EXC - Cannot allocate memory for list :" << exception.what();
             }
         }
         return* this;
@@ -345,7 +345,7 @@ namespace lasd {
     template<typename Data>
     const Data& List<Data>::operator[](const unsigned long int index) const {
         if(index >= size){
-            throw std::out_of_range("EXC - Index out of range");
+            throw std::out_of_range("EXC - Index out of range ");
         }
 
         if(index == size - 1){
@@ -361,7 +361,7 @@ namespace lasd {
     template<typename Data>
     Data& List<Data>::operator[](const unsigned long int index) {
         if(index >= size){
-            throw std::out_of_range("EXC - Index out of range");
+            throw std::out_of_range("EXC - Index out of range ");
         }
 
         if(index == size - 1){

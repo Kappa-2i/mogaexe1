@@ -1,7 +1,16 @@
-
+#include "htclsadr.hpp"
+#include "../../zmytest/test.hpp"
+#include <iostream>
 namespace lasd {
 
 /* ************************************************************************** */
+
+// Default Constructors - HashTableClsAdr
+
+template <typename Data>
+HashTableClsAdr<Data>::HashTableClsAdr() {
+    table = Vector<List<Data>> (MIN_TABLESIZE);
+}
 
 /* ************************************************************************** */
 
@@ -9,50 +18,84 @@ namespace lasd {
 
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(unsigned long givenSize) {
-    if(givenSize < 127) {
+    if(givenSize < MIN_TABLESIZE) {
         givenSize = MIN_TABLESIZE;
     }
-    if(givenSize >= 10000) {
+    else if(givenSize >= MAX_TABLESIZE) {
         givenSize = MAX_TABLESIZE;
     }
-    if(givenSize != MIN_TABLESIZE && givenSize != MAX_TABLESIZE) {
+    else{
         givenSize = FindNextPrime(givenSize);   
     }
     tablesize = givenSize;
-    table = new Vector<BST<Data>>{};
+    table.Resize(givenSize);
 }
 
 template<typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(const TraversableContainer<Data>& container){
-    //se minore la dimensione della tabella non cambia
-    if(container.Size() > tablesize){
-        table.Resize(container.Size());
-        tablesize = container.Size();
+    unsigned long givenSize = 0;
+    std::cout << container.Size() << std::endl;
+    if(container.Size() < MIN_TABLESIZE) {
+        givenSize = MIN_TABLESIZE;
     }
+    else if(container.Size() >= MAX_TABLESIZE) {
+        givenSize = MAX_TABLESIZE;
+    }
+    else{
+        givenSize = FindNextPrime(container.Size());   
+    }
+    tablesize = givenSize;
+    table.Resize(givenSize);
     InsertAll(container);
 }
 
 template<typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(unsigned long givenSize, const TraversableContainer<Data>& container){
+    if(givenSize < MIN_TABLESIZE) {
+        givenSize = MIN_TABLESIZE;
+    }
+    else if(givenSize >= MAX_TABLESIZE) {
+        givenSize = MAX_TABLESIZE;
+    }
+    else{
+        givenSize = FindNextPrime(givenSize);   
+    }
+    tablesize = givenSize;
     table.Resize(givenSize);
-    std::swap(tablesize, givenSize);
     InsertAll(container);
 }
 
 
 template<typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(MappableContainer<Data>&& container){
-    if(container.Size() > tablesize){
-        table.Resize(container.Size());
-        tablesize = container.Size();
+    unsigned long givenSize = 0;
+    if(container.Size() < MIN_TABLESIZE) {
+        givenSize = MIN_TABLESIZE;
     }
+    else if(container.Size() >= MAX_TABLESIZE) {
+        givenSize = MAX_TABLESIZE;
+    }
+    else{
+        givenSize = FindNextPrime(container.Size());   
+    }
+    tablesize = givenSize;
+    table.Resize(givenSize);
     InsertAll(std::move(container));
 }
 
 template<typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(unsigned long givenSize, MappableContainer<Data>&& container){
+    if(givenSize < MIN_TABLESIZE) {
+        givenSize = MIN_TABLESIZE;
+    }
+    else if(givenSize >= MAX_TABLESIZE) {
+        givenSize = MAX_TABLESIZE;
+    }
+    else{
+        givenSize = FindNextPrime(givenSize);   
+    }
+    tablesize = givenSize;
     table.Resize(givenSize);
-    std::swap(tablesize, givenSize);
     InsertAll(std::move(container));
 }
 
@@ -66,20 +109,12 @@ HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data>& ht) : HashTa
     for (unsigned long i = 0; i < ht.tablesize; i++){
         table[i] = ht.table[i];
     }
-    size = ht.size;
-    tablesize = ht.tablesize;
-    a = ht.a;
-    b = ht.b;
 }
 
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data>&& ht) noexcept : HashTable<Data>(std::move(ht)) {
-    table.Resize(ht.tablesize);
     std::swap(table, ht.table);
-    std::swap(size, ht.size);
     std::swap(tablesize, ht.tablesize);
-    std::swap(a, ht.a);
-    std::swap(b, ht.b);
 }
 
 /* ************************************************************************** */
@@ -87,7 +122,7 @@ HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data>&& ht) noexcept : Ha
 // Copy and Move Assigments - HashTableClsAdr
 
 template<typename Data>
-HashTableClsAdr<Data> & HashTableClsAdr<Data>::operator = (const HashTableClsAdr<Data>& ht){
+HashTableClsAdr<Data> & HashTableClsAdr<Data>::operator=(const HashTableClsAdr<Data>& ht){
     HashTableClsAdr<Data>* tmpht = new HashTableClsAdr(ht);
     std::swap(*this, *tmpht);
     delete tmpht;
@@ -95,7 +130,7 @@ HashTableClsAdr<Data> & HashTableClsAdr<Data>::operator = (const HashTableClsAdr
 }
 
 template<typename Data>
-HashTableClsAdr<Data> & HashTableClsAdr<Data>::operator = (HashTableClsAdr<Data>&& ht) noexcept{
+HashTableClsAdr<Data> & HashTableClsAdr<Data>::operator=(HashTableClsAdr<Data>&& ht) noexcept{
     std::swap(size, ht.size);
     std::swap(table, ht.table);
     std::swap(tablesize, ht.tablesize);
@@ -109,14 +144,21 @@ HashTableClsAdr<Data> & HashTableClsAdr<Data>::operator = (HashTableClsAdr<Data>
 // Copy and Move Assigments - HashTableClsAdr
 
 template<typename Data>
-bool HashTableClsAdr<Data>::operator == (const HashTableClsAdr<Data>& ht) const noexcept{
+bool HashTableClsAdr<Data>::operator==(const HashTableClsAdr<Data>& ht) const noexcept{
     if(size == ht.size){
-        for (unsigned long i = 0; i < tablesize; i++){
-            BTPreOrderIterator it(ht.table[i]);
-            
-            for (; !it.Terminated(); ++it){
-                unsigned long index = HashKey(*it);
-                if(!table[index].Exists(*it)){
+        //for (unsigned long i = 0; i < tablesize; i++){
+            // for (Node* it = table[i].Front(); it != nullptr; it = it->next){
+            //     unsigned long index = HashKey(*(it)->data);
+            //     if(!table[index].Exists(*(it)->data)){
+            //         return false;
+            //     }
+            // }
+        //}
+
+        for(unsigned long i = 0; i < table.Size(); i++){
+            for(unsigned long j = 0; j < table[i].Size() && table[i].Size() != 0; j++){
+                unsigned long index = HashKey(table[i].operator[](j));
+                if(!table[index].Exists(table[i].operator[](j))){
                     return false;
                 }
             }
@@ -127,7 +169,7 @@ bool HashTableClsAdr<Data>::operator == (const HashTableClsAdr<Data>& ht) const 
 }
 
 template<typename Data>
-bool HashTableClsAdr<Data>::operator != (const HashTableClsAdr<Data> & ht) const noexcept{
+bool HashTableClsAdr<Data>::operator!=(const HashTableClsAdr<Data> & ht) const noexcept{
     return !(*this == ht);
 }
 
@@ -138,6 +180,7 @@ bool HashTableClsAdr<Data>::operator != (const HashTableClsAdr<Data> & ht) const
 template<typename Data>
 bool HashTableClsAdr<Data>::Insert(const Data& data){
     unsigned long index = HashKey(data);
+    std::cout << "Index per lo 0 (const): " << index << std::endl;
     if(table[index].Insert(data)){
         size++;
         return true;
@@ -148,6 +191,7 @@ bool HashTableClsAdr<Data>::Insert(const Data& data){
 template<typename Data>
 bool HashTableClsAdr<Data>::Insert(Data&& data) noexcept{
     unsigned long index = HashKey(std::move(data));
+    std::cout << "Index per lo 0: " << index << std::endl;
     if(table[index].Insert(std::move(data))){
         size++;
         return true;
@@ -168,35 +212,35 @@ bool HashTableClsAdr<Data>::Remove(const Data& data){
 
 template<typename Data>
 bool HashTableClsAdr<Data>::Exists(const Data& data) const noexcept {
-
-    for(unsigned long i = 0; i < tablesize; ++i){
-        const BST<Data>& bst = table[i];
-        BTPreOrderIterator it(bst);
-        for (; !it.Terminated(); ++it) {
-            unsigned long index = HashKey(*it);
-            if(table[index].Exists(data)){
-                return true;
-            }
-        }
-    }
-    return false;
+    unsigned long index = HashKey(data);
+    return table[index].Exists(data);
 }
 
 
 template<typename Data>
 void HashTableClsAdr<Data>::Resize(unsigned long newSize){
-    if(newSize < 128){        
+    if(newSize < MIN_TABLESIZE){        
         newSize = MIN_TABLESIZE;
     }
-    Vector<BST<Data>> table2(table);
+    else if(newSize > MAX_TABLESIZE){
+        newSize = MAX_TABLESIZE;
+    }
+    else{
+        newSize = FindNextPrime(newSize);
+    }
+    Vector<List<Data>> table2(table);
     table.Clear();
     table.Resize(newSize);
     tablesize = newSize;
     size = 0;
-    for (unsigned long i = 0; i < table2.Size(); i++){
-        BTPreOrderIterator<Data> it(table2[i]);
-        for (; !it.Terminated(); ++it){
-            Insert(*it);
+    // for (unsigned long i = 0; i < table2.Size(); i++){
+    //     for (Node* it = table[i].Front(); it != nullptr; it = it->next){
+    //         Insert(*(it)->data);
+    //     }
+    // }
+    for(unsigned long i = 0; i < table2.Size(); i++){
+        for(unsigned long j = 0; j < table2[i].Size() && table2[i].Size() != 0; j++){
+            Insert(table2[i].operator[](j));
         }
     }
 }

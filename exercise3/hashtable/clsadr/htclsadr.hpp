@@ -3,13 +3,14 @@
 #define HTCLSADR_HPP
 
 #define MAX_TABLESIZE 9973
-#define MIN_TABLESIZE 127
+#define MIN_TABLESIZE 128
 
 /* ************************************************************************** */
 
 #include "../hashtable.hpp"
 #include "../../vector/vector.hpp"
 #include "../../bst/bst.hpp"
+#include "../../list/list.hpp"
 
 /* ************************************************************************** */
 
@@ -19,14 +20,15 @@ namespace lasd {
 
 template <typename Data>
 class HashTableClsAdr : virtual public HashTable<Data>{
-  // Must extend HashTable<Data>
+// Must extend HashTable<Data>
 
 private:
 
-  // ...
 
 protected:
 
+
+public:
   using HashTable<Data>::size;
   using HashTable<Data>::tablesize;
   using HashTable<Data>::enchash;
@@ -35,7 +37,7 @@ protected:
   using HashTable<Data>::HashKey;
   using HashTable<Data>::Insert;
   using HashTable<Data>::InsertAll;
-  Vector<BST<Data>> table;
+  Vector<List<Data>> table;
 
 
 public:

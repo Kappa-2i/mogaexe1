@@ -27,7 +27,7 @@ protected:
 
   using Container::size;
   struct Node {
-
+    
     Data element;
     Node* next = nullptr;
 
@@ -71,7 +71,6 @@ protected:
     // Specific member functions
 
     // ...
-
   };
 
   Node* head = nullptr;

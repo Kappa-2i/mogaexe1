@@ -26,6 +26,7 @@
 
 #include "../hashtable/hashtable.hpp"
 #include "../hashtable/opnadr/htopnadr.hpp"
+#include "../hashtable/clsadr/htclsadr.hpp"
 
 #include "../zlasdtest/binarytree/binarytree.hpp"
 
@@ -3014,32 +3015,45 @@ void testBinaryTreeLnkString(uint& testerr, uint& testnum, stringstream& numerr)
 
 
 void testhash(uint& testerr, uint& testnum, stringstream& numerr){
+    
     cout << "---------------------------------HASHISH<int>---------------------------------" << endl;
+    lasd::Vector<int> vec(10);
+    for(unsigned long i = 0; i < vec.Size(); i++){
+        vec[i] = i;
+    }
 
-
-
-    lasd::HashTableOpnAdr<int> ht;
-
-
-    cout << "Size: " << ht.Size() << endl;
-    cout << "Table Size: " << ht.tablesize << endl;
-    cout << "a: " << ht.a << endl;
-    cout << "b: " << ht.b << endl;
-
-    ht.Insert(10);
-    ht.Insert(10);
-    ht.Insert(20);
+   try{
+    lasd::HashTableClsAdr<int> ht;
 
     cout << "Size: " << ht.Size() << endl;
+    cout << "TableSize: " << ht.tablesize << endl;
 
-    ht.table.Traverse(&TraversePrint<int>);
-    cout << endl;
+    ht.Insert(0);
 
-    ht.Remove(20);
+    cout << "Size: " << ht.Size() << endl;
+    cout << "TableSize: " << ht.tablesize << endl;
+    for(unsigned long i = 0; i<ht.tablesize; i++){
+        cout << "Lista " << i << ": ";
+        ht.table[i].Traverse(&TraversePrint<int>); 
+        cout << endl;   
+    }
+    }
+    catch(exception& e){
+        cout << e.what() << endl;    
+    }
 
-    ht.table.Traverse(&TraversePrint<int>);
-    cout << endl;
 
-cout << "---------------------------------HASHISH<int>---------------------------------" << endl;
+    // lasd::Vector<lasd::List<int>> vec();
+
+    // for(unsigned long i = 0; i<vec.Size(); i++){
+    //     for(unsigned long j = 0; j < vec.operator[](i).Size() && vec[i].Size() != 0; j++){
+    //         cout << vec[i].operator[](j);
+    //     }
+    // }
+    
+
+
+
+    cout << "---------------------------------HASHISH<int>---------------------------------" << endl;
 
 }

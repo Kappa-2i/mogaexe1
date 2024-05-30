@@ -51,7 +51,7 @@ protected:
 
   static const Hashable<Data> enchash;
 
-  ulong tablesize = 128;
+  unsigned long tablesize = 128;
   
 public:
 

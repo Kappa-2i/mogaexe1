@@ -7,8 +7,8 @@
 #include "../hashtable.hpp"
 #include "../../vector/vector.hpp"
 
-#define MIN_SIZE 128
-#define MAX_SIZE 2097152
+#define MIN_SIZE 128 //2^7
+#define MAX_SIZE 65536 //2^16
 
 /* ************************************************************************** */
 
@@ -26,24 +26,6 @@ private:
 
 protected:
 
-  // using HashTable<Data>::size;
-  // using HashTable<Data>::enchash;
-  // using HashTable<Data>::a;
-  // using HashTable<Data>::b;
-  // using HashTable<Data>::dista;
-  // using HashTable<Data>::distb;
-  // using HashTable<Data>::generator;
-  // using HashTable<Data>::tablesize;
-  // using HashTable<Data>::HashKey;
-  // using HashTable<Data>::Insert;
-  // using HashTable<Data>::InsertAll;
-  // double capacity = 0;
-  // Vector<Data> table;
-  // Vector<char> statusVec;
-
-public:
-
-
   using HashTable<Data>::size;
   using HashTable<Data>::enchash;
   using HashTable<Data>::a;
@@ -58,6 +40,8 @@ public:
   double capacity = 0;
   Vector<Data> table;
   Vector<char> statusVec;
+
+public:
 
   // Default constructor
   HashTableOpnAdr();
@@ -126,13 +110,14 @@ public:
 
 protected:
 
+public:
+
   // Auxiliary member functions
 
   unsigned long HashKey(const Data&, unsigned long) const noexcept;
   unsigned long Find(const Data&, unsigned long) const noexcept;
   unsigned long FindEmpty(const Data&, unsigned long) const noexcept;
   bool Remove(const Data&, unsigned long);
-
 
   bool IsResizable(unsigned long) const noexcept;
 

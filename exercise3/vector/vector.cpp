@@ -157,7 +157,7 @@ namespace lasd {
     template <typename Data>
     const Data& Vector<Data>::operator[](const unsigned long i) const{
         if(i >= size){
-            throw std::out_of_range("EXC - Index out of range");
+            throw std::out_of_range("EXC - Index out of range VECTOR");
         }
         return elements[i];
     }
@@ -165,7 +165,7 @@ namespace lasd {
     template <typename Data>
     Data& Vector<Data>::operator[](const unsigned long i) {
         if(i >= size){
-            throw std::out_of_range("EXC - Index out of range");
+            throw std::out_of_range("EXC - Index out of range VECTOR");
         }
         return elements[i];
     }
