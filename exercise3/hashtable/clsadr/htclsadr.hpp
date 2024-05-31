@@ -2,14 +2,13 @@
 #ifndef HTCLSADR_HPP
 #define HTCLSADR_HPP
 
-#define MAX_TABLESIZE 9973
-#define MIN_TABLESIZE 128
+#define MAX_TABLESIZE 65537 //Next prime after 2^16
+#define MIN_TABLESIZE 127
 
 /* ************************************************************************** */
 
 #include "../hashtable.hpp"
 #include "../../vector/vector.hpp"
-#include "../../bst/bst.hpp"
 #include "../../list/list.hpp"
 
 /* ************************************************************************** */

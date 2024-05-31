@@ -9,7 +9,6 @@ class Hashable<int>{
 
         unsigned long operator()(const int& data) const noexcept{
             return (data * data);
-            std::cout << "FACCIO 0x0" << std::endl;
         }
 };
 
@@ -50,12 +49,6 @@ unsigned long HashTable<Data>::HashKey(const Data& dat) const noexcept{
 
 template <typename Data>
 unsigned long HashTable<Data>::HashKey(const unsigned long key) const noexcept {
-    std::cout << "Key: " << key << std::endl;
-    std::cout << "a: " << a << std::endl;
-    std::cout << "b: " << b << std::endl;
-    std::cout << "prime: " << prime << std::endl;
-    std::cout << "tablesize: " << tablesize << std::endl;
-    std::cout << "HashKey: " <<(((a * key + b) % prime) % tablesize) << std::endl;
     return (((a * key + b) % prime) % tablesize);
 }
 

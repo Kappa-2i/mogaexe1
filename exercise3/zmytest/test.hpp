@@ -89,6 +89,7 @@ void testBinaryTreeLnkString(uint&, uint&, std::stringstream&);
 
 void testhash(uint&, uint&, std::stringstream&);
 
+void testhash2(uint&, uint&, std::stringstream&);
 
 
 

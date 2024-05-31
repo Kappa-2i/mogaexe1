@@ -28,7 +28,20 @@
 #include "../hashtable/opnadr/htopnadr.hpp"
 #include "../hashtable/clsadr/htclsadr.hpp"
 
+#include "../zlasdtest/hashtable/hashtable.hpp"
+#include "../zlasdtest/container/container.hpp"
+#include "../zlasdtest/container/linear.hpp"
+#include "../zlasdtest/container/testable.hpp"
+#include "../zlasdtest/container/dictionary.hpp"
+
+#include "../zlasdtest/iterator/iterator.hpp"
+
+#include "../zlasdtest/vector/vector.hpp"
+
+#include "../zlasdtest/list/list.hpp"
+
 #include "../zlasdtest/binarytree/binarytree.hpp"
+
 
 
 /* ************************************************************************** */
@@ -66,7 +79,11 @@ void mytest() {
                 break;  
             case 6:
                 testhash(testerr, testnum, numerr);
-                break;   
+                break;
+            case 7:
+                testhash2(testerr, testnum, numerr);
+                break;     
+                 
             case 0: 
                 break;
             default:
@@ -3017,43 +3034,312 @@ void testBinaryTreeLnkString(uint& testerr, uint& testnum, stringstream& numerr)
 void testhash(uint& testerr, uint& testnum, stringstream& numerr){
     
     cout << "---------------------------------HASHISH<int>---------------------------------" << endl;
-    lasd::Vector<int> vec(10);
-    for(unsigned long i = 0; i < vec.Size(); i++){
+    // lasd::Vector<int> vec(50);
+    // for(unsigned long i = 0; i < vec.Size(); i++){
+    //     vec[i] = i;
+    // }
+
+    // lasd::HashTableClsAdr<int> ht(vec);
+    // lasd::HashTableClsAdr<int> ht2(ht);
+    // lasd::HashTableClsAdr<int> ht3(move(ht2));
+
+    // if(ht == ht2){
+    //     cout << "Sono uguali" << endl;
+    // }
+    // else{
+    //     cout << "Sono diversi" << endl;
+    // }
+
+
+    // // cout << "Size: " << ht.Size() << endl;
+    // // cout << "TableSize: " << ht.tablesize << endl;
+    // // cout << "A: " << ht.a << endl;
+    // // cout << "B: " << ht.b << endl;
+
+    
+
+    // // cout << "Size: " << ht.Size() << endl;
+    // // cout << "TableSize: " << ht.tablesize << endl;
+    // // for(unsigned long i = 0; i<ht.tablesize; i++){
+    // //     cout << "Lista " << i << ": ";
+    // //     ht.table[i].Traverse(&TraversePrint<int>); 
+    // //     cout << endl;   
+    // // }
+
+    // // ht.Remove(0);
+    // // ht.Remove(1);
+    // // ht.Remove(2);
+    // // ht.Remove(3);
+    // // ht.Remove(4);
+    // // ht.Remove(5);
+    // // ht.Remove(6);
+    // // ht.Remove(7);
+    // // ht.Remove(8);
+    // // ht.Remove(9);
+
+    // // cout << endl << "Size: " << ht.Size() << endl;
+    // // cout << "TableSize: " << ht.tablesize << endl;
+    // // for(unsigned long i = 0; i<ht.tablesize; i++){
+    // //     cout << "Lista " << i << ": ";
+    // //     ht.table[i].Traverse(&TraversePrint<int>); 
+    // //     cout << endl;   
+    // // }
+
+    // // ht.Clear();
+
+    // // cout << endl << "Size: " << ht.Size() << endl;
+    // // cout << "TableSize: " << ht.tablesize << endl;
+
+    unsigned int loctestnum = 0, loctesterr = 0;
+    cout << endl << "Begin of HashTable<int> Test" << endl;
+
+    cout << endl << "OPN ADR" << endl;
+
+    
+    cout << "-------------------------------------------------------------------------------" << endl;
+    // try{
+ 
+    //     lasd::Vector<int> vec(126);
+    //     for (uint i = 0; i < 126; i++) {
+    //     vec[i] = i;
+    //     }
+
+    //     lasd::Vector<int> container(63);
+    //     for(uint i = 0; i < 63; i++){
+    //         container[i] = 2 * i;
+    //     }
+
+
+//    lasd::HashTableOpnAdr<int> htopnadr(100, vec);
+//     Size(loctestnum, loctesterr, htopnadr, true, 126); 
+
+
+
+
+//     CountHT(loctestnum, loctesterr, htopnadr, container, 63);
+
+//     for (int i = 0; i < 63; i++){
+//         int j = i*2;
+//         Remove(loctestnum, loctesterr, htopnadr, vec[j]);
+//     }
+
+//     for (int i = 1; i < 126; i += 2) {
+//       Exists(loctestnum, loctesterr, htopnadr, true, vec[i]);
+//     }
+
+//     for (int i = 0; i < 126; i += 2) {
+//       Exists(loctestnum, loctesterr, htopnadr, false, vec[i]);
+//     }
+
+//     for (int i = 0; i < 126; i += 2) {
+//       InsertC(loctestnum, loctesterr, htopnadr, vec[i]);
+//     }
+    
+//     for (int i = 1; i < 126; i += 2) {
+//       Exists(loctestnum, loctesterr, htopnadr, true, vec[i]);
+//     }
+
+//     htopnadr.Resize(4001);
+//     Size(loctestnum, loctesterr, htopnadr, true, 126);
+//     Empty(loctestnum, loctesterr, htopnadr, false);
+//     htopnadr.Clear();
+//     Empty(loctestnum, loctesterr, htopnadr, true);
+//     Size(loctestnum, loctesterr, htopnadr, true, 0);
+//     InsertC(loctestnum, loctesterr, htopnadr, vec);
+//     Size(loctestnum, loctesterr, htopnadr, true, 126);
+
+//     lasd::HashTableOpnAdr<int> cophtopnadr(htopnadr);
+//     EqualHT(loctestnum, loctesterr, cophtopnadr, htopnadr);
+//     lasd::HashTableOpnAdr<int> movhtopnadr(std::move(cophtopnadr));
+//     EqualHT(loctestnum, loctesterr, movhtopnadr, htopnadr);
+//     //NonEqualHT(loctestnum, loctesterr, cophtopnadr, movhtopnadr);
+//     cophtopnadr = htopnadr;
+//     EqualHT(loctestnum, loctesterr, movhtopnadr, cophtopnadr);
+//     lasd::HashTableOpnAdr<int> cop2htopnadr;
+//     cop2htopnadr = std::move(cophtopnadr);
+//     EqualHT(loctestnum, loctesterr, cop2htopnadr, htopnadr);
+//     lasd::HashTableOpnAdr<int> htdimconstropn(90);
+//     lasd::HashTableOpnAdr<int> htdimconstropn2(90000);
+
+//     lasd::Vector<int> vec2(10);
+//     for (uint i = 0; i < 10; i++) {
+//       vec[i] = i;
+//     }
+
+    
+//     lasd::HashTableOpnAdr<int> htopnadr2(100, vec2);
+//     lasd::HashTableOpnAdr<int> htopnadr3(100, std::move(vec2));
+//     EqualHT(loctestnum, loctesterr, htopnadr2, htopnadr3);
+
+//     lasd::Vector<int> vec3(10);
+//     for (uint i = 0; i < 10; i++){
+//       vec[i] = i;
+//     }
+
+//     lasd::HashTableOpnAdr<int> htopnadr4(vec3);
+//     lasd::HashTableOpnAdr<int> htopnadr5(std::move(vec3));
+//     //EqualHT(loctestnum, loctesterr, htopnadr4, htopnadr5);
+
+try{
+
+    cout << endl << endl << "CLS ADR" << endl;
+    cout << "-------------------------------------------------------------------------------" << endl;
+
+    lasd::Vector<int> vec(126);
+    for (uint i = 0; i < 126; i++) {
+      vec[i] = i;
+    }
+
+    lasd::Vector<int> container(63);
+    for(uint i = 0; i < 63; i++){
+        container[i] = 2 * i;
+    }
+/* -------------------------------------------------------------------------------------------------- */
+
+    lasd::HashTableClsAdr<int> htclsadr(100, vec);
+    Size(loctestnum, loctesterr, htclsadr, true, 126);
+
+    CountHT(loctestnum, loctesterr, htclsadr, container, 63);
+
+    for (int i = 0; i < 63; i++){
+        int j = i*2;
+        Remove(loctestnum, loctesterr, htclsadr, vec[j]);
+    }
+
+    for (int i = 1; i < 126; i += 2) {
+      Exists(loctestnum, loctesterr, htclsadr, true, vec[i]);
+    }
+
+    for (int i = 0; i < 126; i += 2) {
+      Exists(loctestnum, loctesterr, htclsadr, false, vec[i]);
+    }
+
+    for (int i = 0; i < 126; i += 2) {
+      InsertC(loctestnum, loctesterr, htclsadr, vec[i]);
+    }
+    
+    for (int i = 1; i < 126; i += 2) {
+      Exists(loctestnum, loctesterr, htclsadr, true, vec[i]);
+    }
+
+    htclsadr.Resize(4001);
+    //cout << endl << "table size dopo Resize 4001: " << htclsadr.tableSize << endl;
+    Size(loctestnum, loctesterr, htclsadr, true, 126);
+    Empty(loctestnum, loctesterr, htclsadr, false);
+    htclsadr.Clear();
+    cout<< endl << "COPY HT TableSIZE dopo clear "<< htclsadr.tablesize << endl;
+    Empty(loctestnum, loctesterr, htclsadr, true);
+    Size(loctestnum, loctesterr, htclsadr, true, 0);
+    InsertC(loctestnum, loctesterr, htclsadr, vec);
+    Size(loctestnum, loctesterr, htclsadr, true, 126);
+
+    lasd::HashTableClsAdr<int> cophtclsadr(htclsadr);
+    Size(loctestnum, loctesterr, htclsadr, true, 126);
+    cout<< endl << "COPY HT TableSIZE "<< cophtclsadr.tablesize << endl;
+    cout<< endl << "COPY HT SIZE " << cophtclsadr.Size() << endl;
+    Size(loctestnum, loctesterr, cophtclsadr, true, 126);
+    EqualHT(loctestnum, loctesterr, cophtclsadr, htclsadr);
+    lasd::HashTableClsAdr<int> movhtclsadr(std::move(cophtclsadr));
+    EqualHT(loctestnum, loctesterr, movhtclsadr, htclsadr);
+    NonEqualHT(loctestnum, loctesterr, cophtclsadr, movhtclsadr);
+    cophtclsadr = htclsadr;
+    EqualHT(loctestnum, loctesterr, movhtclsadr, cophtclsadr);
+    lasd::HashTableClsAdr<int> cop2htclsadr;
+    cop2htclsadr = std::move(cophtclsadr);
+    EqualHT(loctestnum, loctesterr, cop2htclsadr, htclsadr);
+    lasd::HashTableClsAdr<int> htdimconstr(90);
+    lasd::HashTableClsAdr<int> htdimconstr2(90000);
+
+    lasd::Vector<int> vec4(10);
+    for (uint i = 0; i < 10; i++) {
+      vec[i] = i;
+    }
+
+    
+    lasd::HashTableClsAdr<int> htclsadr2(100, vec4);
+    lasd::HashTableClsAdr<int> htclsadr3(100, std::move(vec4));
+    EqualHT(loctestnum, loctesterr, htclsadr2, htclsadr3);
+
+    lasd::Vector<int> vec5(10);
+    for (uint i = 0; i < 10; i++){
+      vec[i] = i;
+    }
+
+    lasd::HashTableClsAdr<int> htclsadr4(vec5);
+    lasd::HashTableClsAdr<int> htclsadr5(std::move(vec5));
+    //EqualHT(loctestnum, loctesterr, htclsadr4, htclsadr5);
+
+
+
+    }catch(...){
+        loctestnum++; loctesterr++;
+        cout << endl << "Unmanaged error! " << endl;
+    }
+
+    cout << endl << "Errori: " << loctesterr  << " Test: " << loctestnum << endl;
+    testnum += loctestnum;
+    testerr += loctesterr;
+
+
+    cout << "---------------------------------HASHISH<int>---------------------------------" << endl;
+
+}
+
+
+void testhash2(uint& testerr, uint& testnum, stringstream& numerr){
+
+    lasd::Vector<int> vec(126);
+    for(unsigned long i = 0; i<vec.Size(); i++){
         vec[i] = i;
     }
 
-   try{
-    lasd::HashTableClsAdr<int> ht;
-
-    cout << "Size: " << ht.Size() << endl;
-    cout << "TableSize: " << ht.tablesize << endl;
-
-    ht.Insert(0);
-
-    cout << "Size: " << ht.Size() << endl;
-    cout << "TableSize: " << ht.tablesize << endl;
+    lasd::HashTableClsAdr<int> ht(vec);
+    cout << "Size ht: " << ht.Size() << endl;
+    cout << "TableSize ht: " << ht.tablesize << endl;
     for(unsigned long i = 0; i<ht.tablesize; i++){
         cout << "Lista " << i << ": ";
         ht.table[i].Traverse(&TraversePrint<int>); 
         cout << endl;   
     }
+
+
+    lasd::HashTableClsAdr<int> ht2(ht);
+    cout << "Size ht2: " << ht2.Size() << endl;
+    cout << "TableSize ht2: " << ht2.tablesize << endl;
+    for(unsigned long i = 0; i<ht2.tablesize; i++){
+        cout << "Lista " << i << ": ";
+        ht2.table[i].Traverse(&TraversePrint<int>); 
+        cout << endl;   
     }
-    catch(exception& e){
-        cout << e.what() << endl;    
+
+    if(ht == ht2){
+        cout << "Sono uguali" << endl;
+    }
+    else{
+        cout << "Sono diversi" << endl;
+    }
+
+    cout << "Size ht: " << ht.Size() << endl;
+    cout << "TableSize ht: " << ht.tablesize << endl;
+    for(unsigned long i = 0; i<ht.tablesize; i++){
+        cout << "Lista " << i << ": ";
+        ht.table[i].Traverse(&TraversePrint<int>); 
+        cout << endl;   
+    }
+
+    cout << "Size ht2: " << ht2.Size() << endl;
+    cout << "TableSize ht2: " << ht2.tablesize << endl;
+    for(unsigned long i = 0; i<ht2.tablesize; i++){
+        cout << "Lista " << i << ": ";
+        ht2.table[i].Traverse(&TraversePrint<int>); 
+        cout << endl;   
     }
 
 
-    // lasd::Vector<lasd::List<int>> vec();
-
-    // for(unsigned long i = 0; i<vec.Size(); i++){
-    //     for(unsigned long j = 0; j < vec.operator[](i).Size() && vec[i].Size() != 0; j++){
-    //         cout << vec[i].operator[](j);
-    //     }
-    // }
-    
 
 
 
-    cout << "---------------------------------HASHISH<int>---------------------------------" << endl;
+
+
 
 }

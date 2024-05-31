@@ -34,7 +34,6 @@ HashTableClsAdr<Data>::HashTableClsAdr(unsigned long givenSize) {
 template<typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(const TraversableContainer<Data>& container){
     unsigned long givenSize = 0;
-    std::cout << container.Size() << std::endl;
     if(container.Size() < MIN_TABLESIZE) {
         givenSize = MIN_TABLESIZE;
     }
@@ -154,7 +153,10 @@ bool HashTableClsAdr<Data>::operator==(const HashTableClsAdr<Data>& ht) const no
             //     }
             // }
         //}
-
+        std::cout << "TableSize: " << tablesize << std::endl;
+        std::cout << "Size: " << table.Size() << std::endl;
+        std::cout << "HT TableSize: " << ht.tablesize << std::endl;
+        std::cout << "HT Size: " << ht.table.Size() << std::endl;
         for(unsigned long i = 0; i < table.Size(); i++){
             for(unsigned long j = 0; j < table[i].Size() && table[i].Size() != 0; j++){
                 unsigned long index = HashKey(table[i].operator[](j));
@@ -180,7 +182,6 @@ bool HashTableClsAdr<Data>::operator!=(const HashTableClsAdr<Data> & ht) const n
 template<typename Data>
 bool HashTableClsAdr<Data>::Insert(const Data& data){
     unsigned long index = HashKey(data);
-    std::cout << "Index per lo 0 (const): " << index << std::endl;
     if(table[index].Insert(data)){
         size++;
         return true;
@@ -191,7 +192,6 @@ bool HashTableClsAdr<Data>::Insert(const Data& data){
 template<typename Data>
 bool HashTableClsAdr<Data>::Insert(Data&& data) noexcept{
     unsigned long index = HashKey(std::move(data));
-    std::cout << "Index per lo 0: " << index << std::endl;
     if(table[index].Insert(std::move(data))){
         size++;
         return true;
