@@ -3251,23 +3251,25 @@ try{
     lasd::HashTableClsAdr<int> htdimconstr2(90000);
 
     lasd::Vector<int> vec4(10);
-    for (uint i = 0; i < 10; i++) {
-      vec[i] = i;
+    for (unsigned long i = 0; i < vec4.Size(); i++) {
+      vec4[i] = i;
     }
 
     
     lasd::HashTableClsAdr<int> htclsadr2(100, vec4);
+    Size(loctestnum, loctesterr, htclsadr2, true, 10);
     lasd::HashTableClsAdr<int> htclsadr3(100, std::move(vec4));
-    EqualHT(loctestnum, loctesterr, htclsadr2, htclsadr3);
+    Size(loctestnum, loctesterr, htclsadr3, true, 10);
+    NonEqualHT(loctestnum, loctesterr, htclsadr2, htclsadr3);
 
     lasd::Vector<int> vec5(10);
-    for (uint i = 0; i < 10; i++){
-      vec[i] = i;
+    for (uint i = 0; i < vec5.Size(); i++){
+      vec5[i] = i;
     }
 
     lasd::HashTableClsAdr<int> htclsadr4(vec5);
     lasd::HashTableClsAdr<int> htclsadr5(std::move(vec5));
-    //EqualHT(loctestnum, loctesterr, htclsadr4, htclsadr5);
+    NonEqualHT(loctestnum, loctesterr, htclsadr4, htclsadr5);
 
 
 
@@ -3288,52 +3290,78 @@ try{
 
 void testhash2(uint& testerr, uint& testnum, stringstream& numerr){
 
-    lasd::Vector<int> vec(126);
-    for(unsigned long i = 0; i<vec.Size(); i++){
-        vec[i] = i;
-    }
+    // lasd::Vector<int> vec(10);
+    // for(unsigned long i = 0; i<vec.Size(); i++){
+    //     vec[i] = i;
+    // }
 
-    lasd::HashTableClsAdr<int> ht(vec);
-    cout << "Size ht: " << ht.Size() << endl;
-    cout << "TableSize ht: " << ht.tablesize << endl;
-    for(unsigned long i = 0; i<ht.tablesize; i++){
-        cout << "Lista " << i << ": ";
-        ht.table[i].Traverse(&TraversePrint<int>); 
-        cout << endl;   
-    }
+    // lasd::HashTableClsAdr<int> ht(100, vec);
+
+    // cout << "Size ht: " << ht.Size() << endl;
+    // cout << "TableSize ht: " << ht.tablesize << endl;
+    // for(unsigned long i = 0; i<ht.tablesize; i++){
+    //     cout << "Lista " << i << ": ";
+    //     ht.table[i].Traverse(&TraversePrint<int>); 
+    //     cout << endl;   
+    // }
+
+    // lasd::HashTableClsAdr<int> ht2(100, move(vec));
+
+    // cout << "Size ht2: " << ht2.Size() << endl;
+    // cout << "TableSize ht2: " << ht2.tablesize << endl;
+    // for(unsigned long i = 0; i<ht.tablesize; i++){
+    //     cout << "Lista " << i << ": ";
+    //     ht.table[i].Traverse(&TraversePrint<int>); 
+    //     cout << endl;   
+    // }
+
+    uint loctestnum = 0;
+    uint loctesterr = 0;
 
 
-    lasd::HashTableClsAdr<int> ht2(ht);
-    cout << "Size ht2: " << ht2.Size() << endl;
-    cout << "TableSize ht2: " << ht2.tablesize << endl;
-    for(unsigned long i = 0; i<ht2.tablesize; i++){
-        cout << "Lista " << i << ": ";
-        ht2.table[i].Traverse(&TraversePrint<int>); 
-        cout << endl;   
-    }
+    // cout << "Size ht: " << ht.Size() << endl;
+    // cout << "TableSize ht: " << ht.tablesize << endl;
+    // for(unsigned long i = 0; i<ht.tablesize; i++){
+    //     cout << "Lista " << i << ": ";
+    //     ht.table[i].Traverse(&TraversePrint<int>); 
+    //     cout << endl;   
+    // }
 
-    if(ht == ht2){
-        cout << "Sono uguali" << endl;
-    }
-    else{
-        cout << "Sono diversi" << endl;
-    }
 
-    cout << "Size ht: " << ht.Size() << endl;
-    cout << "TableSize ht: " << ht.tablesize << endl;
-    for(unsigned long i = 0; i<ht.tablesize; i++){
-        cout << "Lista " << i << ": ";
-        ht.table[i].Traverse(&TraversePrint<int>); 
-        cout << endl;   
-    }
+    // lasd::HashTableClsAdr<int> ht2(ht);
+    // cout << "Size ht2: " << ht2.Size() << endl;
+    // cout << "TableSize ht2: " << ht2.tablesize << endl;
+    // for(unsigned long i = 0; i<ht2.tablesize; i++){
+    //     cout << "Lista " << i << ": ";
+    //     ht2.table[i].Traverse(&TraversePrint<int>); 
+    //     cout << endl;   
+    // }
 
-    cout << "Size ht2: " << ht2.Size() << endl;
-    cout << "TableSize ht2: " << ht2.tablesize << endl;
-    for(unsigned long i = 0; i<ht2.tablesize; i++){
-        cout << "Lista " << i << ": ";
-        ht2.table[i].Traverse(&TraversePrint<int>); 
-        cout << endl;   
-    }
+    // ht2.Insert(200);
+    // ht.Insert(201);
+
+    // if(ht == ht2){
+    //     cout << "Sono uguali" << endl;
+    // }
+    // else{
+    //     cout << "Sono diversi" << endl;
+    // }
+
+    // cout << "Size ht: " << ht.Size() << endl;
+    // cout << "TableSize ht: " << ht.tablesize << endl;
+    // for(unsigned long i = 0; i<ht.tablesize; i++){
+    //     cout << "Lista " << i << ": ";
+    //     ht.table[i].Traverse(&TraversePrint<int>); 
+    //     cout << endl;   
+    // }
+
+    // cout << "Size ht2: " << ht2.Size() << endl;
+    // cout << "TableSize ht2: " << ht2.tablesize << endl;
+    // for(unsigned long i = 0; i<ht2.tablesize; i++){
+    //     cout << "Lista " << i << ": ";
+    //     ht2.table[i].Traverse(&TraversePrint<int>); 
+    //     cout << endl;   
+    // }
 
 
 

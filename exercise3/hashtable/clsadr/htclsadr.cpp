@@ -154,24 +154,39 @@ bool HashTableClsAdr<Data>::operator==(const HashTableClsAdr<Data>& ht) const no
             // }
         //}
         std::cout << "TableSize: " << tablesize << std::endl;
-        std::cout << "Size: " << table.Size() << std::endl;
+        std::cout << "Size: " << size << std::endl;
         std::cout << "HT TableSize: " << ht.tablesize << std::endl;
-        std::cout << "HT Size: " << ht.table.Size() << std::endl;
+        std::cout << "HT Size: " << ht.size << std::endl;
         for(unsigned long i = 0; i < table.Size(); i++){
-            for(unsigned long j = 0; j < table[i].Size() && table[i].Size() != 0; j++){
-                unsigned long index = HashKey(table[i].operator[](j));
-                if(!table[index].Exists(table[i].operator[](j))){
-                    return false;
+            if(table[i].Size() == ht.table[i].Size()){
+                for(unsigned long j = 0; j < table[i].Size() && table[i].Size() != 0; j++){
+                    unsigned long index = ht.HashKey(table[i].operator[](j));
+                    if(!table[index].Exists(table[i].operator[](j))){
+                        return false;
+                    }
                 }
+            }
+            else{
+                return false; 
             }
         }
         return true;
+
+        // bool exists;
+        // for(unsigned long i = 0; i < tablesize; i++){
+        //     table[i].Traverse([this, &ht, &exists](const Data& data){
+        //         if(!ht.Exists(data)){
+        //             exists = false;
+        //         }
+        //     });
+        // }
+        // return exists;
     }
     return false;
 }
 
 template<typename Data>
-bool HashTableClsAdr<Data>::operator!=(const HashTableClsAdr<Data> & ht) const noexcept{
+bool HashTableClsAdr<Data>::operator!=(const HashTableClsAdr<Data>& ht) const noexcept{
     return !(*this == ht);
 }
 
