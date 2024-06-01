@@ -27,19 +27,26 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(unsigned long givenSize) {
     if(givenSize > tablesize){
         givenSize = FindNext2Pow(givenSize);
         tablesize = givenSize;
-        table.Resize(tablesize);
-        statusVec.Resize(tablesize);
     }
-    else{
-        statusVec.Resize(tablesize);
-    }
+    table.Resize(tablesize);
+    statusVec.Resize(tablesize);
     for(unsigned long i=0; i<tablesize; i++) {
         statusVec[i] = 'E';
     }
+
+    // size = 0;
+    // tablesize = FindNext2Pow(givenSize);
+    // table.Resize(tablesize);
+    // statusVec.Resize(tablesize);
+    // for(unsigned long i=0; i<tablesize; i++) {
+    //      statusVec[i] = 'E';
+    // }
+
+
 }
 
 template<typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(const TraversableContainer<Data>& container) : HashTableOpnAdr<Data>(container.Size()) {
+HashTableOpnAdr<Data>::HashTableOpnAdr(const TraversableContainer<Data>& container) : HashTableOpnAdr<Data>() {
     InsertAll(container);
 }
 
@@ -49,7 +56,7 @@ HashTableOpnAdr<Data>::HashTableOpnAdr(unsigned long givenSize, const Traversabl
 }
 
 template<typename Data>
-HashTableOpnAdr<Data>::HashTableOpnAdr(MappableContainer<Data>&& container) : HashTableOpnAdr<Data>(container.Size()){
+HashTableOpnAdr<Data>::HashTableOpnAdr(MappableContainer<Data>&& container) : HashTableOpnAdr<Data>(){
     InsertAll(std::move(container));
 }
 
@@ -140,7 +147,7 @@ bool HashTableOpnAdr<Data>::Insert(const Data& data) {
         unsigned long index = FindEmpty(data, 0);
         if(index < tablesize) {
             unsigned long key = HashKey(data, index);
-            if(statusVec[key] == 'E' || statusVec[key] == 'F'){
+            if(statusVec[key] == 'E' || statusVec[key] == 'R'){
                 table[key] = data;
                 statusVec[key] = 'F';
                 size++;
@@ -161,7 +168,7 @@ bool HashTableOpnAdr<Data>::Insert(Data&& data) noexcept {
         unsigned long index = FindEmpty(data, 0);
         if(index < tablesize) {
             unsigned long key = HashKey(data, index);
-            if(statusVec[key] == 'E' || statusVec[key] == 'F'){
+            if(statusVec[key] == 'E' || statusVec[key] == 'R'){
                 table[key] = std::move(data);
                 statusVec[key] = 'F';
                 size++;
@@ -175,34 +182,22 @@ bool HashTableOpnAdr<Data>::Insert(Data&& data) noexcept {
 
 template <typename Data>
 void HashTableOpnAdr<Data>::Resize(unsigned long siz) {
-    unsigned long newSize;
     if(!IsResizable(siz)) {
         return;
     }
 
-    if(siz >= MIN_SIZE && siz <= MAX_SIZE){
-        newSize = siz;
-    }
-    else{
-        newSize = MIN_SIZE;
-    }
+    unsigned long newSize = FindNext2Pow(siz);
 
-    if(newSize == tablesize) {
+    if(siz == tablesize){
         return;
     }
+
     HashTableOpnAdr<Data>* tmpht = new HashTableOpnAdr<Data>(newSize);
-    std::cout << tmpht->tablesize << std::endl;
-    std::cout << "sto inserend gli elementi in tmpht" << std::endl;
-    std::cout << tablesize << std::endl;
-    std::cout << statusVec.Size() << std::endl;
-    std::cout << table.Size() << std::endl;
     for(unsigned long i = 0; i < tablesize; i++) {
         if(statusVec[i] == 'F') {
-            std::cout << "Sto facendo l'insert" << std::endl;
             tmpht->Insert(table[i]);
         }
     }
-    std::cout << "Ho inserito gli elementi in tmpht" << std::endl;
     std::swap(*this, *tmpht);
     delete tmpht;
 }
@@ -226,7 +221,6 @@ template <typename Data>
 bool HashTableOpnAdr<Data>::Remove(const Data& data) {
     double capacity = (static_cast<double>(size)/static_cast<double>(tablesize))*100;
     bool res = Remove(data, 0);
-    std::cout << "Sto nella remove" << std::endl;
     if(capacity < 10) {
         Resize((tablesize/2));
     }
@@ -293,9 +287,9 @@ bool HashTableOpnAdr<Data>::Remove(const Data& data, unsigned long index) {
         unsigned long idx = Find(data, index);
         if(idx < tablesize) {
             unsigned long pos = HashKey(data, idx);  
-                if(statusVec[pos] == 'F' && table[pos] == data) {
-                    statusVec[pos] = 'R';
-                    size--;
+            if(statusVec[pos] == 'F' && table[pos] == data) {
+                statusVec[pos] = 'R';
+                size--;
                 return true;
             }
         }

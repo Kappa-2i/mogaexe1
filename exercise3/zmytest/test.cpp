@@ -3030,72 +3030,52 @@ void testBinaryTreeLnkString(uint& testerr, uint& testnum, stringstream& numerr)
 void testHashTableClsAdrInt(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "---------------------------------Test on HashTableClsAdr<int>---------------------------------" << endl;
 
-    // lasd::Vector<int> vec(100);
-    // for (uint i = 0; i < vec.Size(); ++i) {
-    //     vec[i] = i;
-    // }
-
-
-    // lasd::HashTableClsAdr<int> ht;
-
-    // cout << "\tNew Default HtClsAdr..." << endl;
-    // cout << testnum+1 << ") HtClsAdr is: ";
-    // if(ht.Empty()){
-    //     cout << "empty" << endl;
-    // }
-    // else{
-    //     cout << testnum+1 << "not empty" << endl;
-    //     testerr += 1;
-    //     numerr << testnum + 1 << " ";
-    // }
-    // testnum++;
-
-    // cout << testnum+1 << ") In HtClsAdr the value 0: ";
-    // if(!ht.Exists(0)){
-    //     cout << "not exists" << endl;
-    // }
-    // else{
-    //     cout << testnum+1 << "exists" << endl;
-    //     testerr += 1;
-    //     numerr << testnum + 1 << " ";
-    // }
-    // testnum++;
-
-    // cout << "\tResize of TableSize HtClsAdr with 150..." << endl;
-    // ht.Resize(150);
-
-    // cout << testnum+1 << ") But TableSize HtClsAdr is: ";
-    // if(ht.tablesize == 151){
-    //     cout << ht.tablesize << " ,is next prime of 150" << endl;
-    // }
-    // else{
-    //     cout << ht.tablesize << endl;
-    //     testerr += 1;
-    //     numerr << testnum + 1 << " ";
-    // }
-
-    // cout << "\t Copy of Vec(100) in HtClsAdr" << endl;
-    // ht.InsertAll(vec);
-
-
-    lasd::Vector<int> vec(150);
-    for(unsigned long i = 0; i < vec.Size(); i++){
+    lasd::Vector<int> vec(100);
+    for (uint i = 0; i < vec.Size(); ++i) {
         vec[i] = i;
     }
 
-    lasd::HashTableOpnAdr<int> ht(vec);
 
-    cout << "Ferrari" << endl;
-    cout << ht.tablesize << endl;
+    lasd::HashTableClsAdr<int> ht;
 
-    for(unsigned long i = 0; i < 130; i++){
-        ht.Remove(vec[i]);
+    cout << "\tNew Default HtClsAdr..." << endl;
+    cout << testnum+1 << ") HtClsAdr is: ";
+    if(ht.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << testnum+1 << "not empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") In HtClsAdr the value 0: ";
+    if(!ht.Exists(0)){
+        cout << "not exists" << endl;
+    }
+    else{
+        cout << testnum+1 << "exists" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tResize of TableSize HtClsAdr with 150..." << endl;
+    ht.Resize(150);
+
+    cout << testnum+1 << ") But TableSize HtClsAdr is: ";
+    if(ht.tablesize == 151){
+        cout << ht.tablesize << " ,is next prime of 150" << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
     }
 
-    cout << "Ferrari2" << endl;
-
-    cout << "Size " << ht.Size() << endl;
-    cout << "TableSize " << ht.tablesize << endl;
+    cout << "\t Copy of Vec(100) in HtClsAdr" << endl;
+    ht.InsertAll(vec);
     
 
     cout << "---------------------------------End of test HashTableClsAdr<int>---------------------------------" << endl;
