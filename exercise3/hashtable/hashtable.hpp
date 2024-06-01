@@ -39,11 +39,12 @@ private:
 
 protected:
 
+  using DictionaryContainer<Data>::InsertAll;
   using DictionaryContainer<Data>::size;
 
   ulong a = 1;
   ulong b = 0;
-  static const ulong prime =  17; //127312343; //Big Prime
+  static const ulong prime = 127312343; //Big Prime
 
   std::default_random_engine gen = std::default_random_engine(std::random_device{}());
   std::uniform_int_distribution<unsigned long> dista = std::uniform_int_distribution<unsigned long>(1, prime-1);

@@ -23,13 +23,13 @@ class HashTableClsAdr : virtual public HashTable<Data>{
 
 private:
 
+public:
+
+  using HashTable<Data>::tablesize;
 
 protected:
 
-
-public:
   using HashTable<Data>::size;
-  using HashTable<Data>::tablesize;
   using HashTable<Data>::enchash;
   using HashTable<Data>::a;
   using HashTable<Data>::b;
@@ -37,7 +37,6 @@ public:
   using HashTable<Data>::Insert;
   using HashTable<Data>::InsertAll;
   Vector<List<Data>> table;
-
 
 public:
 

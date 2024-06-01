@@ -87,9 +87,13 @@ void testBinaryTreeLnkString(uint&, uint&, std::stringstream&);
 
 
 
-void testhash(uint&, uint&, std::stringstream&);
+void testHashTableClsAdrInt(uint&, uint&, std::stringstream&);
 
-void testhash2(uint&, uint&, std::stringstream&);
+// void testHashTableClsAdrString(uint&, uint&, std::stringstream&);
+
+// void testHashTableOpnAdrInt(uint&, uint&, std::stringstream&);
+
+// void testHashTableOpnAdrStrin(uint&, uint&, std::stringstream&);
 
 
 

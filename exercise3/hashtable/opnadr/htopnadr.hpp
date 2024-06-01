@@ -26,6 +26,7 @@ private:
 
 protected:
 
+public: 
   using HashTable<Data>::size;
   using HashTable<Data>::enchash;
   using HashTable<Data>::a;
@@ -120,6 +121,7 @@ public:
   bool Remove(const Data&, unsigned long);
 
   bool IsResizable(unsigned long) const noexcept;
+  unsigned long FindNext2Pow(unsigned long) const noexcept;
 
 };
 

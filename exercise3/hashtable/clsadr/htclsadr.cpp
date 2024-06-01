@@ -1,6 +1,4 @@
 #include "htclsadr.hpp"
-#include "../../zmytest/test.hpp"
-#include <iostream>
 namespace lasd {
 
 /* ************************************************************************** */
@@ -10,6 +8,7 @@ namespace lasd {
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr() {
     table = Vector<List<Data>> (MIN_TABLESIZE);
+    tablesize = MIN_TABLESIZE;
 }
 
 /* ************************************************************************** */
@@ -103,17 +102,21 @@ HashTableClsAdr<Data>::HashTableClsAdr(unsigned long givenSize, MappableContaine
 // Copy and Move Constructors - HashTableClsAdr
 
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data>& ht) : HashTable<Data>(ht) {
-    table.Resize(ht.tablesize);
-    for (unsigned long i = 0; i < ht.tablesize; i++){
-        table[i] = ht.table[i];
-    }
+HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr<Data>& ht) {
+    size = ht.size;
+    tablesize = ht.tablesize;
+    a = ht.a;
+    b = ht.b;
+    table = ht.table;
 }
 
 template <typename Data>
-HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data>&& ht) noexcept : HashTable<Data>(std::move(ht)) {
-    std::swap(table, ht.table);
+HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr<Data>&& ht) noexcept {
+    std::swap(size, ht.size);
     std::swap(tablesize, ht.tablesize);
+    std::swap(a, ht.a);
+    std::swap(b, ht.b);
+    std::swap(table, ht.table);
 }
 
 /* ************************************************************************** */
@@ -144,43 +147,16 @@ HashTableClsAdr<Data> & HashTableClsAdr<Data>::operator=(HashTableClsAdr<Data>&&
 
 template<typename Data>
 bool HashTableClsAdr<Data>::operator==(const HashTableClsAdr<Data>& ht) const noexcept{
+    bool exists = true;
     if(size == ht.size){
-        //for (unsigned long i = 0; i < tablesize; i++){
-            // for (Node* it = table[i].Front(); it != nullptr; it = it->next){
-            //     unsigned long index = HashKey(*(it)->data);
-            //     if(!table[index].Exists(*(it)->data)){
-            //         return false;
-            //     }
-            // }
-        //}
-        std::cout << "TableSize: " << tablesize << std::endl;
-        std::cout << "Size: " << size << std::endl;
-        std::cout << "HT TableSize: " << ht.tablesize << std::endl;
-        std::cout << "HT Size: " << ht.size << std::endl;
         for(unsigned long i = 0; i < table.Size(); i++){
-            if(table[i].Size() == ht.table[i].Size()){
-                for(unsigned long j = 0; j < table[i].Size() && table[i].Size() != 0; j++){
-                    unsigned long index = ht.HashKey(table[i].operator[](j));
-                    if(!table[index].Exists(table[i].operator[](j))){
-                        return false;
-                    }
-                }
-            }
-            else{
-                return false; 
+            for(unsigned long j = 0; j < table[i].Size() && table[i].Size() != 0; j++){
+                for(unsigned long index = 0; index < ht.table.Size(); index ++){
+                    exists &= ht.Exists(table[i].operator[](j));
+                }     
             }
         }
-        return true;
-
-        // bool exists;
-        // for(unsigned long i = 0; i < tablesize; i++){
-        //     table[i].Traverse([this, &ht, &exists](const Data& data){
-        //         if(!ht.Exists(data)){
-        //             exists = false;
-        //         }
-        //     });
-        // }
-        // return exists;
+        return exists;
     }
     return false;
 }
@@ -248,11 +224,6 @@ void HashTableClsAdr<Data>::Resize(unsigned long newSize){
     table.Resize(newSize);
     tablesize = newSize;
     size = 0;
-    // for (unsigned long i = 0; i < table2.Size(); i++){
-    //     for (Node* it = table[i].Front(); it != nullptr; it = it->next){
-    //         Insert(*(it)->data);
-    //     }
-    // }
     for(unsigned long i = 0; i < table2.Size(); i++){
         for(unsigned long j = 0; j < table2[i].Size() && table2[i].Size() != 0; j++){
             Insert(table2[i].operator[](j));
