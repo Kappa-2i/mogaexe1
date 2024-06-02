@@ -83,9 +83,9 @@ void testBinaryTreeLnkFloat(uint&, uint&, std::stringstream&);
 
 void testBinaryTreeLnkString(uint&, uint&, std::stringstream&);
 
-// void testBSTFloat(uint&, uint&, std::stringstream&);
+void testBSTInt(uint&, uint&, std::stringstream&);
 
-// void testBSTString(uint&, uint&, std::stringstream&);
+void testBSTString(uint&, uint&, std::stringstream&);
 
 
 

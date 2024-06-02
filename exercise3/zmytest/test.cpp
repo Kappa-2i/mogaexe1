@@ -199,7 +199,7 @@ void choiceQueueType(uint& testerr, uint& testnum, stringstream& numerr){
 }
 
 void choiceBinaryTreeType(uint& testerr, uint& testnum, stringstream& numerr){
-    cout << "Pick the data type: \n 1-BinaryTreeVec<float> \n 2-BinaryTreeVec<string> \n 3-BinaryTreeLnk<float> \n 4-BinaryTreeLnk<string> \n 5-BST<float> \n 6-BST<string>" << endl;
+    cout << "Pick the data type: \n 1-BinaryTreeVec<float> \n 2-BinaryTreeVec<string> \n 3-BinaryTreeLnk<float> \n 4-BinaryTreeLnk<string> \n 5-BST<int> \n 6-BST<string>" << endl;
     int choice = 1;
     
     cin >> choice;
@@ -221,11 +221,11 @@ void choiceBinaryTreeType(uint& testerr, uint& testnum, stringstream& numerr){
             break;
         }
         case 5:{
-            //testBSTFloat(testerr, testnum, numerr);
+            testBSTInt(testerr, testnum, numerr);
             break;
         }
         case 6:{
-            //testBSTString(testerr, testnum, numerr);
+            testBSTString(testerr, testnum, numerr);
             break;
         }
         default:
@@ -3048,6 +3048,563 @@ void testBinaryTreeLnkString(uint& testerr, uint& testnum, stringstream& numerr)
 
     cout << "---------------------------------End of test BinaryTreeVec<string>---------------------------------" << endl;
 }
+
+void testBSTInt(uint& testerr, uint& testnum, stringstream& numerr){
+    cout << "---------------------------------Test on BST<int>---------------------------------" << endl;
+    
+
+
+    cout << "\tDeafult BST<int>..." << endl;
+    lasd::BST<int> bst;
+
+    cout << testnum+1 << ") BST is: ";
+    if(bst.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" <<endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Min of BST: ";
+    try{
+        cout << bst.Min() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Predecessor of 5 in BST: ";
+    try{
+        cout << bst.Predecessor(5) << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+    cout << "\tInsert 50 int in BST..." << endl;
+    for(uint i = 0; i < 50; i++){
+        bst.Insert(i);
+    }
+
+    cout << "Breadth Traverse of BST: ";
+    bst.BreadthTraverse(&TraversePrint<int>);
+    cout << endl;
+
+    cout << testnum+1 << ") BST Size: ";
+    if(bst.Size() == 50){
+        cout << bst.Size() << endl;
+    }
+    else{
+        cout << bst.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Min of BST: ";
+    try{
+        cout << bst.Min() << endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Predecessor of 5 in BST: ";
+    try{
+        cout << bst.Predecessor(5) << endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Min of BST: ";
+    try{
+        cout << bst.MinNRemove() << ", remove..." << endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Predecessor of 50 in BST: ";
+    try{
+        cout << bst.PredecessorNRemove(50) << ", remove..." << endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Value 0 in bst: ";
+    if(!bst.Exists(0)){
+        cout << "not exists" << endl;
+    }
+    else{
+        cout << "exists" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") BST Size: ";
+    if(bst.Size() == 48){
+        cout << bst.Size() << endl;
+    }
+    else{
+        cout << bst.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tClear of BST..." << endl;
+    bst.Clear();
+
+    cout << testnum+1 << ") BST is: ";
+    if(bst.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" <<endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Remove min in BST... ";
+    try{
+        bst.RemoveMin();
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Remove predecessor of 49 in BST... ";
+    try{
+        bst.RemovePredecessor(49);
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+
+    cout << endl;
+
+    lasd::Vector<int> vec(20);
+    for (uint i = 0; i < vec.Size(); ++i) {
+        vec[i] = i;
+    }
+
+    cout << "New Vector<int>: ";
+    vec.Traverse(&TraversePrint<int>);
+    cout << endl;
+
+    cout << "\tCopy of Vector in BST2..." << endl;
+    lasd::BST<int> bst2(vec);
+
+    cout << testnum+1 << ") BST2 Size: ";
+    if(bst2.Size() == 20){
+        cout << bst2.Size() << endl;
+    }
+    else{
+        cout << bst2.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") BST and BST2 are: ";
+    if(bst != bst2){
+        cout << "not equal" << endl;
+    }
+    else{
+        cout << "equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Predecessor of 20 in BST2: ";
+    try{
+        cout << bst2.PredecessorNRemove(20) << ", remove..."<< endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Min of BST2: ";
+    try{
+        cout << bst2.MinNRemove() << ", remove..." <<endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "Breadth Traverse of BST2: ";
+    bst2.BreadthTraverse(&TraversePrint<int>);
+    cout << endl;
+
+    cout << "\tCopy Constructor of BST3 using BST2..." << endl;
+    lasd::BST<int> bst3(bst2);
+
+    cout << testnum+1 << ") BST2 and BST3 are: "; 
+    if(bst2 == bst3){
+        cout << "equal" << endl;
+    }
+    else{
+        cout << "not equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+    cout << "\tCopy Assignment of BST3 int BST4..." << endl;
+    lasd::BST<int> bst4;
+
+    bst4 = bst3;
+
+    cout << testnum+1 << ") BST3 and BST4 are: "; 
+    if(bst4 == bst3){
+        cout << "equal" << endl;
+    }
+    else{
+        cout << "not equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tClear of BST4..." << endl;
+    bst4.Clear();
+
+    cout << testnum+1 << ") BST4 is: ";
+    if(bst4.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+    cout << "---------------------------------End of test BST<float>---------------------------------" << endl;
+}
+
+
+void testBSTString(uint& testerr, uint& testnum, stringstream& numerr){
+    cout << "---------------------------------Test on BST<string>---------------------------------" << endl;
+    
+
+
+    cout << "\tDeafult BST<string>..." << endl;
+    lasd::BST<string> bst;
+
+    cout << testnum+1 << ") BST is: ";
+    if(bst.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" <<endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Max of BST: ";
+    try{
+        cout << bst.Max() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Successor of ''@ in BST: ";
+    try{
+        cout << bst.Successor("@") << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+    cout << "\tInsert Alhabet in BST..." << endl;
+    for(uint i = 0; i < 26; i++){
+        bst.Insert(string(1, (static_cast<char>('A' + i))));
+    }
+
+    cout << "Breadth Traverse of BST: ";
+    bst.BreadthTraverse(&TraversePrint<string>);
+    cout << endl;
+
+    cout << testnum+1 << ") BST Size: ";
+    if(bst.Size() == 26){
+        cout << bst.Size() << endl;
+    }
+    else{
+        cout << bst.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Max of BST: ";
+    try{
+        cout << bst.Max() << endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Successor of 'F' in BST: ";
+    try{
+        cout << bst.Successor("F") << endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Max of BST: ";
+    try{
+        cout << bst.MaxNRemove() << ", remove..." << endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Successor of 'H' in BST: ";
+    try{
+        cout << bst.SuccessorNRemove("H") << ", remove..." << endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Value '@' in bst: ";
+    if(!bst.Exists("@")){
+        cout << "not exists" << endl;
+    }
+    else{
+        cout << "exists" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") BST Size: ";
+    if(bst.Size() == 24){
+        cout << bst.Size() << endl;
+    }
+    else{
+        cout << bst.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tClear of BST..." << endl;
+    bst.Clear();
+
+    cout << testnum+1 << ") BST is: ";
+    if(bst.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" <<endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Remove max in BST... ";
+    try{
+        bst.RemoveMax();
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Remove successor of 'T' in BST... ";
+    try{
+        bst.RemoveSuccessor("T");
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+    }
+    testnum++;
+
+
+    cout << endl;
+
+    lasd::Vector<string> vec(26);
+    for(uint i = 0; i < vec.Size(); i++){
+        vec[i] = (string(1, (static_cast<char>('a' + i))));
+    }
+
+    cout << "New Vector<string>: ";
+    vec.Traverse(&TraversePrint<string>);
+    cout << endl;
+
+    cout << "\tMove of Vector in BST2..." << endl;
+    lasd::BST<string> bst2(move(vec));
+
+    cout << testnum+1 << ") BST2 Size: ";
+    if(bst2.Size() == 26){
+        cout << bst2.Size() << endl;
+    }
+    else{
+        cout << bst2.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") BST and BST2 are: ";
+    if(bst != bst2){
+        cout << "not equal" << endl;
+    }
+    else{
+        cout << "equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Successor of 'w' in BST2: ";
+    try{
+        cout << bst2.SuccessorNRemove("w") << ", remove..."<< endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Max of BST2: ";
+    try{
+        cout << bst2.MaxNRemove() << ", remove..." <<endl;
+    }
+    catch(const length_error& e){
+        cout << e.what() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "Breadth Traverse of BST2: ";
+    bst2.BreadthTraverse(&TraversePrint<string>);
+    cout << endl;
+
+    cout << "\tMove Constructor of BST3 using BST2..." << endl;
+    lasd::BST<string> bst3(move(bst2));
+
+    cout << testnum+1 << ") BST2 and BST3 are: "; 
+    if(bst2 != bst3){
+        cout << "not equal" << endl;
+    }
+    else{
+        cout << "equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+    cout << "\tMove Assignment of BST3 int BST4..." << endl;
+    lasd::BST<string> bst4;
+
+    bst4 = move(bst3);
+
+    cout << testnum+1 << ") BST3 and BST4 are: "; 
+    if(bst4 != bst3){
+        cout << "not equal" << endl;
+    }
+    else{
+        cout << "equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tClear of BST4..." << endl;
+    bst4.Clear();
+
+    cout << testnum+1 << ") BST4 is: ";
+    if(bst4.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+    cout << "---------------------------------End of test BST<float>---------------------------------" << endl;
+}
+
+
+
+
+
+
 
 
 void testHashTableClsAdrInt(uint& testerr, uint& testnum, stringstream& numerr){
