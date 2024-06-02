@@ -205,7 +205,7 @@ void HashTableOpnAdr<Data>::Resize(unsigned long siz) {
 
 template <typename Data>
 void HashTableOpnAdr<Data>::Clear() {
-    tablesize = MIN_SIZE;
+    tablesize = MIN_SIZE_OPN;
     size = 0;
     table.Clear();
     table.Resize(tablesize);
@@ -316,9 +316,9 @@ bool HashTableOpnAdr<Data>::IsResizable(unsigned long siz) const noexcept {
 
 template <typename Data>
 unsigned long HashTableOpnAdr<Data>::FindNext2Pow(unsigned long siz) const noexcept {
-    unsigned long newSize = MIN_SIZE;
+    unsigned long newSize = MIN_SIZE_OPN;
     while(newSize < siz) {
-        if(newSize >= MAX_SIZE) {
+        if(newSize >= MAX_SIZE_OPN) {
             break;   
         }
         newSize = newSize << 1;

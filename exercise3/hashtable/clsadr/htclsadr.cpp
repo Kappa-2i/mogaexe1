@@ -7,8 +7,8 @@ namespace lasd {
 
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr() {
-    table = Vector<List<Data>> (MIN_TABLESIZE);
-    tablesize = MIN_TABLESIZE;
+    table = Vector<List<Data>> (MIN_SIZE_CLS);
+    tablesize = MIN_SIZE_CLS;
 }
 
 /* ************************************************************************** */
@@ -17,11 +17,11 @@ HashTableClsAdr<Data>::HashTableClsAdr() {
 
 template <typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(unsigned long givenSize) {
-    if(givenSize < MIN_TABLESIZE) {
-        givenSize = MIN_TABLESIZE;
+    if(givenSize < MIN_SIZE_CLS) {
+        givenSize = MIN_SIZE_CLS;
     }
-    else if(givenSize >= MAX_TABLESIZE) {
-        givenSize = MAX_TABLESIZE;
+    else if(givenSize >= MAX_SIZE_CLS) {
+        givenSize = MAX_SIZE_CLS;
     }
     else{
         givenSize = FindNextPrime(givenSize);   
@@ -33,11 +33,11 @@ HashTableClsAdr<Data>::HashTableClsAdr(unsigned long givenSize) {
 template<typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(const TraversableContainer<Data>& container){
     unsigned long givenSize = 0;
-    if(container.Size() < MIN_TABLESIZE) {
-        givenSize = MIN_TABLESIZE;
+    if(container.Size() < MIN_SIZE_CLS) {
+        givenSize = MIN_SIZE_CLS;
     }
-    else if(container.Size() >= MAX_TABLESIZE) {
-        givenSize = MAX_TABLESIZE;
+    else if(container.Size() >= MAX_SIZE_CLS) {
+        givenSize = MAX_SIZE_CLS;
     }
     else{
         givenSize = FindNextPrime(container.Size());   
@@ -49,11 +49,11 @@ HashTableClsAdr<Data>::HashTableClsAdr(const TraversableContainer<Data>& contain
 
 template<typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(unsigned long givenSize, const TraversableContainer<Data>& container){
-    if(givenSize < MIN_TABLESIZE) {
-        givenSize = MIN_TABLESIZE;
+    if(givenSize < MIN_SIZE_CLS) {
+        givenSize = MIN_SIZE_CLS;
     }
-    else if(givenSize >= MAX_TABLESIZE) {
-        givenSize = MAX_TABLESIZE;
+    else if(givenSize >= MAX_SIZE_CLS) {
+        givenSize = MAX_SIZE_CLS;
     }
     else{
         givenSize = FindNextPrime(givenSize);   
@@ -67,11 +67,11 @@ HashTableClsAdr<Data>::HashTableClsAdr(unsigned long givenSize, const Traversabl
 template<typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(MappableContainer<Data>&& container){
     unsigned long givenSize = 0;
-    if(container.Size() < MIN_TABLESIZE) {
-        givenSize = MIN_TABLESIZE;
+    if(container.Size() < MIN_SIZE_CLS) {
+        givenSize = MIN_SIZE_CLS;
     }
-    else if(container.Size() >= MAX_TABLESIZE) {
-        givenSize = MAX_TABLESIZE;
+    else if(container.Size() >= MAX_SIZE_CLS) {
+        givenSize = MAX_SIZE_CLS;
     }
     else{
         givenSize = FindNextPrime(container.Size());   
@@ -83,11 +83,11 @@ HashTableClsAdr<Data>::HashTableClsAdr(MappableContainer<Data>&& container){
 
 template<typename Data>
 HashTableClsAdr<Data>::HashTableClsAdr(unsigned long givenSize, MappableContainer<Data>&& container){
-    if(givenSize < MIN_TABLESIZE) {
-        givenSize = MIN_TABLESIZE;
+    if(givenSize < MIN_SIZE_CLS) {
+        givenSize = MIN_SIZE_CLS;
     }
-    else if(givenSize >= MAX_TABLESIZE) {
-        givenSize = MAX_TABLESIZE;
+    else if(givenSize >= MAX_SIZE_CLS) {
+        givenSize = MAX_SIZE_CLS;
     }
     else{
         givenSize = FindNextPrime(givenSize);   
@@ -210,11 +210,11 @@ bool HashTableClsAdr<Data>::Exists(const Data& data) const noexcept {
 
 template<typename Data>
 void HashTableClsAdr<Data>::Resize(unsigned long newSize){
-    if(newSize < MIN_TABLESIZE){        
-        newSize = MIN_TABLESIZE;
+    if(newSize < MIN_SIZE_CLS){        
+        newSize = MIN_SIZE_CLS;
     }
-    else if(newSize > MAX_TABLESIZE){
-        newSize = MAX_TABLESIZE;
+    else if(newSize > MAX_SIZE_CLS){
+        newSize = MAX_SIZE_CLS;
     }
     else{
         newSize = FindNextPrime(newSize);
@@ -235,8 +235,8 @@ void HashTableClsAdr<Data>::Resize(unsigned long newSize){
 template<typename Data>
 void HashTableClsAdr<Data>::Clear() {
     table.Clear();
-    table.Resize(MIN_TABLESIZE);
-    tablesize = MIN_TABLESIZE;
+    table.Resize(MIN_SIZE_CLS);
+    tablesize = MIN_SIZE_CLS;
     size = 0;
 }
 

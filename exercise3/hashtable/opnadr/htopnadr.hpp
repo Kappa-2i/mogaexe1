@@ -7,8 +7,8 @@
 #include "../hashtable.hpp"
 #include "../../vector/vector.hpp"
 
-#define MIN_SIZE 128 //2^7
-#define MAX_SIZE 65536 //2^16
+#define MIN_SIZE_OPN 128 //2^7
+#define MAX_SIZE_OPN 65536 //2^16
 
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ class HashTableOpnAdr : virtual public HashTable<Data>{
 private:
 
   // ...
+public: 
+
+  using HashTable<Data>::tablesize; //Using for mytest
 
 protected:
 
-public: 
   using HashTable<Data>::size;
   using HashTable<Data>::enchash;
   using HashTable<Data>::a;
@@ -34,7 +36,6 @@ public:
   using HashTable<Data>::dista;
   using HashTable<Data>::distb;
   using HashTable<Data>::gen;
-  using HashTable<Data>::tablesize;
   using HashTable<Data>::HashKey;
   using HashTable<Data>::Insert;
   using HashTable<Data>::InsertAll;

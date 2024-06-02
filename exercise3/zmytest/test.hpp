@@ -35,6 +35,8 @@ void choiceQueueType(uint&, uint&, std::stringstream&);
 
 void choiceBinaryTreeType(uint&, uint&, std::stringstream&);
 
+void choiceHashTableType(uint&, uint&, std::stringstream&);
+
 
 
 void testVectorInt(uint&, uint&, std::stringstream&);
@@ -89,11 +91,11 @@ void testBinaryTreeLnkString(uint&, uint&, std::stringstream&);
 
 void testHashTableClsAdrInt(uint&, uint&, std::stringstream&);
 
-// void testHashTableClsAdrString(uint&, uint&, std::stringstream&);
+void testHashTableClsAdrString(uint&, uint&, std::stringstream&);
 
-// void testHashTableOpnAdrInt(uint&, uint&, std::stringstream&);
+void testHashTableOpnAdrInt(uint&, uint&, std::stringstream&);
 
-// void testHashTableOpnAdrStrin(uint&, uint&, std::stringstream&);
+void testHashTableOpnAdrString(uint&, uint&, std::stringstream&);
 
 
 

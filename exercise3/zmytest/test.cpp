@@ -59,7 +59,7 @@ void mytest() {
     
     int choice = 1;
     while(choice){
-        cout << endl << "Pick the data structure:\n 1-Vector\n 2-List \n 3-Stack \n 4-Queue \n 5-BinaryTree/Iterator \n \n 6-Various \n 0-Exit for results." << endl;
+        cout << endl << "Pick the data structure:\n 1-Vector\n 2-List \n 3-Stack \n 4-Queue \n 5-BinaryTree/Iterator \n 6-HashTable \n 0-Exit for results." << endl;
         cin >> choice;
         switch(choice){
             case 1:
@@ -78,7 +78,7 @@ void mytest() {
                 choiceBinaryTreeType(testerr, testnum, numerr);
                 break;  
             case 6:
-                testHashTableClsAdrInt(testerr, testnum, numerr);
+                choiceHashTableType(testerr, testnum, numerr);
                 break;
             case 0: 
                 break;
@@ -198,8 +198,6 @@ void choiceQueueType(uint& testerr, uint& testnum, stringstream& numerr){
     }
 }
 
-
-
 void choiceBinaryTreeType(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "Pick the data type: \n 1-BinaryTreeVec<float> \n 2-BinaryTreeVec<string> \n 3-BinaryTreeLnk<float> \n 4-BinaryTreeLnk<string> \n 5-BST<float> \n 6-BST<string>" << endl;
     int choice = 1;
@@ -235,7 +233,32 @@ void choiceBinaryTreeType(uint& testerr, uint& testnum, stringstream& numerr){
     }
 }
 
-
+void choiceHashTableType(uint& testerr, uint& testnum, stringstream& numerr){
+    cout << "Pick the data type: \n 1-HashTableClsAdr<int> \n 2-HashTableClsAdr<string> \n 3-HashTableOpnAdr<int> \n 4-HashTableOpnAdr<string>" << endl;
+    int choice = 1;
+    
+    cin >> choice;
+    switch(choice){
+        case 1:{
+            testHashTableClsAdrInt(testerr, testnum, numerr);
+            break;
+        }
+        case 2:{
+            testHashTableClsAdrString(testerr, testnum, numerr);
+            break;
+        }
+        case 3:{
+            testHashTableOpnAdrInt(testerr, testnum, numerr);
+            break;
+        }
+        case 4:{
+            testHashTableOpnAdrString(testerr, testnum, numerr);
+            break;
+        }
+        default:
+            cout << "Invalid choice" << endl;
+    }
+}
 
 void testVectorInt(uint& testerr, uint& testnum, stringstream& numerr){
     
@@ -3030,21 +3053,18 @@ void testBinaryTreeLnkString(uint& testerr, uint& testnum, stringstream& numerr)
 void testHashTableClsAdrInt(uint& testerr, uint& testnum, stringstream& numerr){
     cout << "---------------------------------Test on HashTableClsAdr<int>---------------------------------" << endl;
 
-    lasd::Vector<int> vec(100);
-    for (uint i = 0; i < vec.Size(); ++i) {
-        vec[i] = i;
-    }
+    
 
 
     lasd::HashTableClsAdr<int> ht;
 
-    cout << "\tNew Default HtClsAdr..." << endl;
+    cout << "\tNew Default HtClsAdr<int>..." << endl;
     cout << testnum+1 << ") HtClsAdr is: ";
     if(ht.Empty()){
         cout << "empty" << endl;
     }
     else{
-        cout << testnum+1 << "not empty" << endl;
+        cout << "not empty" << endl;
         testerr += 1;
         numerr << testnum + 1 << " ";
     }
@@ -3055,7 +3075,7 @@ void testHashTableClsAdrInt(uint& testerr, uint& testnum, stringstream& numerr){
         cout << "not exists" << endl;
     }
     else{
-        cout << testnum+1 << "exists" << endl;
+        cout << "exists" << endl;
         testerr += 1;
         numerr << testnum + 1 << " ";
     }
@@ -3073,11 +3093,972 @@ void testHashTableClsAdrInt(uint& testerr, uint& testnum, stringstream& numerr){
         testerr += 1;
         numerr << testnum + 1 << " ";
     }
+    testnum++;
 
-    cout << "\t Copy of Vec(100) in HtClsAdr" << endl;
-    ht.InsertAll(vec);
-    
+    cout << "\tInsert 50 int in HtClsAdr..." << endl;
+    for(uint i = 1; i <= 50; i++){
+        ht.Insert(i);
+    }
+
+    cout << testnum+1 << ") HtClsAdr Size: ";
+    if(ht.Size() == 50){
+        cout << ht.Size() << endl;
+    }
+    else{
+        cout << ht.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tResize of TableSize HtClsAdr with 100..." << endl;
+    ht.Resize(100);
+
+    cout << testnum+1 << ") But TableSize HtClsAdr is: ";
+    if(ht.tablesize == 127){
+        cout << ht.tablesize << ", Min TableSize in ClsAdr" << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tClear of TableSize HtClsAdr..." << endl;
+    ht.Clear();
+
+    cout << testnum+1 << ") HtClsAdr is: ";
+    if(ht.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << endl;
+
+    cout << "\tNew Vector with 350 int..." << endl;
+    lasd::Vector<int> vec(350);
+    for (uint i = 0; i < vec.Size(); ++i) {
+        vec[i] = i;
+    }
+
+    lasd::HashTableClsAdr<int> ht2(vec);
+    cout << "\tCopy of Vector in Ht2ClsAdr..." << endl;
+
+
+    cout << testnum+1 << ") Ht2ClsAdr is: ";
+    if(!ht2.Empty()){
+        cout << "not empty" << endl;
+    }
+    else{
+        cout << "empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") In Ht2ClsAdr the value 0: ";
+    if(ht2.Exists(0)){
+        cout << "exists" << endl;
+    }
+    else{
+        cout << " not exists" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Ht2ClsAdr Size: ";
+    if(ht2.Size() == 350){
+        cout << ht2.Size() << endl;
+    }
+    else{
+        cout << ht2.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") TableSize Ht2ClsAdr is: ";
+    if(ht2.tablesize == 353){
+        cout << ht2.tablesize << ", Next Prime after vec.Size()" << endl;
+    }
+    else{
+        cout << ht2.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tRemove value 0 from Ht2ClsAdr..." << endl;
+    ht2.Remove(0);
+
+    cout << testnum+1 << ") Ht2ClsAdr Size: ";
+    if(ht2.Size() == 349){
+        cout << ht2.Size() << endl;
+    }
+    else{
+        cout << ht2.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+    cout << "\tCopy of Vector in Ht3ClsAdr with new TableSize 100..." << endl;
+    lasd::HashTableClsAdr<int> ht3(100, vec);
+
+    cout << testnum+1 << ") TableSize Ht3ClsAdr is: ";
+    if(ht3.tablesize == 127){
+        cout << ht3.tablesize << ", Min TableSize in ClsAdr" << endl;
+    }
+    else{
+        cout << ht3.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Ht3ClsAdr Size: ";
+    if(ht3.Size() == 350){
+        cout << ht3.Size() << endl;
+    }
+    else{
+        cout << ht3.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Ht3ClsAdr and Ht2ClsAdr are: ";
+    if(ht2 != ht3){
+        cout << "not equal" << endl;
+    }
+    else{
+        cout << "equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tCopy Assignment of ht3 in ht..." << endl;
+    ht = ht3;
+
+    cout << testnum+1 << ") HtClsAdr Size: ";
+    if(ht.Size() == 350){
+        cout << ht.Size() << endl;
+    }
+    else{
+        cout << ht.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") TableSize HtClsAdr is: ";
+    if(ht.tablesize == 127){
+        cout << ht.tablesize << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+
+    cout << testnum+1 << ") HtClsAdr and Ht3ClsAdr are: ";
+    if(ht == ht3){
+        cout << "equal" << endl;
+    }
+    else{
+        cout << "not equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
 
     cout << "---------------------------------End of test HashTableClsAdr<int>---------------------------------" << endl;
+
+}
+
+
+void testHashTableClsAdrString(uint& testerr, uint& testnum, stringstream& numerr){
+    cout << "---------------------------------Test on HashTableClsAdr<string>---------------------------------" << endl;
+
+    lasd::Vector<string> vec2(127);
+    vec2[0] = "@";
+    for (uint i = 1; i < 127; i++) {
+      vec2[i] = vec2[i - 1] + static_cast<char>(32 + ((127 * i + 31) % 95));
+    }
+    
+
+
+    lasd::HashTableClsAdr<string> ht(200);
+
+    cout << "\tNew Specific HtClsAdr<string> with TableSize 200..." << endl;
+    cout << testnum+1 << ") HtClsAdr is: ";
+    if(ht.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") In HtClsAdr the value @: ";
+    if(!ht.Exists("@")){
+        cout << "not exists" << endl;
+    }
+    else{
+        cout << "exists" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+    cout << testnum+1 << ") But TableSize HtClsAdr is: ";
+    if(ht.tablesize == 211){
+        cout << ht.tablesize << " ,is next prime of 200" << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tInsert 50 different string in HtClsAdr..." << endl;
+    for(uint i = 1; i <= 50; i++){
+        ht.Insert(vec2[i - 1] + static_cast<char>(32 + ((127 * i + 31) % 95)));
+    }
+
+    cout << testnum+1 << ") HtClsAdr Size: ";
+    if(ht.Size() == 50){
+        cout << ht.Size() << endl;
+    }
+    else{
+        cout << ht.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tResize of TableSize HtClsAdr with 100..." << endl;
+    ht.Resize(100);
+
+    cout << testnum+1 << ") But TableSize HtClsAdr is: ";
+    if(ht.tablesize == 127){
+        cout << ht.tablesize << ", Min TableSize in ClsAdr" << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tClear of TableSize HtClsAdr..." << endl;
+    ht.Clear();
+
+    cout << testnum+1 << ") HtClsAdr is: ";
+    if(ht.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << endl;
+
+    cout << "\tNew Vector with 350 string..." << endl;
+
+    lasd::Vector<string> vec(350);
+    vec[0] = "@";
+    for (uint i = 1; i < 350; i++) {
+      vec[i] = vec[i - 1] + static_cast<char>(32 + ((12 * i + 31) % 95));
+    }
+
+    lasd::Vector<string> vec3(vec);
+
+    lasd::HashTableClsAdr<string> ht2(move(vec));
+    cout << "\tMove of Vector in Ht2ClsAdr..." << endl;
+
+
+    cout << testnum+1 << ") Ht2ClsAdr is: ";
+    if(!ht2.Empty()){
+        cout << "not empty" << endl;
+    }
+    else{
+        cout << "empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") In Ht2ClsAdr the value 0: ";
+    if(ht2.Exists("@")){
+        cout << "exists" << endl;
+    }
+    else{
+        cout << " not exists" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Ht2ClsAdr Size: ";
+    if(ht2.Size() == 350){
+        cout << ht2.Size() << endl;
+    }
+    else{
+        cout << ht2.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") TableSize Ht2ClsAdr is: ";
+    if(ht2.tablesize == 353){
+        cout << ht2.tablesize << ", Next Prime after vec.Size()" << endl;
+    }
+    else{
+        cout << ht2.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tRemove value '@' from Ht2ClsAdr..." << endl;
+    ht2.Remove("@");
+
+    cout << testnum+1 << ") Ht2ClsAdr Size: ";
+    if(ht2.Size() == 349){
+        cout << ht2.Size() << endl;
+    }
+    else{
+        cout << ht2.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+    cout << "\tMove of Vector in Ht3ClsAdr with new TableSize 100..." << endl;
+    lasd::HashTableClsAdr<string> ht3(100, move(vec3));
+
+    cout << testnum+1 << ") TableSize Ht3ClsAdr is: ";
+    if(ht3.tablesize == 127){
+        cout << ht3.tablesize << ", Min TableSize in ClsAdr" << endl;
+    }
+    else{
+        cout << ht3.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Ht3ClsAdr Size: ";
+    if(ht3.Size() == 350){
+        cout << ht3.Size() << endl;
+    }
+    else{
+        cout << ht3.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Ht3ClsAdr and Ht2ClsAdr are: ";
+    if(ht2 != ht3){
+        cout << "not equal" << endl;
+    }
+    else{
+        cout << "equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tMove Assignment of ht3 in ht..." << endl;
+    ht = move(ht3);
+
+    cout << testnum+1 << ") HtClsAdr Size: ";
+    if(ht.Size() == 350){
+        cout << ht.Size() << endl;
+    }
+    else{
+        cout << ht.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") TableSize HtClsAdr is: ";
+    if(ht.tablesize == 127){
+        cout << ht.tablesize << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+
+    cout << testnum+1 << ") HtClsAdr and Ht3ClsAdr are: ";
+    if(ht != ht3){
+        cout << "not equal" << endl;
+    }
+    else{
+        cout << "equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "---------------------------------End of test HashTableClsAdr<string>---------------------------------" << endl;
+
+}
+
+
+void testHashTableOpnAdrInt(uint& testerr, uint& testnum, stringstream& numerr){
+    cout << "---------------------------------Test on HashTableOpnAdr<int>---------------------------------" << endl;
+
+    lasd::HashTableOpnAdr<int> ht;
+
+    cout << "\tNew Default HtOpnAdr<int>..." << endl;
+    cout << testnum+1 << ") HtOpnAdr is: ";
+    if(ht.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") In HtOpnAdr the value 0: ";
+    if(!ht.Exists(0)){
+        cout << "not exists" << endl;
+    }
+    else{
+        cout << "exists" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tResize of TableSize HtOpnAdr with 150..." << endl;
+    ht.Resize(150);
+
+    cout << testnum+1 << ") But TableSize HtOpnAdr is: ";
+    if(ht.tablesize == 256){
+        cout << ht.tablesize << " ,is next pow2 of 150" << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tInsert 50 int in HtOpnAdr..." << endl;
+    for(uint i = 1; i <= 50; i++){
+        ht.Insert(i);
+    }
+
+    cout << testnum+1 << ") HtOpnAdr Size: ";
+    if(ht.Size() == 50){
+        cout << ht.Size() << endl;
+    }
+    else{
+        cout << ht.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tResize of TableSize HtOpnAdr with 100..." << endl;
+    ht.Resize(100);
+
+    cout << testnum+1 << ") But TableSize HtOpnAdr is: ";
+    if(ht.tablesize == 128){
+        cout << ht.tablesize << ", Min TableSize in HtOpnAdr" << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tInsert other 50 int in HtOpnAdr..." << endl;
+    for(uint i = 50; i <= 100; i++){
+        ht.Insert(i);
+    }
+
+    cout << testnum+1 << ") New TableSize HtOpnAdr is: ";
+    if(ht.tablesize == 256){
+        cout << ht.tablesize << ", after exceeded 50% of capacity execute Resize(128*2)" << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tClear of TableSize HtOpnAdr..." << endl;
+    ht.Clear();
+
+    cout << testnum+1 << ") HtOpnAdr is: ";
+    if(ht.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") New TableSize HtOpnAdr is: ";
+    if(ht.tablesize == 128){
+        cout << ht.tablesize << ", Min TableSize" << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << endl;
+
+    cout << "\tNew Vector with 350 int..." << endl;
+    lasd::Vector<int> vec(350);
+    for (uint i = 0; i < vec.Size(); ++i) {
+        vec[i] = i;
+    }
+
+    lasd::HashTableOpnAdr<int> ht2(vec);
+    cout << "\tCopy of Vector in Ht2OpnAdr..." << endl;
+
+
+    cout << testnum+1 << ") Ht2OpnAdr is: ";
+    if(!ht2.Empty()){
+        cout << "not empty" << endl;
+    }
+    else{
+        cout << "empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") In Ht2OpnAdr the value 0: ";
+    if(ht2.Exists(0)){
+        cout << "exists" << endl;
+    }
+    else{
+        cout << " not exists" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Ht2OpnAdr Size: ";
+    if(ht2.Size() == 350){
+        cout << ht2.Size() << endl;
+    }
+    else{
+        cout << ht2.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") TableSize Ht2OpnAdr is: ";
+    if(ht2.tablesize == 1024){
+        cout << ht2.tablesize << ", after exceeded 50% of capacity execute Resize(512*2)" << endl;
+    }
+    else{
+        cout << ht2.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tRemove value 0 from Ht2OpnAdr..." << endl;
+    ht2.Remove(0);
+
+    cout << testnum+1 << ") Ht2OpnAdr Size: ";
+    if(ht2.Size() == 349){
+        cout << ht2.Size() << endl;
+    }
+    else{
+        cout << ht2.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+    cout << "\tCopy of Vector in Ht3OpnAdr with new TableSize 100..." << endl;
+    lasd::HashTableOpnAdr<int> ht3(100, vec);
+
+    cout << testnum+1 << ") TableSize Ht3OpnAdr is: ";
+    if(ht3.tablesize == 1024){
+        cout << ht3.tablesize << ", after exceeded 50% of capacity execute Resize(512*2)" << endl;
+    }
+    else{
+        cout << ht3.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Ht3OpnAdr Size: ";
+    if(ht3.Size() == 350){
+        cout << ht3.Size() << endl;
+    }
+    else{
+        cout << ht3.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Ht3OpnAdr and Ht2OpnAdr are: ";
+    if(ht2 != ht3){
+        cout << "not equal" << endl;
+    }
+    else{
+        cout << "equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tCopy Assignment of ht3 in ht..." << endl;
+    ht = ht3;
+
+    cout << testnum+1 << ") HtOpnAdr Size: ";
+    if(ht.Size() == 350){
+        cout << ht.Size() << endl;
+    }
+    else{
+        cout << ht.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") TableSize HtOpnAdr is: ";
+    if(ht.tablesize == 1024){
+        cout << ht.tablesize << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+
+    cout << testnum+1 << ") HtOpnAdr and Ht3OpnAdr are: ";
+    if(ht == ht3){
+        cout << "equal" << endl;
+    }
+    else{
+        cout << "not equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "---------------------------------End of test HashTableOpnAdr<int>---------------------------------" << endl;
+
+}
+
+
+void testHashTableOpnAdrString(uint& testerr, uint& testnum, stringstream& numerr){
+
+    lasd::Vector<string> vec2(127);
+    vec2[0] = "@";
+    for (uint i = 1; i < 127; i++) {
+      vec2[i] = vec2[i - 1] + static_cast<char>(32 + ((127 * i + 31) % 95));
+    }
+
+
+   lasd::HashTableOpnAdr<string> ht(200);
+
+    cout << "\tNew Specific HtOpnAdr<string> with TableSize 200..." << endl;
+    cout << testnum+1 << ") HtOpnAdr is: ";
+    if(ht.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") In HtOpnAdr the value '@': ";
+    if(!ht.Exists("@")){
+        cout << "not exists" << endl;
+    }
+    else{
+        cout << "exists" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") But TableSize HtOpnAdr is: ";
+    if(ht.tablesize == 256){
+        cout << ht.tablesize << " ,is next pow2 of 200" << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tResize of TableSize HtOpnAdr with 100..." << endl;
+    ht.Resize(100);
+
+    cout << testnum+1 << ") But TableSize HtOpnAdr is: ";
+    if(ht.tablesize == 128){
+        cout << ht.tablesize << " ,is next pow2 of 100" << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tInsert 66 different string in HtClsAdr..." << endl;
+    for(uint i = 1; i <= 66; i++){
+        ht.Insert(vec2[i - 1] + static_cast<char>(32 + ((127 * i + 31) % 95)));
+    }
+
+    cout << testnum+1 << ") HtOpnAdr Size: ";
+    if(ht.Size() == 66){
+        cout << ht.Size() << endl;
+    }
+    else{
+        cout << ht.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+    cout << testnum+1 << ") But TableSize HtOpnAdr is: ";
+    if(ht.tablesize == 256){
+        cout << ht.tablesize << ", after exceeded 50% of capacity execute Resize(128*2)" << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tClear of TableSize HtOpnAdr..." << endl;
+    ht.Clear();
+
+    cout << testnum+1 << ") HtOpnAdr is: ";
+    if(ht.Empty()){
+        cout << "empty" << endl;
+    }
+    else{
+        cout << "not empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") New TableSize HtOpnAdr is: ";
+    if(ht.tablesize == 128){
+        cout << ht.tablesize << ", Min TableSize" << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << endl;
+
+    cout << "\tNew Vector with 350 string..." << endl;
+
+    lasd::Vector<string> vec(350);
+    vec[0] = "@";
+    for (uint i = 1; i < 350; i++) {
+      vec[i] = vec[i - 1] + static_cast<char>(32 + ((12 * i + 31) % 95));
+    }
+
+    lasd::Vector<string> vec3(vec);
+
+    lasd::HashTableOpnAdr<string> ht2(move(vec));
+    cout << "\tMove of Vector in Ht2ClsAdr..." << endl;
+
+
+    cout << testnum+1 << ") Ht2OpnAdr is: ";
+    if(!ht2.Empty()){
+        cout << "not empty" << endl;
+    }
+    else{
+        cout << "empty" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") In Ht2OpnAdr the value '@': ";
+    if(ht2.Exists("@")){
+        cout << "exists" << endl;
+    }
+    else{
+        cout << " not exists" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Ht2OpnAdr Size: ";
+    if(ht2.Size() == 350){
+        cout << ht2.Size() << endl;
+    }
+    else{
+        cout << ht2.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") TableSize Ht2OpnAdr is: ";
+    if(ht2.tablesize == 1024){
+        cout << ht2.tablesize << ", after exceeded 50% of capacity execute Resize(512*2)" << endl;
+    }
+    else{
+        cout << ht2.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tRemove value '@' from Ht2OpnAdr..." << endl;
+    ht2.Remove("@");
+
+    cout << testnum+1 << ") Ht2OpnAdr Size: ";
+    if(ht2.Size() == 349){
+        cout << ht2.Size() << endl;
+    }
+    else{
+        cout << ht2.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+    cout << "\tMove of Vector in Ht3OpnAdr with new TableSize 100..." << endl;
+    lasd::HashTableOpnAdr<string> ht3(100, move(vec3));
+
+    cout << testnum+1 << ") TableSize Ht3OpnAdr is: ";
+    if(ht3.tablesize == 1024){
+        cout << ht3.tablesize << ", after exceeded 50% of capacity execute Resize(512*2)" << endl;
+    }
+    else{
+        cout << ht3.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Ht3OpnAdr Size: ";
+    if(ht3.Size() == 350){
+        cout << ht3.Size() << endl;
+    }
+    else{
+        cout << ht3.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") Ht3OpnAdr and Ht2OpnAdr are: ";
+    if(ht2 != ht3){
+        cout << "not equal" << endl;
+    }
+    else{
+        cout << "equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "\tMove Assignment of ht3 in ht..." << endl;
+    ht = move(ht3);
+
+    cout << testnum+1 << ") HtOpnAdr Size: ";
+    if(ht.Size() == 350){
+        cout << ht.Size() << endl;
+    }
+    else{
+        cout << ht.Size() << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << testnum+1 << ") TableSize HtOpnAdr is: ";
+    if(ht.tablesize == 1024){
+        cout << ht.tablesize << endl;
+    }
+    else{
+        cout << ht.tablesize << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+
+
+    cout << testnum+1 << ") HtOpnAdr and Ht3OpnAdr are: ";
+    if(ht != ht3){
+        cout << "not equal" << endl;
+    }
+    else{
+        cout << "equal" << endl;
+        testerr += 1;
+        numerr << testnum + 1 << " ";
+    }
+    testnum++;
+
+    cout << "---------------------------------End of test HashTableOpnAdr<int>---------------------------------" << endl;
 
 }

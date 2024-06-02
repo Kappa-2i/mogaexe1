@@ -2,8 +2,8 @@
 #ifndef HTCLSADR_HPP
 #define HTCLSADR_HPP
 
-#define MAX_TABLESIZE 65537 //Next prime after 2^16
-#define MIN_TABLESIZE 127
+#define MAX_SIZE_CLS 65537 //Next prime after 2^16
+#define MIN_SIZE_CLS 127
 
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ private:
 
 public:
 
-  using HashTable<Data>::tablesize;
+  using HashTable<Data>::tablesize; //Using for mytest
 
 protected:
 
